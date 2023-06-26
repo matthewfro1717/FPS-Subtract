@@ -8,8 +8,8 @@ import lime.utils.Assets;
 
 using StringTools;
 
-class CoolUtil {
-	public static function coolTextFile(path:String):Array<String> {
+@:keep class CoolUtil {
+	public static inline function coolTextFile(path:String):Array<String> {
 		var daList:Array<String> = getText(path).trim().split('\n');
 
 		for (i in 0...daList.length) {
@@ -19,11 +19,10 @@ class CoolUtil {
 		return daList;
 	}
 
-	public static function numberArray(max:Int, ?min = 0):Array<Int> {
+	public static inline function numberArray(max:Int, ?min = 0):Array<Int> {
 		var dumbArray:Array<Int> = [];
-		for (i in min...max) {
+		for (i in min...max)
 			dumbArray.push(i);
-		}
 		return dumbArray;
 	}
 
@@ -51,7 +50,7 @@ class CoolUtil {
 	 * This also means that if you delete a file, it will return true because it's still in the manifest.
 	 * FileSystem only works on certain build types though (namely, not web).
 	 */
-	public static function exists(path:String):Bool {
+	public static inline function exists(path:String):Bool {
 		#if desktop
 		return FileSystem.exists(path);
 		#else
@@ -60,11 +59,15 @@ class CoolUtil {
 	}
 
 	// Same as above but for getting text from a file.
-	public static function getText(path:String):String {
+	public static inline function getText(path:String):String {
 		#if desktop
 		return File.getContent(path);
 		#else
 		return Assets.getText(path);
 		#end
+	}
+
+	public static inline function inRange(a:Float, b:Float, tolerance:Float) {
+		return (a <= b + tolerance && a >= b - tolerance);
 	}
 }

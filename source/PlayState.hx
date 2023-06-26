@@ -168,7 +168,7 @@ class PlayState extends MusicBeatState {
 	private var healthBar:FlxBar;
 
 	private var generatedMusic:Bool = false;
-	private var startingSong:Bool = false;
+	private var startingSong:Bool = true;
 
 	private var iconP1:HealthIcon;
 	private var iconP2:HealthIcon;
@@ -311,14 +311,15 @@ class PlayState extends MusicBeatState {
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
+
 		camOverlay = new FlxCamera();
 		camOverlay.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camOverlay);
-		FlxG.cameras.add(camHUD);
+		FlxG.cameras.add(camOverlay, false);
+		FlxG.cameras.add(camHUD, false);
 
-		FlxCamera.defaultCameras = [camGame];
+		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -1039,20 +1040,18 @@ class PlayState extends MusicBeatState {
 
 		healthBarBG = new FlxSprite(0, Config.downscroll ? FlxG.height * 0.1 : FlxG.height * 0.875).loadGraphic(Paths.image("ui/healthBar"));
 		healthBarBG.screenCenter(X);
-		healthBarBG.scrollFactor.set();
 		healthBarBG.antialiasing = true;
 		add(healthBarBG);
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'healthLerp', 0, 2);
-		healthBar.scrollFactor.set();
 		healthBar.createFilledBar(dad.characterColor, boyfriend.characterColor);
 		healthBar.antialiasing = true;
 		// healthBar
 
 		scoreTxt = new FlxText(healthBarBG.x - 105, (FlxG.height * 0.9) + 36, 800, "", 22);
 		scoreTxt.setFormat(Paths.font("vcr"), 22, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.scrollFactor.set();
+		scoreTxt.borderSize = 2.1;
 
 		iconP1 = new HealthIcon(boyfriend.iconName, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
@@ -1079,13 +1078,6 @@ class PlayState extends MusicBeatState {
 		iconP1.visible = false;
 		iconP2.visible = false;
 		scoreTxt.visible = false;
-
-		// if (SONG.song == 'South')
-		// FlxG.camera.alpha = 0.7;
-		// UI_camera.zoom = 1;
-
-		// cameras = [FlxG.cameras.list[1]];
-		startingSong = true;
 
 		if (isStoryMode) {
 			switch (curSong.toLowerCase()) {
@@ -1222,9 +1214,10 @@ class PlayState extends MusicBeatState {
 	function updateAccuracy() {
 		totalPlayed += 1;
 		accuracy = totalNotesHit / totalPlayed * 100;
-		if (accuracy >= 100) {
+		if (accuracy >= 100)
 			accuracy = 100;
-		}
+
+		updateScore();
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void {
@@ -1841,6 +1834,19 @@ class PlayState extends MusicBeatState {
 		return num;
 	}
 
+	public var scoreSeparator:String = " / ";
+
+	public function updateScore():Void {
+		// SHADOW WIZARD MONEY GANG
+		scoreTxt.text = 'Score:${songScore}';
+		if (Config.accuracy != "none") {
+			var missText:String = Config.showComboBreaks ? 'Combo Breaks:${comboBreaks}' : 'Misses:${misses}';
+			scoreTxt.text += scoreSeparator + '${missText}';
+			scoreTxt.text += scoreSeparator + 'Accuracy:${truncateFloat(accuracy, 2)}%';
+		}
+		// WE LOVE CASTING SPELLS
+	}
+
 	override public function update(elapsed:Float) {
 		/*New keyboard input stuff. Disables the listener when using controller because controller uses the other input set thing I did.
 			we love fps plus input :]
@@ -1905,18 +1911,6 @@ class PlayState extends MusicBeatState {
 
 		super.update(elapsed);
 
-		switch (Config.accuracy) {
-			case "none":
-				scoreTxt.text = "Score:" + songScore;
-			default:
-				if (Config.showComboBreaks) {
-					scoreTxt.text = "Score:" + songScore + " | Combo Breaks:" + comboBreaks + " | Accuracy:" + truncateFloat(accuracy, 2) + "%";
-				}
-				else {
-					scoreTxt.text = "Score:" + songScore + " | Misses:" + misses + " | Accuracy:" + truncateFloat(accuracy, 2) + "%";
-				}
-		}
-
 		if (controls.PAUSE && startedCountdown && canPause) {
 			persistentUpdate = false;
 			persistentDraw = true;
@@ -1947,7 +1941,7 @@ class PlayState extends MusicBeatState {
 		if (healthLerp != health) {
 			healthLerp = CoolUtil.fpsAdjsutedLerp(healthLerp, health, 0.7);
 		}
-		if (inRange(healthLerp, 2, 0.001)) {
+		if (CoolUtil.inRange(healthLerp, 2, 0.001)) {
 			healthLerp = 2;
 		}
 
@@ -2000,10 +1994,6 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null) {
-			if (curBeat % 4 == 0) {
-				// trace(PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection);
-			}
-
 			if (camFocus != "dad" && !PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && autoCam) {
 				camFocusOpponent();
 			}
@@ -2039,16 +2029,12 @@ class PlayState extends MusicBeatState {
 		}
 
 		// RESET = Quick Game Over Screen
-		if (controls.RESET && !startingSong) {
+		if (controls.RESET && !startingSong)
 			health = 0;
-			// trace("RESET = True");
-		}
 
 		// CHEAT = brandon's a pussy
-		if (controls.CHEAT) {
+		if (controls.CHEAT)
 			health += 1;
-			// trace("User is cheating!");
-		}
 
 		if (health <= 0) {
 			// boyfriend.stunned = true;
@@ -2418,10 +2404,8 @@ class PlayState extends MusicBeatState {
 		}
 
 		for (i in 0...binds.length) // binds
-		{
 			if (binds[i].toLowerCase() == key.toLowerCase())
 				data = i;
-		}
 
 		if (data == -1)
 			return;
@@ -2879,13 +2863,6 @@ class PlayState extends MusicBeatState {
 				totalNotesHit += 1;
 			}
 
-			/*if (note.noteData >= 0){
-					health += 0.015 * Config.healthMultiplier;
-				}
-				else{
-					health += 0.0015 * Config.healthMultiplier;
-			}*/
-
 			health += 0.015 * Config.healthMultiplier;
 
 			if (boyfriend.canAutoAnim && (Character.LOOP_ANIM_ON_HOLD ? true : !note.isSustainNote)) {
@@ -2901,9 +2878,8 @@ class PlayState extends MusicBeatState {
 				}
 			}
 
-			if (!note.isSustainNote) {
+			if (!note.isSustainNote)
 				setBoyfriendInvuln(2.5 / 60);
-			}
 
 			playerStrums.forEach(function(spr:FlxSprite) {
 				if (Math.abs(note.noteData) == spr.ID) {
@@ -3364,9 +3340,5 @@ class PlayState extends MusicBeatState {
 				openfl.Lib.current.stage.frameRate = 144;
 			}
 		});
-	}
-
-	function inRange(a:Float, b:Float, tolerance:Float) {
-		return (a <= b + tolerance && a >= b - tolerance);
 	}
 }
