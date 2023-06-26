@@ -9,7 +9,6 @@
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
-	<!-- <app preloader="Preloader" resizable="true" /> -->
 	<app preloader="flixel.system.FlxPreloader" />
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
@@ -24,7 +23,7 @@
 	<window if="html5" resizable="true" />
 
 	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false" allow-high-dpi="true"/>
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" allow-high-dpi="true"/>
 
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
@@ -36,14 +35,10 @@
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
-	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
 	<source name="source" />
 
 	<assets path="assets" />
-	<assets path="assets/music" include="*.ogg"/>
-	<assets path="assets/sounds" include="*.ogg"/>
-	<assets path="assets/songs"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
