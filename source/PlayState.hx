@@ -1875,14 +1875,6 @@ class PlayState extends MusicBeatState {
 			usedAutoplay = true;
 		}
 
-		/*if (FlxG.keys.justPressed.NINE)
-			{
-				if (iconP1.animation.curAnim.name == 'bf-old')
-					iconP1.animation.play(SONG.player1);
-				else
-					iconP1.animation.play('bf-old');
-		}*/
-
 		if (!startingSong) {
 			for (i in eventList) {
 				if (i[0] > Conductor.songPosition) {
@@ -1958,24 +1950,10 @@ class PlayState extends MusicBeatState {
 		if (inRange(healthLerp, 2, 0.001)) {
 			healthLerp = 2;
 		}
-		// trace(healthLerp);
 
 		// Health Icons
-		if (healthBar.percent < 20) {
-			iconP1.animation.curAnim.curFrame = 1;
-			iconP2.animation.curAnim.curFrame = 2;
-		}
-		else if (healthBar.percent > 80) {
-			iconP1.animation.curAnim.curFrame = 2;
-			iconP2.animation.curAnim.curFrame = 1;
-		}
-		else {
-			iconP1.animation.curAnim.curFrame = 0;
-			iconP2.animation.curAnim.curFrame = 0;
-		}
-
-		/* if (FlxG.keys.justPressed.NINE)
-			switchState(new Charting()); */
+		iconP1.updateFrame(healthBar.percent);
+		iconP2.updateFrame(100 - healthBar.percent);
 
 		if (FlxG.keys.justPressed.EIGHT) {
 			PlayerSettings.menuControls();

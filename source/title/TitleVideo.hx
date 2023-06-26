@@ -14,7 +14,7 @@ class TitleVideo extends FlxState {
 
 		if (!Main.novid) {
 			#if hxCodec
-			var video: = new hxcodec.flixel.FlxVideoSprite();
+			var video = new hxcodec.flixel.FlxVideoSprite();
 			video.play(Paths.video('klaskiiTitle'));
 			video.bitmap.onEndReached.add(next);
 			add(video);

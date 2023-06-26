@@ -23,9 +23,6 @@ using StringTools;
 
 class Startup extends FlxState
 {
-
-    var nextState:FlxState = new TitleVideo();
-
     var splash:FlxSprite;
     var loadingBar:FlxBar;
     var loadingText:FlxText;
@@ -81,49 +78,29 @@ class Startup extends FlxState
 
     public static var hasEe2:Bool;
 
-	override function create()
-	{
-
-        FlxG.mouse.visible = false;
-        FlxG.sound.muteKeys = null;
-
+    function initSave():Void {
         FlxG.save.bind('data');
-		Highscore.load();
-		KeyBinds.keyCheck();
-		PlayerSettings.init();
 
+        Highscore.load();
+        KeyBinds.keyCheck();
+        PlayerSettings.init();
         PlayerSettings.player1.controls.loadKeyBinds();
-		Config.configCheck();
+        Config.configCheck();
+    }
 
-        /*Switched to a new custom transition system.
-        var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
-        diamond.persist = true;
-        diamond.destroyOnNoUse = false;
-        
-        FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), 
-            {asset: diamond, width: 32, height: 32},  new FlxRect(-200, -200, FlxG.width * 1.4, FlxG.height * 1.4));
-        FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
-            {asset: diamond, width: 32, height: 32}, new FlxRect(-200, -200, FlxG.width * 1.4, FlxG.height * 1.4));
-        */
+    function loadData():Void {
+        if (FlxG.save.data.weekUnlocked != null) {
+            // FIX LATER!!!
+            // WEEK UNLOCK PROGRESSION!!
+            // StoryMenuState.weekUnlocked = FlxG.save.data.weekUnlocked;
 
-        UIStateExt.defaultTransIn = ScreenWipeIn;
-        UIStateExt.defaultTransInArgs = [1.2];
-        UIStateExt.defaultTransOut = ScreenWipeOut;
-        UIStateExt.defaultTransOutArgs = [0.6];
+            if (StoryMenuState.weekUnlocked.length < 4)
+                StoryMenuState.weekUnlocked.insert(0, true);
 
-        if (FlxG.save.data.weekUnlocked != null)
-		{
-			// FIX LATER!!!
-			// WEEK UNLOCK PROGRESSION!!
-			// StoryMenuState.weekUnlocked = FlxG.save.data.weekUnlocked;
-
-			if (StoryMenuState.weekUnlocked.length < 4)
-				StoryMenuState.weekUnlocked.insert(0, true);
-
-			// QUICK PATCH OOPS!
-			if (!StoryMenuState.weekUnlocked[0])
-				StoryMenuState.weekUnlocked[0] = true;
-		}
+            // QUICK PATCH OOPS!
+            if (!StoryMenuState.weekUnlocked[0])
+                StoryMenuState.weekUnlocked[0] = true;
+        }
 
         if( FlxG.save.data.musicPreload2 == null ||
             FlxG.save.data.charPreload2 == null ||
@@ -131,11 +108,25 @@ class Startup extends FlxState
         {
             openPreloadSettings();
         }
-        else{
+        else {
             songsCached = !FlxG.save.data.musicPreload2;
             charactersCached = !FlxG.save.data.charPreload2;
             graphicsCached = !FlxG.save.data.graphicsPreload2;
         }
+    }
+
+	override function create()
+	{
+        FlxG.mouse.visible = false;
+        FlxG.sound.muteKeys = null;
+
+        UIStateExt.defaultTransIn = ScreenWipeIn;
+        UIStateExt.defaultTransInArgs = [1.2];
+        UIStateExt.defaultTransOut = ScreenWipeOut;
+        UIStateExt.defaultTransOutArgs = [0.6];
+
+        initSave();
+        loadData();
 
         hasEe2 = CoolUtil.exists(Paths.inst("Lil-Buddies"));
 
@@ -143,10 +134,10 @@ class Startup extends FlxState
         splash.frames = Paths.getSparrowAtlas('fpsPlus/rozeSplash');
         splash.animation.addByPrefix('start', 'Splash Start', 24, false);
         splash.animation.addByPrefix('end', 'Splash End', 24, false);
-        add(splash);
         splash.animation.play("start");
         splash.updateHitbox();
         splash.screenCenter();
+        add(splash);
 
         loadTotal = (!songsCached ? songs.length : 0) + (!charactersCached ? characters.length : 0) + (!graphicsCached ? graphics.length : 0);
 
@@ -162,180 +153,131 @@ class Startup extends FlxState
         loadingText.setFormat(Paths.font("vcr"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(loadingText);
 
-        
-
-        #if web
-        FlxG.sound.play(Paths.sound("tick"), 0);   
-        #end
-
-        new FlxTimer().start(1.1, function(tmr:FlxTimer)
-        {
-            FlxG.sound.play(Paths.sound("splashSound"));   
+        new FlxTimer().start(1.1, function(tmr:FlxTimer) {
+            FlxG.sound.play(Paths.sound("splashSound"));
+            new FlxTimer().start(1.0, function(tmr:FlxTimer) {
+                splash.animation.play("end", true);
+                splash.animation.finishCallback = function(anim:String):Void
+                    FlxG.switchState(new TitleVideo());
+            });
         });
 
         super.create();
-
     }
 
-    override function update(elapsed) 
+    override function update(elapsed:Float):Void
     {
-        
-        if(splash.animation.curAnim.finished && splash.animation.curAnim.name == "start" && !cacheStart){
-            
-            #if web
-            new FlxTimer().start(1.5, function(tmr:FlxTimer)
-            {
-                songsCached = true;
-                charactersCached = true;
-                graphicsCached = true;
-            });
-            #else
-            if(!songsCached || !charactersCached || !graphicsCached){
-                preload(); 
+        // REDO ALL OF THIS LATER SO IT ISN'T ON BOOT LOL!!!!
+        /*
+            if (splash.animation.curAnim.finished && splash.animation.curAnim.name == "start" && !cacheStart) {
+                #if web
+                new FlxTimer().start(1.5, function(tmr:FlxTimer) {
+                    songsCached = charactersCached = graphicsCached = true;
+                });
+                #else
+                if (!songsCached || !charactersCached || !graphicsCached)
+                    preload(); 
+                #end
+                cacheStart = true;
             }
-            #end
-            
-            cacheStart = true;
-        }
-        if(splash.animation.curAnim.finished && splash.animation.curAnim.name == "end"){
-            FlxG.switchState(nextState);  
-        }
 
-        if(songsCached && charactersCached && graphicsCached && splash.animation.curAnim.finished && !(splash.animation.curAnim.name == "end")){
-            
-            System.gc();
-            splash.animation.play("end");
-            splash.updateHitbox();
-            splash.screenCenter();
+            if (splash.animation.curAnim.finished && splash.animation.curAnim.name == "end")
+                FlxG.switchState(new TitleVideo());
 
-            new FlxTimer().start(0.3, function(tmr:FlxTimer){
-                loadingText.text = "Done!";
-                if(loadingBar != null){
-                    FlxTween.tween(loadingBar, {alpha: 0}, 0.3);
-                }
-            });
-        }
+            if (songsCached && charactersCached && graphicsCached && splash.animation.curAnim.finished && splash.animation.curAnim.name != "end") {
+                System.gc();
+                splash.animation.play("end");
+                splash.updateHitbox();
+                splash.screenCenter();
 
-        if(!cacheStart && FlxG.keys.justPressed.ANY){
-            
-           
-            openPreloadSettings();
-
-        }
-
-        if(startCachingCharacters){
-            if(charI >= characters.length){
-                loadingText.text = "Characters cached...";
-                startCachingCharacters = false;
-                charactersCached = true;
+                new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+                    loadingText.text = "Done!";
+                    if(loadingBar != null)
+                        FlxTween.tween(loadingBar, {alpha: 0}, 0.3);
+                });
             }
-            else{
-                if(CoolUtil.exists(Paths.file(characters[charI], "images", "png"))){
-                    ImageCache.add(Paths.file(characters[charI], "images", "png"));
-                }
-                else{
-                    trace("Character: File at " + characters[charI] + " not found, skipping cache.");
-                }
-                charI++;
-                currentLoaded++;
-            }
-        }
 
-        if(startCachingGraphics){
-            if(gfxI >= graphics.length){
-                loadingText.text = "Graphics cached...";
-                startCachingGraphics = false;
-                graphicsCached = true;
-            }
-            else{
-                if(CoolUtil.exists(Paths.file(graphics[gfxI], "images", "png"))){
-                    ImageCache.add(Paths.file(graphics[gfxI], "images", "png"));
+            if(!cacheStart && FlxG.keys.justPressed.ANY)
+                openPreloadSettings();
+
+            if(startCachingCharacters){
+                if(charI >= characters.length){
+                    loadingText.text = "Characters cached...";
+                    startCachingCharacters = false;
+                    charactersCached = true;
                 }
-                else{
-                    trace("Character: File at " + graphics[gfxI] + " not found, skipping cache.");
+                else {
+                    if(CoolUtil.exists(Paths.file(characters[charI], "images", "png")))
+                        ImageCache.add(Paths.file(characters[charI], "images", "png"));
+
+                    charI++;
+                    currentLoaded++;
                 }
-                gfxI++;
-                currentLoaded++;
             }
-        }
-        
+
+            if(startCachingGraphics){
+                if(gfxI >= graphics.length){
+                    loadingText.text = "Graphics cached...";
+                    startCachingGraphics = false;
+                    graphicsCached = true;
+                }
+                else {
+                    if(CoolUtil.exists(Paths.file(graphics[gfxI], "images", "png")))
+                        ImageCache.add(Paths.file(graphics[gfxI], "images", "png"));
+
+                    gfxI++;
+                    currentLoaded++;
+                }
+            }
+        */
         super.update(elapsed);
-
     }
 
-    function preload(){
-
+    function preload() {
         loadingText.text = "Caching Assets...";
-        
-        if(loadingBar != null){
+
+        if(loadingBar != null)
             loadingBar.visible = true;
-        }
-        
-        if(!songsCached){ 
+
+        if(!songsCached) { 
             #if sys sys.thread.Thread.create(() -> { #end
                 preloadMusic();
             #if sys }); #end
         }
-        
 
-        /*if(!charactersCached){
-            var i = 0;
-            var charLoadLoop = new FlxAsyncLoop(characters.length, function(){
-                ImageCache.add(Paths.file(characters[i], "images", "png"));
-                i++;
-            }, 1);
-        }
-
-        for(x in characters){
-            
-            //trace("Chached " + x);
-        }
-        loadingText.text = "Characters cached...";
-        charactersCached = true;*/
-
-        if(!charactersCached){
-            startCachingCharacters = true;
-        }
-
-        if(!graphicsCached){
-            startCachingGraphics = true;
-        }
-
+        if(!charactersCached) startCachingCharacters = true;
+        if(!graphicsCached) startCachingGraphics = true;
     }
 
-    function preloadMusic(){
-        for(x in songs){
-            if(CoolUtil.exists(Paths.inst(x))){
+    function preloadMusic() {
+        for(x in songs) {
+            if(CoolUtil.exists(Paths.inst(x)))
                 FlxG.sound.cache(Paths.inst(x));
-            }
-            else{
+            else
                 FlxG.sound.cache(Paths.music(x));
-            }
             currentLoaded++;
         }
         loadingText.text = "Songs cached...";
         songsCached = true;
     }
 
-    function preloadCharacters(){
-        for(x in characters){
+    function preloadCharacters() {
+        for(x in characters)
             ImageCache.add(Paths.file(x, "images", "png"));
-            //trace("Chached " + x);
-        }
+
         loadingText.text = "Characters cached...";
         charactersCached = true;
     }
 
     function preloadGraphics(){
-        for(x in graphics){
+        for(x in graphics)
             ImageCache.add(Paths.file(x, "images", "png"));
-            //trace("Chached " + x);
-        }
+
         loadingText.text = "Graphics cached...";
         graphicsCached = true;
     }
 
-    function openPreloadSettings(){
+    function openPreloadSettings() {
         #if desktop
         CacheSettings.noFunMode = true;
         FlxG.switchState(new CacheSettings());

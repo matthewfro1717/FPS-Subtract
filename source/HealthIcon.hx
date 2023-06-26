@@ -47,9 +47,8 @@ class HealthIcon extends FlxSprite {
 		setGraphicSize(Std.int(iconSize * iconScale));
 		updateHitbox();
 
-		if (sprTracker != null) {
+		if (sprTracker != null)
 			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
-		}
 	}
 
 	public function tweenToDefaultScale(_time:Float, _ease:Null<flixel.tweens.EaseFunction>) {
@@ -59,9 +58,19 @@ class HealthIcon extends FlxSprite {
 
 	public function setIconCharacter(character:String) {
 		loadGraphic(Paths.image("ui/heathIcons/" + character), true, 150, 150);
-		animation.add("icon", [0, 1, 2], 0, false, isPlayer);
+		animation.add("icon", [for (i in 0...frames.frames.length) i], 0, false, isPlayer);
 		animation.play("icon");
 
 		antialiasing = !pixelIcons.contains(character);
+	}
+
+	public dynamic function updateFrame(health:Float):Void {
+		// TODO: make this less stupid @BeastlyGabi
+		if (health < 20)
+			animation.curAnim.curFrame = 1;
+		else if (health > 80)
+			animation.curAnim.curFrame = 2;
+		else
+			animation.curAnim.curFrame = 0;
 	}
 }
