@@ -6,31 +6,26 @@ import sys.thread.Thread;
 
 class DiscordClient
 {
-	public static function initialize():Void
+	public static function start():Void
 	{
-		Thread.create(function()
+		trace("Discord: Client starting...");
+
+		var handlers:DiscordEventHandlers = DiscordEventHandlers.create();
+		handlers.ready = cpp.Function.fromStaticFunction(onReady);
+		handlers.disconnected = cpp.Function.fromStaticFunction(onDisconnected);
+		handlers.errored = cpp.Function.fromStaticFunction(onError);
+		Discord.Initialize("814588678700924999", cpp.RawPointer.addressOf(handlers), 1, null);
+
+		trace("Discord: Client started");
+
+		Thread.runWithEventLoop(function()
 		{
-			trace("Discord Client starting...");
+			#if DISCORD_DISABLE_IO_THREAD
+			Discord.UpdateConnection();
+			#end
+			Discord.RunCallbacks();
 
-			var handlers:DiscordEventHandlers = DiscordEventHandlers.create();
-			handlers.ready = cpp.Function.fromStaticFunction(onReady);
-			handlers.disconnected = cpp.Function.fromStaticFunction(onDisconnected);
-			handlers.errored = cpp.Function.fromStaticFunction(onError);
-			Discord.Initialize("814588678700924999", cpp.RawPointer.addressOf(handlers), 1, null);
-
-			trace("Discord Client started.");
-
-			while (true)
-			{
-				#if DISCORD_DISABLE_IO_THREAD
-				Discord.UpdateConnection();
-				#end
-				Discord.RunCallbacks();
-
-				Sys.sleep(2);
-			}
-
-			Discord.Shutdown();
+			Sys.sleep(2);
 		});
 	}
 
