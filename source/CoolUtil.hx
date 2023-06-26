@@ -70,4 +70,9 @@ using StringTools;
 	public static inline function inRange(a:Float, b:Float, tolerance:Float) {
 		return (a <= b + tolerance && a >= b - tolerance);
 	}
+
+	public static inline function boundInt(Value:Int, ?Min:Int, ?Max:Int):Int {
+		var lowerBound:Int = (Min != null && Value < Min) ? Min : Value;
+		return (Max != null && lowerBound > Max) ? Max : lowerBound;
+	}
 }

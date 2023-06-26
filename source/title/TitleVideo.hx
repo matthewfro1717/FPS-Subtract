@@ -9,12 +9,16 @@ using StringTools;
 class TitleVideo extends FlxState {
 	var titleState:TitleScreen = new TitleScreen();
 
+	#if hxCodec
+	var video:hxcodec.flixel.FlxVideoSprite;
+	#end
+
 	override public function create():Void {
 		super.create();
 
 		if (!Main.novid) {
 			#if hxCodec
-			var video = new hxcodec.flixel.FlxVideoSprite();
+			video = new hxcodec.flixel.FlxVideoSprite();
 			video.play(Paths.video('klaskiiTitle'));
 			video.bitmap.onEndReached.add(next);
 			add(video);
@@ -25,6 +29,19 @@ class TitleVideo extends FlxState {
 		else
 			next();
 	}
+
+	#if hxCodec
+	public override function update(elapsed:Float):Void {
+		super.update(elapsed);
+
+		if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.ESCAPE) {
+			video.stop();
+			video.destroy();
+			remove(video);
+			next();
+		}
+	}
+	#end
 
 	function next():Void {
 		FlxG.camera.flash(FlxColor.WHITE, 60);

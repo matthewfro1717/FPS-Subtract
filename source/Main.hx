@@ -7,7 +7,9 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 
 class Main extends Sprite {
-	public static var fpsDisplay:FPS;
+	#if !mobile
+	public static var overlay:backend.overlay.Overlay;
+	#end
 
 	public static var novid:Bool = false;
 	public static var flippymode:Bool = false;
@@ -23,9 +25,8 @@ class Main extends Sprite {
 		addChild(new FlxGame(0, 0, Startup, 144, 144, true));
 
 		#if !mobile
-		fpsDisplay = new FPS(10, 3, 0xFFFFFF);
-		fpsDisplay.visible = true;
-		addChild(fpsDisplay);
+		overlay = new backend.overlay.Overlay();
+		addChild(overlay);
 		#end
 
 		// On web builds, video tends to lag quite a bit, so this just helps it run a bit faster.
