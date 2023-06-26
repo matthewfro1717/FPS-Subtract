@@ -7,36 +7,23 @@ import flixel.util.FlxColor;
 using StringTools;
 
 class TitleVideo extends FlxState {
-	var oldFPS:Int = VideoHandler.MAX_FPS;
-	var video:VideoHandler;
-	var titleState = new TitleScreen();
+	var titleState:TitleScreen = new TitleScreen();
 
 	override public function create():Void {
 		super.create();
 
-		// FlxG.sound.cache(Paths.music("klaskiiLoop"));
-
 		if (!Main.novid) {
-			VideoHandler.MAX_FPS = 60;
-
-			video = new VideoHandler();
-
-			video.playMP4(Paths.video('klaskiiTitle'), function() {
-				next();
-				#if web
-				VideoHandler.MAX_FPS = oldFPS;
-				#end
-			}, false, true);
-
+			#if hxCodec
+			var video: = new hxcodec.flixel.FlxVideoSprite();
+			video.play(Paths.video('klaskiiTitle'));
+			video.bitmap.onEndReached.add(next);
 			add(video);
-		}
-		else {
+			#else
 			next();
+			#end
 		}
-	}
-
-	override public function update(elapsed:Float) {
-		super.update(elapsed);
+		else
+			next();
 	}
 
 	function next():Void {

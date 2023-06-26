@@ -33,7 +33,7 @@ class CacheSettings extends MusicBeatState {
 
 		if (noFunMode) {
 			bgColor = 0xFF303030;
-			font = "VCR OSD Mono";
+			font = Paths.font("vcr");
 		}
 
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menu/menuDesat'));
@@ -66,7 +66,7 @@ class CacheSettings extends MusicBeatState {
 
 		var backText = new FlxText(5, FlxG.height - 21, 0, "ESCAPE - Back to Menu", 16);
 		backText.scrollFactor.set();
-		backText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		backText.setFormat(Paths.font("vcr"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(backText);
 
 		if (FlxG.save.data.musicPreload2 == null || FlxG.save.data.charPreload2 == null || FlxG.save.data.graphicsPreload2 == null) {

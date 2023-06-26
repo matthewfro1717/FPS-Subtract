@@ -1298,6 +1298,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	function videoCutscene(path:String, ?endFunc:Void->Void, ?startFunc:Void->Void) {
+		#if hxCodec
 		inCutscene = true;
 
 		var blackShit:FlxSprite = new FlxSprite(-200, -200).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
@@ -1305,36 +1306,35 @@ class PlayState extends MusicBeatState {
 		blackShit.scrollFactor.set();
 		add(blackShit);
 
-		var video = new VideoHandler();
+		var video = new hxcodec.flixel.FlxVideoSprite();
 		video.scrollFactor.set();
 		video.antialiasing = true;
 
 		FlxG.camera.zoom = 1;
 
-		video.playMP4(path, function() {
+		video.play(path);
+		video.bitmap.onEndReached.add(function() {
 			FlxTween.tween(blackShit, {alpha: 0}, 0.4, {
 				ease: FlxEase.quadInOut,
 				onComplete: function(t) {
 					remove(blackShit);
 				}
 			});
-
 			remove(video);
 
 			FlxG.camera.zoom = defaultCamZoom;
-
-			if (endFunc != null) {
+			if (endFunc != null)
 				endFunc();
-			}
 
 			startCountdown();
-		}, false, true);
+		});
 
 		add(video);
-
-		if (startFunc != null) {
+		if (startFunc != null)
 			startFunc();
-		}
+		#else
+		return startCountdown();
+		#end
 	}
 
 	function lilBuddiesStart():Void {
