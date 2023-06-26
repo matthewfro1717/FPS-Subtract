@@ -1,4 +1,4 @@
-package funkin.backend;
+package;
 
 import hxdiscord_rpc.Discord;
 import hxdiscord_rpc.Types;
