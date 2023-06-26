@@ -38,59 +38,23 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
-	<classpath name="source" />
-	<assets path="assets" />
-	<!-- <template path='mods' /> -->
+	<source name="source" />
 
-	<assets path="plugins/" rename='' if="windows"/>
-	<assets path="dlls/" rename='' if="windows"/>
-	
-	<!-- <library name="noPreload" preload='false'/> -->
-	<!-- <library name="noPreload"/> -->
+	<assets path="assets" />
 	<assets path="assets/music" include="*.ogg"/>
 	<assets path="assets/sounds" include="*.ogg"/>
 	<assets path="assets/songs"/>
 
-	<!-- comment out the override define to disable overrides>
-	<define name="override" if="desktop"/>
-	<assets path="override/" if="override"/-->
-
-	<!--assets path="CHANGELOG.md"/-->
-	<!-- <define name="PRELOAD_ALL" /> -->
-	
-	<define name="PRELOAD_ALL" unless="web" />
-	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
-	
-	<section if="PRELOAD_ALL">
-		<library name="data"    preload="true" />
-		<library name="fonts"   preload="true" />
-		<library name="sounds"  preload="true" />
-		<library name="music" 	preload="true" />
-		<library name="images"  preload="true" />
-		<library name="videos"  preload="true" />
-	</section>
-	
-	<section if="NO_PRELOAD_ALL">
-		<library name="data"    preload="false" />
-		<library name="fonts"   preload="false" />
-		<library name="sounds"  preload="false" />
-		<library name="music" 	preload="false" />
-		<library name="images"  preload="false" />
-		<library name="videos"  preload="false" />
-	</section>
-
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
-	<haxelib name="hxCodec" if="windows || android" />
+	<haxelib name="hxCodec" if="desktop || android" />
 
 	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
-	<haxelib name="hscript" />
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
-	<haxelib name="faxe" if='switch'/>
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
