@@ -2,10 +2,8 @@ package;
 
 import flixel.FlxSubState;
 
-class ControlsSubState extends FlxSubState
-{
-	public function new()
-	{
+class ControlsSubState extends FlxSubState {
+	public function new() {
 		super();
 	}
 }

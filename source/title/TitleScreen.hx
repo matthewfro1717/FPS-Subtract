@@ -23,27 +23,20 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
-//import polymod.Polymod;
 
 using StringTools;
 
-class TitleScreen extends MusicBeatState
-{
-
-	public static var titleMusic:String = "klaskiiLoop"; 
+class TitleScreen extends MusicBeatState {
+	public static var titleMusic:String = "klaskiiLoop";
 
 	var camBackground:FlxCamera;
 	var camMain:FlxCamera;
 
 	final bgScrollSpeed = 20;
 
-	override public function create():Void
-	{
-		//Polymod.init({modRoot: "mods", dirs: ['introMod']});
-
+	override public function create():Void {
 		// DEBUG BULLSHIT
 
 		useDefaultTransIn = false;
@@ -89,14 +82,15 @@ class TitleScreen extends MusicBeatState
 
 		var topBar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('fpsPlus/title/barTop'));
 		topBar.antialiasing = true;
-		
+
 		var bottomBar:FlxSprite = new FlxSprite().loadGraphic(Paths.image('fpsPlus/title/barBottom'));
 		bottomBar.antialiasing = true;
 
 		gfDance = new FlxSprite(462, 15);
 		gfDance.frames = Paths.getSparrowAtlas("fpsPlus/title/gf");
 		gfDance.animation.addByIndices('danceLeft', 'GF Dancing Beat instance 1', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-		gfDance.animation.addByIndices('danceRight', 'GF Dancing Beat instance 1', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+		gfDance.animation.addByIndices('danceRight', 'GF Dancing Beat instance 1', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24,
+			false);
 		gfDance.animation.play("danceRight", true, false, 14);
 		gfDance.antialiasing = true;
 
@@ -108,8 +102,8 @@ class TitleScreen extends MusicBeatState
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 		/*titleText.angle = camBackground.angle;
-		titleText.x += 120;
-		titleText.y -= 24;*/
+			titleText.x += 120;
+			titleText.y -= 24; */
 
 		add(bgBfTop);
 		add(bgBfBottom);
@@ -122,13 +116,13 @@ class TitleScreen extends MusicBeatState
 		add(logoBl);
 		add(titleText);
 
-		if(FlxG.sound.music == null){
+		if (FlxG.sound.music == null) {
 			FlxG.sound.playMusic(Paths.music(titleMusic), 1);
 		}
-		else{
-			if(!FlxG.sound.music.playing){
+		else {
+			if (!FlxG.sound.music.playing) {
 				FlxG.sound.playMusic(Paths.music(titleMusic), 1);
-				switch(titleMusic){
+				switch (titleMusic) {
 					case "klaskiiLoop":
 						Conductor.changeBPM(158);
 					case "freakyMenu":
@@ -137,12 +131,13 @@ class TitleScreen extends MusicBeatState
 			}
 		}
 
-		FlxG.sound.music.onComplete = function(){lastStep = 0;}
-		
+		FlxG.sound.music.onComplete = function() {
+			lastStep = 0;
+		}
+
 		camMain.flash(FlxColor.WHITE, 1);
 
 		super.create();
-
 	}
 
 	var logoBl:FlxSprite;
@@ -152,24 +147,21 @@ class TitleScreen extends MusicBeatState
 
 	var transitioning:Bool = false;
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		Conductor.songPosition = FlxG.sound.music.time;
-			// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
+		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
-		if (FlxG.keys.justPressed.F)
-		{
+		if (FlxG.keys.justPressed.F) {
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
 
 		var pressedEnter:Bool = controls.ACCEPT || controls.PAUSE;
 
-		if(!transitioning && controls.BACK){
+		if (!transitioning && controls.BACK) {
 			System.exit(0);
 		}
 
-		if (pressedEnter && !transitioning)
-		{
+		if (pressedEnter && !transitioning) {
 			titleText.animation.play('press');
 
 			camMain.flash(FlxColor.WHITE, 1);
@@ -178,8 +170,7 @@ class TitleScreen extends MusicBeatState
 			transitioning = true;
 			// FlxG.sound.music.stop();
 
-			new FlxTimer().start(2, function(tmr:FlxTimer)
-			{
+			new FlxTimer().start(2, function(tmr:FlxTimer) {
 				// Check if version is outdated
 				switchState(new MainMenuState());
 			});
@@ -188,27 +179,23 @@ class TitleScreen extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	override function beatHit()
-	{
+	override function beatHit() {
 		super.beatHit();
 
 		logoBl.animation.play('bump', true);
-		
 
-		//i want the option
-		if(curBeat % 1 == 0){
-
+		// i want the option
+		if (curBeat % 1 == 0) {
 			danceLeft = !danceLeft;
 
-			if (danceLeft){
+			if (danceLeft) {
 				gfDance.animation.play('danceRight', true);
 			}
-			else{
+			else {
 				gfDance.animation.play('danceLeft', true);
 			}
 		}
 
 		FlxG.log.add(curBeat);
 	}
-
 }

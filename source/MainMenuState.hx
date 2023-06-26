@@ -1,7 +1,6 @@
 package;
 
 import config.*;
-
 import title.TitleScreen;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -16,13 +15,9 @@ import flixel.text.FlxText;
 
 using StringTools;
 
-class MainMenuState extends MusicBeatState
-{
-	
+class MainMenuState extends MusicBeatState {
 	var curSelected:Int = 0;
-
 	var menuItems:FlxTypedGroup<FlxSprite>;
-	
 	var optionShit:Array<String> = ['story mode', 'freeplay', 'donate', "options"];
 
 	var magenta:FlxSprite;
@@ -31,13 +26,10 @@ class MainMenuState extends MusicBeatState
 	var versionText:FlxText;
 	var keyWarning:FlxText;
 
-	override function create()
-	{
-
+	override function create() {
 		openfl.Lib.current.stage.frameRate = 144;
 
-		if (!FlxG.sound.music.playing)
-		{	
+		if (!FlxG.sound.music.playing) {
 			FlxG.sound.playMusic(Paths.music(TitleScreen.titleMusic), 1);
 		}
 
@@ -54,7 +46,7 @@ class MainMenuState extends MusicBeatState
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
-	
+
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menu/menuBGMagenta'));
 		magenta.scrollFactor.x = 0;
 		magenta.scrollFactor.y = 0.18;
@@ -71,11 +63,10 @@ class MainMenuState extends MusicBeatState
 
 		var tex = Paths.getSparrowAtlas('menu/FNF_main_menu_assets');
 
-		for (i in 0...optionShit.length)
-		{
+		for (i in 0...optionShit.length) {
 			var menuItem:FlxSprite = new FlxSprite(0, 60 + (i * 160));
 			menuItem.frames = tex;
-			
+
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
@@ -88,7 +79,7 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.004);
 
-		versionText = new FlxText(5, FlxG.height - 21, 0, "FPS Plus: v4.0.1", 16);
+		versionText = new FlxText(5, FlxG.height - 21, 0, "FPS / Plus: v4.0.1 / Subtract: v0.01", 16);
 		versionText.scrollFactor.set();
 		versionText.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionText);
@@ -102,11 +93,9 @@ class MainMenuState extends MusicBeatState
 		FlxTween.tween(versionText, {y: versionText.y - 16}, 0.75, {ease: FlxEase.quintOut, startDelay: 10});
 		FlxTween.tween(keyWarning, {alpha: 1, y: keyWarning.y - 16}, 0.75, {ease: FlxEase.quintOut, startDelay: 10});
 
-		// NG.core.calls.event.logEvent('swag').send();
-
 		changeItem();
-		
-		//Offset Stuff
+
+		// Offset Stuff
 		Config.reload();
 
 		super.create();
@@ -114,59 +103,46 @@ class MainMenuState extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
-	override function update(elapsed:Float)
-	{
-	
-		if (FlxG.sound.music.volume < 0.8)
-		{
+	override function update(elapsed:Float) {
+		if (FlxG.sound.music.volume < 0.8) {
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		if (!selectedSomethin)
-		{
-			if (controls.UP_P)
-			{
+		if (!selectedSomethin) {
+			if (controls.UP_P) {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(-1);
 			}
 
-			if (controls.DOWN_P)
-			{
+			if (controls.DOWN_P) {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
 
-			if (FlxG.keys.justPressed.BACKSPACE && FlxG.keys.pressed.CONTROL)
-			{
+			if (FlxG.keys.justPressed.BACKSPACE && FlxG.keys.pressed.CONTROL) {
 				KeyBinds.resetBinds();
 				switchState(new MainMenuState());
 			}
 
-			if (controls.BACK)
-			{
+			if (controls.BACK) {
 				switchState(new TitleScreen());
 			}
 
-			if (controls.ACCEPT)
-			{
-			
-				if (optionShit[curSelected] == 'donate')
-				{
+			if (controls.ACCEPT) {
+				if (optionShit[curSelected] == 'donate') {
 					#if linux
 					Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
 					#else
 					FlxG.openURL('https://ninja-muffin24.itch.io/funkin');
 					#end
 				}
-				
-				else
-				{
+				else {
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-					
+
 					var daChoice:String = optionShit[curSelected];
-					
-					switch (daChoice){
+
+					switch (daChoice) {
 						case 'freeplay':
 							FlxG.sound.music.stop();
 						case 'options':
@@ -175,28 +151,22 @@ class MainMenuState extends MusicBeatState
 
 					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
-					menuItems.forEach(function(spr:FlxSprite)
-					{
-						if (curSelected != spr.ID)
-						{
+					menuItems.forEach(function(spr:FlxSprite) {
+						if (curSelected != spr.ID) {
 							FlxTween.tween(spr, {alpha: 0}, 0.4, {
 								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
+								onComplete: function(twn:FlxTween) {
 									spr.kill();
 								}
 							});
 						}
-						else
-						{
-							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
-							{
-								//var daChoice:String = optionShit[curSelected];
+						else {
+							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker) {
+								// var daChoice:String = optionShit[curSelected];
 
 								spr.visible = true;
 
-								switch (daChoice)
-								{
+								switch (daChoice) {
 									case 'story mode':
 										switchState(new StoryMenuState());
 										trace("Story Menu Selected");
@@ -217,27 +187,23 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
+		menuItems.forEach(function(spr:FlxSprite) {
 			spr.screenCenter(X);
 		});
 	}
 
-	function changeItem(huh:Int = 0)
-	{
+	function changeItem(huh:Int = 0) {
 		curSelected += huh;
 
 		if (curSelected >= menuItems.length)
 			curSelected = 0;
- 		if (curSelected < 0)
+		if (curSelected < 0)
 			curSelected = menuItems.length - 1;
 
-		menuItems.forEach(function(spr:FlxSprite)
-		{
+		menuItems.forEach(function(spr:FlxSprite) {
 			spr.animation.play('idle');
 
-			if (spr.ID == curSelected)
-			{
+			if (spr.ID == curSelected) {
 				spr.animation.play('selected');
 				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y);
 			}

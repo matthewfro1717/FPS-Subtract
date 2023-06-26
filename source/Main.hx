@@ -6,16 +6,13 @@ import flixel.FlxGame;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 
-class Main extends Sprite
-{
-
+class Main extends Sprite {
 	public static var fpsDisplay:FPS;
 
 	public static var novid:Bool = false;
 	public static var flippymode:Bool = false;
 
-	public function new()
-	{
+	public function new() {
 		super();
 
 		#if sys
@@ -31,7 +28,7 @@ class Main extends Sprite
 		addChild(fpsDisplay);
 		#end
 
-		//On web builds, video tends to lag quite a bit, so this just helps it run a bit faster.
+		// On web builds, video tends to lag quite a bit, so this just helps it run a bit faster.
 		#if web
 		VideoHandler.MAX_FPS = 30;
 		#end
@@ -39,6 +36,5 @@ class Main extends Sprite
 		trace("-=Args=-");
 		trace("novid: " + novid);
 		trace("flippymode: " + flippymode);
-
 	}
 }

@@ -15,9 +15,7 @@ using StringTools;
 	Creates textures that exist only in VRAM and not standard RAM.
 	Originally written by Smokey, additional developement by Rozebud.
 **/
-
-class GPUBitmap
-{
+class GPUBitmap {
 	static var trackedTextures:Array<TexAsset> = new Array<TexAsset>();
 
 	/**
@@ -30,19 +28,18 @@ class GPUBitmap
 		* @param   cachekey            Key for the Texture Buffer cache. 
 		*
 	 */
-	public static function create(path:String, texFormat:Context3DTextureFormat = BGRA, optimizeForRender:Bool = false, ?_cachekey:String):BitmapData
-	{
+	public static function create(path:String, texFormat:Context3DTextureFormat = BGRA, optimizeForRender:Bool = false, ?_cachekey:String):BitmapData {
 		if (_cachekey == null)
 			_cachekey = path;
 
-		for (tex in trackedTextures){
-			if (tex.cacheKey == _cachekey){
-				//trace('Texture $_cachekey already exists! Reusing existing tex');
+		for (tex in trackedTextures) {
+			if (tex.cacheKey == _cachekey) {
+				// trace('Texture $_cachekey already exists! Reusing existing tex');
 				return BitmapData.fromTexture(tex.texture);
 			}
 		}
 
-		//trace('creating new texture');
+		// trace('creating new texture');
 		var bmp = Assets.getBitmapData(path, false);
 		var _texture = FlxG.stage.context3D.createTexture(bmp.width, bmp.height, texFormat, optimizeForRender);
 		_texture.uploadFromBitmapData(bmp);
@@ -53,51 +50,42 @@ class GPUBitmap
 		return BitmapData.fromTexture(_texture);
 	}
 
-	public static function disposeAllTextures():Void
-	{
+	public static function disposeAllTextures():Void {
 		var counter:Int = 0;
-		for (texture in trackedTextures){
+		for (texture in trackedTextures) {
 			texture.texture.dispose();
 			trackedTextures.remove(texture);
 			counter++;
 		}
-		//trace('Disposed $counter textures');
+		// trace('Disposed $counter textures');
 	}
 
-	public static function disposeTexturesByKey(key:String)
-	{
+	public static function disposeTexturesByKey(key:String) {
 		var counter:Int = 0;
-		for (i in 0...trackedTextures.length)
-		{
-			if (trackedTextures[i].cacheKey.contains(key))
-			{
+		for (i in 0...trackedTextures.length) {
+			if (trackedTextures[i].cacheKey.contains(key)) {
 				trackedTextures[i].texture.dispose();
 				trackedTextures.remove(trackedTextures[i]);
 				counter++;
 			}
 		}
-		//trace('Disposed $counter textures using key $key');
+		// trace('Disposed $counter textures using key $key');
 	}
 
-	public static function disposeAll()
-	{
-		for (i in 0...trackedTextures.length)
-		{
+	public static function disposeAll() {
+		for (i in 0...trackedTextures.length) {
 			trackedTextures[i].texture.dispose();
 		}
 
 		trackedTextures = new Array<TexAsset>();
-
 	}
 }
 
-class TexAsset
-{
+class TexAsset {
 	public var texture:Texture;
 	public var cacheKey:String;
 
-	public function new(texture:Texture, cacheKey:String)
-	{
+	public function new(texture:Texture, cacheKey:String) {
 		this.texture = texture;
 		this.cacheKey = cacheKey;
 	}

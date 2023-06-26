@@ -11,45 +11,38 @@ import openfl.Assets;
 	Uses OpenFL audio functions instead of HaxeFlixel for better memory usage.
 	Written by Smokey.
 **/
-
-class AudioStream
-{
+class AudioStream {
 	public var sound:Sound;
+
 	var channel:SoundChannel;
 	var fadeTween:FlxTween;
 	var volume:Float = 1;
 
-	public function new()
-	{
+	public function new() {
 		sound = new Sound();
 	}
 
-	public function loadSound(key:String, cache:Bool = true)
-	{
+	public function loadSound(key:String, cache:Bool = true) {
 		if (sound != null)
 			sound = Assets.getMusic(key, cache);
 		else
 			trace('sound is null dickhead');
 	}
 
-	public function play()
-	{
+	public function play() {
 		channel = sound.play();
 		channel.soundTransform = new SoundTransform(FlxG.sound.volume);
 	}
 
-	public function changeVolume(vol:Float)
-	{
+	public function changeVolume(vol:Float) {
 		if (channel != null)
 			channel.soundTransform = new SoundTransform(vol);
 
 		volume = vol;
 	}
 
-	public function stop()
-	{
-		if (channel != null)
-		{
+	public function stop() {
+		if (channel != null) {
 			channel.stop();
 			channel = null;
 		}

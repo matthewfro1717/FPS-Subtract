@@ -19,9 +19,7 @@ import vlc.VlcBitmap;
 	on Web builds as well.              
 	@author Rozebud
 **/
-
-class VideoHandler extends FlxSprite
-{
+class VideoHandler extends FlxSprite {
 	/**
 		Sets the maximum framerate that the video object will be to the sprite at.
 		Helps increase performance on lower end machines and web builds.
@@ -57,7 +55,7 @@ class VideoHandler extends FlxSprite
 	var netLoop:Bool;
 	#end
 
-	public function new(?x:Float = 0, ?y:Float = 0){
+	public function new(?x:Float = 0, ?y:Float = 0) {
 		super(x, y);
 		makeGraphic(1, 1, FlxColor.TRANSPARENT);
 	}
@@ -66,8 +64,7 @@ class VideoHandler extends FlxSprite
 		Generic play function. 
 		Works with both desktop and web builds.
 	**/
-	public function playMP4(videoPath:String, callback:Void->Void, ?repeat:Bool = false, ?canSkip:Bool = false){
-
+	public function playMP4(videoPath:String, callback:Void->Void, ?repeat:Bool = false, ?canSkip:Bool = false) {
 		#if desktop
 		playDesktopMP4(videoPath, callback, repeat, canSkip);
 		#end
@@ -75,10 +72,9 @@ class VideoHandler extends FlxSprite
 		#if web
 		playWebMP4(videoPath, callback, repeat, canSkip);
 		#end
-
 	}
 
-	//===========================================================================================================//
+	// ===========================================================================================================//
 
 	#if desktop
 	/**
@@ -86,17 +82,16 @@ class VideoHandler extends FlxSprite
 		Only works on desktop builds.
 		It is recommended that you use `playMP4()` instead since that works for desktop and web.
 	**/
-	@:noCompletion public function playDesktopMP4(path:String, callback:Void->Void, ?repeat:Bool = false, ?canSkip:Bool = false, ?isWindow:Bool = false, ?isFullscreen:Bool = false):Void
-	{
-
+	@:noCompletion public function playDesktopMP4(path:String, callback:Void->Void, ?repeat:Bool = false, ?canSkip:Bool = false, ?isWindow:Bool = false,
+			?isFullscreen:Bool = false):Void {
 		skipable = canSkip;
 
-		//FlxG.autoPause = false;
+		// FlxG.autoPause = false;
 
-		//if (FlxG.sound.music != null)
-		//{
+		// if (FlxG.sound.music != null)
+		// {
 		//	FlxG.sound.music.stop();
-		//}
+		// }
 
 		finishCallback = callback;
 
@@ -120,8 +115,7 @@ class VideoHandler extends FlxSprite
 		waitingStart = true;
 	}
 
-	function checkFile(fileName:String):String
-	{
+	function checkFile(fileName:String):String {
 		var pDir = "";
 		var appDir = "file:///" + Sys.getCwd() + "/";
 		if (fileName.indexOf(":") == -1) // Not a path
@@ -132,47 +126,41 @@ class VideoHandler extends FlxSprite
 		return pDir + fileName;
 	}
 
-	function onVLCVideoReady()
-	{
+	function onVLCVideoReady() {
 		trace("video loaded!");
 	}
 
-	public function onFocus(){
-		if(vlcBitmap != null && !paused){ 
+	public function onFocus() {
+		if (vlcBitmap != null && !paused) {
 			vlcBitmap.resume();
 			paused = true;
 		}
 	}
 
-	public function onFocusLost(){
-		if(vlcBitmap != null && paused){
+	public function onFocusLost() {
+		if (vlcBitmap != null && paused) {
 			vlcBitmap.pause();
 			paused = false;
 		}
 	}
 
-
-	function onVLCComplete()
-	{
-		if (finishCallback != null)
-		{
+	function onVLCComplete() {
+		if (finishCallback != null) {
 			finishCallback();
 		}
 
 		vlcClean();
 
-		//FlxG.autoPause = true;
-
+		// FlxG.autoPause = true;
 	}
 
-	function vlcClean(){
+	function vlcClean() {
 		vlcBitmap.stop();
 
 		// Clean player, just in case!
 		vlcBitmap.dispose();
 
-		if (FlxG.game.contains(vlcBitmap))
-		{
+		if (FlxG.game.contains(vlcBitmap)) {
 			FlxG.game.removeChild(vlcBitmap);
 		}
 
@@ -181,7 +169,7 @@ class VideoHandler extends FlxSprite
 	}
 	#end
 
-	//===========================================================================================================//
+	// ===========================================================================================================//
 
 	#if web
 	/**
@@ -189,16 +177,14 @@ class VideoHandler extends FlxSprite
 		Only works on web builds.
 		It is recommended that you use `playMP4()` instead since that works for desktop and web.
 	**/
-	@:noCompletion public function playWebMP4(videoPath:String, callback:Void->Void, ?repeat:Bool = false, ?canSkip:Bool = false)
-	{
+	@:noCompletion public function playWebMP4(videoPath:String, callback:Void->Void, ?repeat:Bool = false, ?canSkip:Bool = false) {
 		skipable = canSkip;
 		netLoop = repeat;
 		netPath = videoPath;
 
 		FlxG.autoPause = false;
 
-		if (FlxG.sound.music != null)
-		{
+		if (FlxG.sound.music != null) {
 			FlxG.sound.music.stop();
 		}
 
@@ -221,8 +207,7 @@ class VideoHandler extends FlxSprite
 		netStream.play(netPath);
 	}
 
-	function client_onMetaData(videoPath)
-	{
+	function client_onMetaData(videoPath) {
 		video.attachNetStream(netStream);
 
 		video.width = FlxG.width;
@@ -231,41 +216,34 @@ class VideoHandler extends FlxSprite
 		waitingStart = true;
 	}
 
-	function netConnection_onNetStatus(videoPath){
-		if (videoPath.info.code == "NetStream.Play.Complete")
-		{
-			if(netLoop){
+	function netConnection_onNetStatus(videoPath) {
+		if (videoPath.info.code == "NetStream.Play.Complete") {
+			if (netLoop) {
 				netStream.play(netPath);
 			}
-			else{
+			else {
 				finishVideo();
 			}
 		}
-		if (videoPath.info.code == "NetStream.Play.Start")
-		{
+		if (videoPath.info.code == "NetStream.Play.Start") {
 			setSoundTransform(__muted);
 		}
 	}
 
-	function finishVideo(){
-		
-		if (finishCallback != null)
-		{
-				finishCallback();
+	function finishVideo() {
+		if (finishCallback != null) {
+			finishCallback();
 		}
-		
-		netClean();
 
+		netClean();
 	}
 
-	function netClean(){
-		
+	function netClean() {
 		netStream.dispose();
 
 		completed = true;
 
-		if (FlxG.game.contains(video))
-		{
+		if (FlxG.game.contains(video)) {
 			FlxG.game.removeChild(video);
 		}
 
@@ -273,129 +251,109 @@ class VideoHandler extends FlxSprite
 		completed = true;
 	}
 
-	function setSoundTransform(isMuted:Bool){
-		if(!isMuted){
+	function setSoundTransform(isMuted:Bool) {
+		if (!isMuted) {
 			netStream.soundTransform = new SoundTransform(FlxG.sound.volume);
 		}
-		else{
+		else {
 			netStream.soundTransform = new SoundTransform(0);
 		}
 	}
 	#end
 
-	//===========================================================================================================//
-
-	//Basically just grabbing the bitmap data from the video objects and drawing it to the FlxSprite every so often. 
-	override function update(elapsed){
-
+	// ===========================================================================================================//
+	// Basically just grabbing the bitmap data from the video objects and drawing it to the FlxSprite every so often.
+	override function update(elapsed) {
 		super.update(elapsed);
 
 		#if desktop
-		if(vlcBitmap != null){
-
-			if(!__muted){
-				//I'm going to blow up a retirement home.
+		if (vlcBitmap != null) {
+			if (!__muted) {
+				// I'm going to blow up a retirement home.
 				var vol:Float = FlxG.sound.volume;
 				vol = (vol) * 0.7;
 				vol += 0.3;
 				vlcBitmap.volume = vol;
 			}
-			else{
+			else {
 				vlcBitmap.volume = 0;
 			}
-
 		}
 
-		if(waitingStart){
-
-			if(vlcBitmap.initComplete){
-				makeGraphic(vlcBitmap.bitmapData.width,vlcBitmap.bitmapData.height,FlxColor.TRANSPARENT);
+		if (waitingStart) {
+			if (vlcBitmap.initComplete) {
+				makeGraphic(vlcBitmap.bitmapData.width, vlcBitmap.bitmapData.height, FlxColor.TRANSPARENT);
 
 				waitingStart = false;
 				startDrawing = true;
 			}
-			
 		}
 
-		if(startDrawing && !paused){
-
-				if(frameCount >= 1/MAX_FPS){
-					pixels.draw(vlcBitmap.bitmapData);
-					frameCount = 0;
-				}
-				frameCount += elapsed;
-
+		if (startDrawing && !paused) {
+			if (frameCount >= 1 / MAX_FPS) {
+				pixels.draw(vlcBitmap.bitmapData);
+				frameCount = 0;
+			}
+			frameCount += elapsed;
 		}
 
-		if(skipable){
-
-			if(PlayerSettings.player1.controls.ACCEPT){
+		if (skipable) {
+			if (PlayerSettings.player1.controls.ACCEPT) {
 				onVLCComplete();
 				destroy();
 			}
-
 		}
 		#end
 
 		#if web
-		if(FlxG.keys.justPressed.MINUS || FlxG.keys.justPressed.PLUS){
+		if (FlxG.keys.justPressed.MINUS || FlxG.keys.justPressed.PLUS) {
 			setSoundTransform(__muted);
 		}
 
-		if(waitingStart){
-
+		if (waitingStart) {
 			makeGraphic(video.videoWidth, video.videoHeight, FlxColor.TRANSPARENT);
 
 			waitingStart = false;
 			startDrawing = true;
-			
 		}
 
-		if(startDrawing && !paused){
-
-			if(frameCount >= 1/MAX_FPS){
+		if (startDrawing && !paused) {
+			if (frameCount >= 1 / MAX_FPS) {
 				pixels.draw(video);
 				frameCount = 0;
 			}
 			frameCount += elapsed;
-
 		}
 
-		if(skipable){
-
-			if(PlayerSettings.player1.controls.ACCEPT){
+		if (skipable) {
+			if (PlayerSettings.player1.controls.ACCEPT) {
 				finishVideo();
 				destroy();
 			}
-
 		}
 		#end
-
 	}
 
-	override function destroy(){
-
+	override function destroy() {
 		#if desktop
-		if(!completed){
+		if (!completed) {
 			vlcClean();
 		}
 		#end
 
 		#if web
-		if(!completed){
+		if (!completed) {
 			netClean();
 		}
 		#end
 
 		super.destroy();
-		
 	}
 
 	/**
 		Pauses playback of the video.
 	**/
-	public function pause(){
-
+	public function pause() {
 		#if desktop
 		vlcBitmap.pause();
 		#end
@@ -405,14 +363,12 @@ class VideoHandler extends FlxSprite
 		#end
 
 		paused = true;
-
 	}
 
 	/**
 		Resumes playback of the video.
 	**/
-	public function resume(){
-
+	public function resume() {
 		#if desktop
 		vlcBitmap.resume();
 		#end
@@ -422,22 +378,19 @@ class VideoHandler extends FlxSprite
 		#end
 
 		paused = false;
-
 	}
 
-	private function get_muted():Bool{
+	private function get_muted():Bool {
 		return __muted;
 	}
 
-	private function set_muted(value:Bool):Bool{
-
+	private function set_muted(value:Bool):Bool {
 		#if web
-		if(startDrawing){
+		if (startDrawing) {
 			setSoundTransform(value);
 		}
 		#end
 
 		return __muted = value;
 	}
-	
 }

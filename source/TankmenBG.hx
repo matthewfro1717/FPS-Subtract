@@ -5,8 +5,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import haxe.display.Display.Package;
 
-class TankmenBG extends FlxSprite
-{
+class TankmenBG extends FlxSprite {
 	public static var animationNotes:Array<Dynamic> = [];
 
 	public var strumTime:Float = 0;
@@ -15,8 +14,7 @@ class TankmenBG extends FlxSprite
 
 	public var endingOffset:Float;
 
-	public function new(x:Float, y:Float, isGoingRight:Bool)
-	{
+	public function new(x:Float, y:Float, isGoingRight:Bool) {
 		super(x, y);
 
 		// makeGraphic(200, 200);
@@ -35,8 +33,7 @@ class TankmenBG extends FlxSprite
 		updateHitbox();
 	}
 
-	public function resetShit(x:Float, y:Float, isGoingRight:Bool)
-	{
+	public function resetShit(x:Float, y:Float, isGoingRight:Bool) {
 		setPosition(x, y);
 		goingRight = isGoingRight;
 		endingOffset = FlxG.random.float(50, 200);
@@ -46,8 +43,7 @@ class TankmenBG extends FlxSprite
 			flipX = true;
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		if (x >= FlxG.width * 1.2 || x <= FlxG.width * -0.5)
@@ -55,63 +51,52 @@ class TankmenBG extends FlxSprite
 		else
 			visible = true;
 
-		if (animation.curAnim.name == 'run')
-		{
+		if (animation.curAnim.name == 'run') {
 			var endDirection:Float = (FlxG.width * 0.74) + endingOffset;
 
-			if (goingRight)
-			{
+			if (goingRight) {
 				endDirection = (FlxG.width * 0.02) - endingOffset;
 
 				x = (endDirection + (Conductor.songPosition - strumTime) * tankSpeed);
 			}
-			else
-			{
+			else {
 				x = (endDirection - (Conductor.songPosition - strumTime) * tankSpeed);
 			}
 		}
 
-		if (Conductor.songPosition > strumTime)
-		{
+		if (Conductor.songPosition > strumTime) {
 			// kill();
 			animation.play('shot');
 
-			if (goingRight)
-			{
+			if (goingRight) {
 				offset.y = 200;
 				offset.x = 300;
 			}
 		}
 
-		if (animation.curAnim.name == 'shot' && animation.curAnim.curFrame >= animation.curAnim.frames.length - 1)
-		{
+		if (animation.curAnim.name == 'shot' && animation.curAnim.curFrame >= animation.curAnim.frames.length - 1) {
 			kill();
 		}
 	}
 
-    static public function loadMappedAnims(fileName:String, song:String)
-	{
+	static public function loadMappedAnims(fileName:String, song:String) {
 		var swagshit = Song.loadFromJson(fileName, song);
 
 		var notes = swagshit.notes;
 
 		animationNotes = [];
 
-		for (section in notes)
-		{
-			for (idk in section.sectionNotes)
-			{
+		for (section in notes) {
+			for (idk in section.sectionNotes) {
 				animationNotes.push(idk);
 			}
 		}
 
 		animationNotes.sort(sortAnims);
-		//trace(animationNotes);
-		
+		// trace(animationNotes);
 	}
 
-    static function sortAnims(val1:Array<Dynamic>, val2:Array<Dynamic>):Int
-	{
+	static function sortAnims(val1:Array<Dynamic>, val2:Array<Dynamic>):Int {
 		return FlxSort.byValues(FlxSort.ASCENDING, val1[0], val2[0]);
 	}
 }

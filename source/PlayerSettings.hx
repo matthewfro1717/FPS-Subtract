@@ -7,8 +7,7 @@ import flixel.util.FlxSignal;
 
 // import ui.DeviceManager;
 // import props.Player;
-class PlayerSettings
-{
+class PlayerSettings {
 	static public var numPlayers(default, null) = 0;
 	static public var numAvatars(default, null) = 0;
 	static public var player1(default, null):PlayerSettings;
@@ -33,28 +32,23 @@ class PlayerSettings
 	// public var avatar:Player;
 	// public var camera(get, never):PlayCamera;
 
-	function new(id, scheme)
-	{
+	function new(id, scheme) {
 		this.id = id;
 		this.controls = new Controls('player$id', scheme);
 	}
 
-	public function setKeyboardScheme(scheme)
-	{
+	public function setKeyboardScheme(scheme) {
 		controls.setKeyboardScheme(scheme);
 	}
 
-	static public function init():Void
-	{
-		if (player1 == null)
-		{
+	static public function init():Void {
+		if (player1 == null) {
 			player1 = new PlayerSettings(0, Solo);
 			++numPlayers;
 		}
 
 		var numGamepads = FlxG.gamepads.numActiveGamepads;
-		if (numGamepads > 0)
-		{
+		if (numGamepads > 0) {
 			var gamepad = FlxG.gamepads.getByID(0);
 			if (gamepad == null)
 				throw 'Unexpected null gamepad. id:0';
@@ -65,53 +59,46 @@ class PlayerSettings
 		menuControls();
 
 		/*if (numGamepads > 1)
-		{
-			if (player2 == null)
 			{
-				player2 = new PlayerSettings(1, None);
-				++numPlayers;
-			}
+				if (player2 == null)
+				{
+					player2 = new PlayerSettings(1, None);
+					++numPlayers;
+				}
 
-			var gamepad = FlxG.gamepads.getByID(1);
-			if (gamepad == null)
-				throw 'Unexpected null gamepad. id:0';
+				var gamepad = FlxG.gamepads.getByID(1);
+				if (gamepad == null)
+					throw 'Unexpected null gamepad. id:0';
 
-			player2.controls.setMenuControls(1);
+				player2.controls.setMenuControls(1);
 		}*/
 
 		// DeviceManager.init();
 	}
 
-	static public function menuControls(){
-
+	static public function menuControls() {
 		var numGamepads = FlxG.gamepads.numActiveGamepads;
-		if (numGamepads > 0)
-		{
+		if (numGamepads > 0) {
 			var gamepad = FlxG.gamepads.getByID(0);
 			if (gamepad == null)
 				throw 'Unexpected null gamepad. id:0';
 
 			player1.controls.setMenuControls(0);
 		}
-
 	}
 
-	static public function gameControls(){
-
+	static public function gameControls() {
 		var numGamepads = FlxG.gamepads.numActiveGamepads;
-		if (numGamepads > 0)
-		{
+		if (numGamepads > 0) {
 			var gamepad = FlxG.gamepads.getByID(0);
 			if (gamepad == null)
 				throw 'Unexpected null gamepad. id:0';
 
 			player1.controls.setGameControls(0);
 		}
-
 	}
 
-	static public function reset()
-	{
+	static public function reset() {
 		player1 = null;
 		player2 = null;
 		numPlayers = 0;

@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Friday Night Funkin' FPS Plus" file="FunkinFPSPlus" main="Main" version="FNF: v0.2.7 | FPS Plus: v4.0" company="Rozebud" />
+	<app title="Friday Night Funkin' FPS Subtract" file="FunkinSubtract" main="Main" company="BeastlyGhost" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
@@ -66,6 +66,7 @@
 	
 	<section if="PRELOAD_ALL">
 		<library name="data"    preload="true" />
+		<library name="fonts"   preload="true" />
 		<library name="sounds"  preload="true" />
 		<library name="music" 	preload="true" />
 		<library name="images"  preload="true" />
@@ -74,24 +75,16 @@
 	
 	<section if="NO_PRELOAD_ALL">
 		<library name="data"    preload="false" />
+		<library name="fonts"   preload="false" />
 		<library name="sounds"  preload="false" />
 		<library name="music" 	preload="false" />
 		<library name="images"  preload="false" />
 		<library name="videos"  preload="false" />
 	</section>
-	
 
-
-	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
-		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO
-		THEN UHHH I USED THE NAME OF THE FONT WITH SETFORMAT() ON THE TEXT!!!
-		NOT USING A DIRECT THING TO THE ASSET!!!
-	-->
-	<assets path="assets/fonts" embed='true'/>
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
-	<haxedev set='webgl' />
 
 	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
@@ -99,17 +92,7 @@
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
-	<haxelib name="newgrounds"/>
 	<haxelib name="faxe" if='switch'/>
-	<!--haxelib name="polymod"/-->
-	<!--haxelib name="actuate" /-->
-	<!--haxelib name="extension-webm" if="desktop"/-->
-
-	<!-- <haxelib name="markdown" /> -->
-	<!-- <haxelib name="HtmlParser" /> -->
-
-	<!--In case you want to use nape with flixel-->
-	<!--<haxelib name="nape-haxe4" />-->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
@@ -145,14 +128,9 @@
 
 	<!-- _________________________________ Custom _______________________________ -->
 
-	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 	<icon path="art/iconOG.png" />
 	<icon path="art/icon16.png" size='16'/>
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
 
-
-	<!-- <haxedef name="SKIP_TO_PLAYSTATE" if="debug" /> -->
-	<!--haxedef name="NG_LOGIN" if="newgrounds" /-->
-	
 </project>

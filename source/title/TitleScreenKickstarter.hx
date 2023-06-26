@@ -21,22 +21,15 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
-//import polymod.Polymod;
 
 using StringTools;
 
-class TitleScreenKickstarter extends MusicBeatState
-{
+class TitleScreenKickstarter extends MusicBeatState {
+	public static var titleMusic:String = "klaskiiLoop";
 
-	public static var titleMusic:String = "klaskiiLoop"; 
-
-	override public function create():Void
-	{
-		//Polymod.init({modRoot: "mods", dirs: ['introMod']});
-
+	override public function create():Void {
 		// DEBUG BULLSHIT
 
 		useDefaultTransIn = false;
@@ -80,13 +73,13 @@ class TitleScreenKickstarter extends MusicBeatState
 		// titleText.screenCenter(X);
 		add(titleText);
 
-		if(FlxG.sound.music == null){
+		if (FlxG.sound.music == null) {
 			FlxG.sound.playMusic(Paths.music(titleMusic), 1);
 		}
-		else{
-			if(!FlxG.sound.music.playing){
+		else {
+			if (!FlxG.sound.music.playing) {
 				FlxG.sound.playMusic(Paths.music(titleMusic), 1);
-				switch(titleMusic){
+				switch (titleMusic) {
 					case "klaskiiLoop":
 						Conductor.changeBPM(158);
 					case "freakyMenu":
@@ -94,11 +87,10 @@ class TitleScreenKickstarter extends MusicBeatState
 				}
 			}
 		}
-		
+
 		FlxG.camera.flash(FlxColor.WHITE, 1);
 
 		super.create();
-
 	}
 
 	var logoBl:FlxSprite;
@@ -108,24 +100,21 @@ class TitleScreenKickstarter extends MusicBeatState
 
 	var transitioning:Bool = false;
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		Conductor.songPosition = FlxG.sound.music.time;
-			// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
+		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
-		if (FlxG.keys.justPressed.F)
-		{
+		if (FlxG.keys.justPressed.F) {
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
 
 		var pressedEnter:Bool = controls.ACCEPT || controls.PAUSE;
 
-		if(!transitioning && controls.BACK){
+		if (!transitioning && controls.BACK) {
 			System.exit(0);
 		}
 
-		if (pressedEnter && !transitioning)
-		{
+		if (pressedEnter && !transitioning) {
 			titleText.animation.play('press');
 
 			FlxG.camera.flash(FlxColor.WHITE, 1);
@@ -134,8 +123,7 @@ class TitleScreenKickstarter extends MusicBeatState
 			transitioning = true;
 			// FlxG.sound.music.stop();
 
-			new FlxTimer().start(2, function(tmr:FlxTimer)
-			{
+			new FlxTimer().start(2, function(tmr:FlxTimer) {
 				// Check if version is outdated
 				switchState(new MainMenuState());
 			});
@@ -144,8 +132,7 @@ class TitleScreenKickstarter extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	override function beatHit()
-	{
+	override function beatHit() {
 		super.beatHit();
 
 		logoBl.animation.play('bump', true);
@@ -158,5 +145,4 @@ class TitleScreenKickstarter extends MusicBeatState
 
 		FlxG.log.add(curBeat);
 	}
-
 }
