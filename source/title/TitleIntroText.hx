@@ -25,7 +25,8 @@ import openfl.Assets;
 
 using StringTools;
 
-class TitleIntroText extends MusicBeatState {
+class TitleIntroText extends MusicBeatState
+{
 	var blackScreen:FlxSprite;
 	var credGroup:FlxGroup;
 	var textGroup:FlxGroup;
@@ -35,7 +36,8 @@ class TitleIntroText extends MusicBeatState {
 
 	var wackyImage:FlxSprite;
 
-	override public function create():Void {
+	override public function create():Void
+	{
 		useDefaultTransIn = false;
 		useDefaultTransOut = false;
 
@@ -61,13 +63,15 @@ class TitleIntroText extends MusicBeatState {
 		TitleScreen.titleMusic = "freakyMenu";
 	}
 
-	function getIntroTextShit():Array<Array<String>> {
+	function getIntroTextShit():Array<Array<String>>
+	{
 		var fullText:String = CoolUtil.getText(Paths.text("introText"));
 
 		var firstArray:Array<String> = fullText.split('\n');
 		var swagGoodArray:Array<Array<String>> = [];
 
-		for (i in firstArray) {
+		for (i in firstArray)
+		{
 			swagGoodArray.push(i.split('--'));
 		}
 
@@ -76,11 +80,13 @@ class TitleIntroText extends MusicBeatState {
 
 	var transitioning:Bool = false;
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
-		if (FlxG.keys.justPressed.F) {
+		if (FlxG.keys.justPressed.F)
+		{
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
 
@@ -88,7 +94,8 @@ class TitleIntroText extends MusicBeatState {
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null) {
+		if (gamepad != null)
+		{
 			if (gamepad.justPressed.START)
 				pressedEnter = true;
 
@@ -98,15 +105,18 @@ class TitleIntroText extends MusicBeatState {
 			#end
 		}
 
-		if (pressedEnter) {
+		if (pressedEnter)
+		{
 			skipIntro();
 		}
 
 		super.update(elapsed);
 	}
 
-	function createCoolText(textArray:Array<String>) {
-		for (i in 0...textArray.length) {
+	function createCoolText(textArray:Array<String>)
+	{
+		for (i in 0...textArray.length)
+		{
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false);
 			money.screenCenter(X);
 			money.y += (i * 60) + 200;
@@ -115,7 +125,8 @@ class TitleIntroText extends MusicBeatState {
 		}
 	}
 
-	function addMoreText(text:String) {
+	function addMoreText(text:String)
+	{
 		var coolText:Alphabet = new Alphabet(0, 0, text, true, false);
 		coolText.screenCenter(X);
 		coolText.y += (textGroup.length * 60) + 200;
@@ -123,17 +134,21 @@ class TitleIntroText extends MusicBeatState {
 		textGroup.add(coolText);
 	}
 
-	function deleteCoolText() {
-		while (textGroup.members.length > 0) {
+	function deleteCoolText()
+	{
+		while (textGroup.members.length > 0)
+		{
 			credGroup.remove(textGroup.members[0], true);
 			textGroup.remove(textGroup.members[0], true);
 		}
 	}
 
-	override function beatHit() {
+	override function beatHit()
+	{
 		super.beatHit();
 
-		switch (curBeat) {
+		switch (curBeat)
+		{
 			case 1:
 				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er', 'Rozebud']);
 			case 3:
@@ -168,7 +183,8 @@ class TitleIntroText extends MusicBeatState {
 		}
 	}
 
-	function skipIntro():Void {
+	function skipIntro():Void
+	{
 		switchState(new TitleScreen());
 	}
 }

@@ -12,7 +12,8 @@ import flixel.text.FlxText;
 
 using StringTools;
 
-class ConfigMenu extends UIStateExt {
+class ConfigMenu extends UIStateExt
+{
 	public static var exitTo:Class<Dynamic>;
 	public static var startSong = true;
 	public static var startInSubMenu:Int = -1;
@@ -75,17 +76,21 @@ class ConfigMenu extends UIStateExt {
 	static var scrollSpeedValue:Int;
 	static var showComboBreaksValue:Bool;
 
-	override function create() {
+	override function create()
+	{
 		openfl.Lib.current.stage.frameRate = 144;
 
-		if (exitTo == null) {
+		if (exitTo == null)
+		{
 			exitTo = MainMenuState;
 		}
 
-		if (startSong) {
+		if (startSong)
+		{
 			FlxG.sound.playMusic(Paths.music('configurator'));
 		}
-		else {
+		else
+		{
 			startSong = true;
 		}
 
@@ -126,7 +131,8 @@ class ConfigMenu extends UIStateExt {
 		var iconTexture = Paths.getSparrowAtlas("fpsPlus/config/icons");
 		var textTexture = Paths.getSparrowAtlas("fpsPlus/config/text");
 
-		for (i in 0...options.length) {
+		for (i in 0...options.length)
+		{
 			var icon = new FlxSprite();
 			icon.frames = iconTexture;
 			icon.animation.addByPrefix("boil", options[i] + "Icon", 24);
@@ -168,7 +174,8 @@ class ConfigMenu extends UIStateExt {
 		subMenuGroup.add(descText);
 
 		setupOptions();
-		if (startInSubMenu > -1) {
+		if (startInSubMenu > -1)
+		{
 			instantBringTextToTop(startInSubMenu);
 		}
 		changeSelected(0);
@@ -179,24 +186,30 @@ class ConfigMenu extends UIStateExt {
 		super.create();
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		super.update(elapsed);
 
-		switch (state) {
+		switch (state)
+		{
 			case "topLevelMenu":
-				if (controls.LEFT_P) {
+				if (controls.LEFT_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeSelected(-1);
 				}
-				else if (controls.RIGHT_P) {
+				else if (controls.RIGHT_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeSelected(1);
 				}
 
-				if (controls.BACK) {
+				if (controls.BACK)
+				{
 					exit();
 				}
-				else if (controls.ACCEPT) {
+				else if (controls.ACCEPT)
+				{
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 					bringTextToTop(curSelected);
 					curSelectedSub = 0;
@@ -204,31 +217,37 @@ class ConfigMenu extends UIStateExt {
 				}
 
 			case "subMenu":
-				if (controls.BACK) {
+				if (controls.BACK)
+				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					backToCategories();
 				}
 
-				if (controls.UP_P) {
+				if (controls.UP_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeSubSelected(-1);
 				}
-				else if (controls.DOWN_P) {
+				else if (controls.DOWN_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeSubSelected(1);
 				}
 
-				if (configOptions[curSelected][curSelectedSub].optionUpdate != null) {
+				if (configOptions[curSelected][curSelectedSub].optionUpdate != null)
+				{
 					configOptions[curSelected][curSelectedSub].optionUpdate();
 				}
 
-				if (controls.UP_P || controls.DOWN_P || controls.LEFT_P || controls.RIGHT_P || controls.ACCEPT) {
+				if (controls.UP_P || controls.DOWN_P || controls.LEFT_P || controls.RIGHT_P || controls.ACCEPT)
+				{
 					textUpdate();
 				}
 		}
 	}
 
-	function exit() {
+	function exit()
+	{
 		writeToConfig();
 		FlxG.sound.music.stop();
 		FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -236,7 +255,8 @@ class ConfigMenu extends UIStateExt {
 		exitTo = null;
 	}
 
-	function bringTextToTop(x:Int) {
+	function bringTextToTop(x:Int)
+	{
 		state = "subMenu";
 		FlxTween.cancelTweensOf(titles[x]);
 		FlxTween.cancelTweensOf(topLevelMenuGroup);
@@ -250,8 +270,10 @@ class ConfigMenu extends UIStateExt {
 		FlxTween.tween(subMenuGroup, {alpha: 1}, menuAlphaTweenTime, {ease: FlxEase.quintOut});
 		FlxTween.tween(descBar, {y: 720 - descBar.height}, menuAlphaTweenTime, {ease: FlxEase.quintOut});
 		FlxTween.color(bg, 1.75, 0xFF4961B8, 0xFF5C6CA5, {ease: FlxEase.quintOut});
-		for (i in 0...titles.length) {
-			if (i != x) {
+		for (i in 0...titles.length)
+		{
+			if (i != x)
+			{
 				FlxTween.cancelTweensOf(titles[i]);
 				FlxTween.tween(titles[i], {x: icons[i].getGraphicMidpoint().x - titles[i].frameWidth / 2, y: 3 / 4 * 720, alpha: 0}, menuAlphaTweenTime,
 					{ease: FlxEase.quintOut});
@@ -259,7 +281,8 @@ class ConfigMenu extends UIStateExt {
 		}
 	}
 
-	function instantBringTextToTop(x:Int) {
+	function instantBringTextToTop(x:Int)
+	{
 		state = "subMenu";
 		curSelected = x;
 		startInSubMenu = -1;
@@ -269,8 +292,10 @@ class ConfigMenu extends UIStateExt {
 		topLevelMenuGroup.alpha = 0;
 		subMenuGroup.alpha = 1;
 		descBar.y = 720 - descBar.height;
-		for (i in 0...titles.length) {
-			if (i != x) {
+		for (i in 0...titles.length)
+		{
+			if (i != x)
+			{
 				titles[i].x = icons[i].getGraphicMidpoint().x - titles[i].frameWidth / 2;
 				titles[i].y = 3 / 4 * 720;
 				titles[i].alpha = 0;
@@ -279,12 +304,14 @@ class ConfigMenu extends UIStateExt {
 		textUpdate();
 	}
 
-	function backToCategories() {
+	function backToCategories()
+	{
 		state = "topLevelMenu";
 		FlxTween.cancelTweensOf(topLevelMenuGroup);
 		FlxTween.cancelTweensOf(subMenuGroup);
 		FlxTween.cancelTweensOf(descBar);
-		for (i in 0...titles.length) {
+		for (i in 0...titles.length)
+		{
 			FlxTween.cancelTweensOf(titles[i]);
 			FlxTween.tween(titles[i], {x: icons[i].getGraphicMidpoint().x - titles[i].frameWidth / 2, y: 3 / 4 * 720, alpha: 1}, menuTweenTime,
 				{ease: FlxEase.quintOut});
@@ -294,52 +321,64 @@ class ConfigMenu extends UIStateExt {
 		FlxTween.tween(subMenuGroup, {alpha: 0}, menuAlphaTweenTime, {ease: FlxEase.quintOut});
 	}
 
-	function changeSelected(change:Int) {
+	function changeSelected(change:Int)
+	{
 		curSelected += change;
 
-		if (curSelected < 0) {
+		if (curSelected < 0)
+		{
 			curSelected = options.length - 1;
 		}
-		else if (curSelected >= options.length) {
+		else if (curSelected >= options.length)
+		{
 			curSelected = 0;
 		}
 
-		for (i in 0...options.length) {
-			if (i == curSelected) {
+		for (i in 0...options.length)
+		{
+			if (i == curSelected)
+			{
 				icons[i].scale.set(1, 1);
 				titles[i].animation.play("active");
 				splatter.setPosition(icons[i].getGraphicMidpoint().x, icons[i].getGraphicMidpoint().y);
 				splatter.x -= splatter.width / 2;
 				splatter.y -= splatter.height / 2;
 			}
-			else {
+			else
+			{
 				icons[i].scale.set(0.85, 0.85);
 				titles[i].animation.play("inactive");
 			}
 		}
 	}
 
-	function changeSubSelected(change:Int) {
+	function changeSubSelected(change:Int)
+	{
 		curSelectedSub += change;
 
-		if (curSelectedSub < 0) {
+		if (curSelectedSub < 0)
+		{
 			curSelectedSub = configOptions[curSelected].length - 1;
 		}
-		else if (curSelectedSub >= configOptions[curSelected].length) {
+		else if (curSelectedSub >= configOptions[curSelected].length)
+		{
 			curSelectedSub = 0;
 		}
 	}
 
-	function textUpdate() {
+	function textUpdate()
+	{
 		configText.clearFormats();
 		configText.text = "";
 
-		for (i in 0...configOptions[curSelected].length) {
+		for (i in 0...configOptions[curSelected].length)
+		{
 			var sectionStart = configText.text.length;
 			configText.text += configOptions[curSelected][i].name + configOptions[curSelected][i].setting + "\n";
 			var sectionEnd = configText.text.length - 1;
 
-			if (i == curSelectedSub) {
+			if (i == curSelectedSub)
+			{
 				configText.addFormat(new FlxTextFormat(0xFFFFFF00), sectionStart, sectionEnd);
 			}
 		}
@@ -354,7 +393,8 @@ class ConfigMenu extends UIStateExt {
 		// tabDisplay.text = Std.string(tabKeys);
 	}
 
-	function setupOptions() {
+	function setupOptions()
+	{
 		offsetValue = Config.offset;
 		accuracyType = Config.accuracy;
 		accuracyTypeInt = accuracyTypes.indexOf(Config.accuracy);
@@ -375,9 +415,11 @@ class ConfigMenu extends UIStateExt {
 
 		var fpsCap = new ConfigOption("UNCAPPED FRAMERATE", #if desktop ": " + genericOnOff[noCapValue ? 0 : 1]#else ": disabled" #end,
 			#if desktop "Uncaps the framerate during gameplay." #else "Disabled on Web builds." #end);
-		fpsCap.optionUpdate = function() {
+		fpsCap.optionUpdate = function()
+		{
 			#if desktop
-			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT) {
+			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				noCapValue = !noCapValue;
 			}
@@ -387,13 +429,16 @@ class ConfigMenu extends UIStateExt {
 
 		var bgDim = new ConfigOption("BACKGROUND DIM", ": " + (dimValue * 10) + "%",
 			"Adjusts how dark the background is.\nIt is recommended that you use the HUD combo display with a high background dim.");
-		bgDim.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		bgDim.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				dimValue += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				dimValue -= 1;
 			}
@@ -411,13 +456,16 @@ class ConfigMenu extends UIStateExt {
 		noteSplash.extraData[0] = "Note splashes are disabled.";
 		noteSplash.extraData[1] = "Note splashes are created when you get a sick rating.";
 		noteSplash.extraData[2] = "Note splashes are created every time you hit a note. \nWhy?";
-		noteSplash.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		noteSplash.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				noteSplashValue += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				noteSplashValue -= 1;
 			}
@@ -432,8 +480,10 @@ class ConfigMenu extends UIStateExt {
 		}
 
 		var noteGlow = new ConfigOption("NOTE GLOW", ": " + genericOnOff[glowValue ? 0 : 1], "Makes note arrows glow if they are able to be hit.");
-		noteGlow.optionUpdate = function() {
-			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT) {
+		noteGlow.optionUpdate = function()
+		{
+			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				glowValue = !glowValue;
 			}
@@ -446,41 +496,50 @@ class ConfigMenu extends UIStateExt {
 			"Adjust note timings.\nPress \"ENTER\" to start the offset calibration." +
 			(FlxG.save.data.ee1 ? "\nHold \"SHIFT\" to force the pixel calibration.\nHold \"CTRL\" to force the normal calibration." : ""));
 		noteOffset.extraData[0] = 0;
-		noteOffset.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		noteOffset.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				offsetValue += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				offsetValue -= 1;
 			}
 
-			if (controls.RIGHT) {
+			if (controls.RIGHT)
+			{
 				noteOffset.extraData[0]++;
 
-				if (noteOffset.extraData[0] > 64) {
+				if (noteOffset.extraData[0] > 64)
+				{
 					offsetValue += 1;
 					textUpdate();
 				}
 			}
 
-			if (controls.LEFT) {
+			if (controls.LEFT)
+			{
 				noteOffset.extraData[0]++;
 
-				if (noteOffset.extraData[0] > 64) {
+				if (noteOffset.extraData[0] > 64)
+				{
 					offsetValue -= 1;
 					textUpdate();
 				}
 			}
 
-			if (!controls.RIGHT && !controls.LEFT) {
+			if (!controls.RIGHT && !controls.LEFT)
+			{
 				noteOffset.extraData[0] = 0;
 				textUpdate();
 			}
 
-			if (FlxG.keys.justPressed.ENTER) {
+			if (FlxG.keys.justPressed.ENTER)
+			{
 				state = "transitioning";
 				startInSubMenu = curSelected;
 				FlxG.sound.music.fadeOut(0.3);
@@ -493,8 +552,10 @@ class ConfigMenu extends UIStateExt {
 		};
 
 		var downscroll = new ConfigOption("DOWNSCROLL", ": " + genericOnOff[downValue ? 0 : 1], "Makes notes approach from the top instead the bottom.");
-		downscroll.optionUpdate = function() {
-			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT) {
+		downscroll.optionUpdate = function()
+		{
+			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				downValue = !downValue;
 			}
@@ -503,8 +564,10 @@ class ConfigMenu extends UIStateExt {
 
 		var centeredNotes = new ConfigOption("CENTERED STRUM LINE", ": " + genericOnOff[centeredValue ? 0 : 1],
 			"Makes the strum line centered instead of to the side.");
-		centeredNotes.optionUpdate = function() {
-			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT) {
+		centeredNotes.optionUpdate = function()
+		{
+			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				centeredValue = !centeredValue;
 			}
@@ -515,13 +578,16 @@ class ConfigMenu extends UIStateExt {
 		ghostTap.extraData[0] = "Any key press that isn't for a valid note will cause you to miss.";
 		ghostTap.extraData[1] = "You can only  miss while you need to sing.";
 		ghostTap.extraData[2] = "You cannot miss unless you do not hit a note.";
-		ghostTap.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		ghostTap.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				randomTapValue += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				randomTapValue -= 1;
 			}
@@ -536,8 +602,10 @@ class ConfigMenu extends UIStateExt {
 		}
 
 		var keyBinds = new ConfigOption("[EDIT KEY BINDS]", "", "Press ENTER to change key binds.");
-		keyBinds.optionUpdate = function() {
-			if (controls.ACCEPT) {
+		keyBinds.optionUpdate = function()
+		{
+			if (controls.ACCEPT)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				state = "transitioning";
 				startInSubMenu = curSelected;
@@ -556,13 +624,16 @@ class ConfigMenu extends UIStateExt {
 		controllerBinds.extraData[6] = "LEFT: ALL DPAD DIRECTIONS\nDOWN: LEFT BUMPER / LEFT TRIGGER\nUP: RIGHT BUMPER / RIGHT TRIGGER\nRIGHT: ALL FACE BUTTONS";
 		controllerBinds.extraData[7] = "Press A (CROSS) to change controller binds.";
 		controllerBinds.setting = ": " + controllerBinds.extraData[scheme];
-		controllerBinds.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		controllerBinds.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				scheme += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				scheme -= 1;
 			}
@@ -572,7 +643,8 @@ class ConfigMenu extends UIStateExt {
 			if (scheme < 0)
 				scheme = 4 - 1;
 
-			if (controls.ACCEPT && scheme == 4 - 1) {
+			if (controls.ACCEPT && scheme == 4 - 1)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				state = "transitioning";
 				startInSubMenu = curSelected;
@@ -588,13 +660,16 @@ class ConfigMenu extends UIStateExt {
 
 		var accuracyDisplay = new ConfigOption("ACCURACY DISPLAY", ": " + accuracyType,
 			"What type of accuracy calculation you want to use. Simple is just notes hit / total notes. Complex also factors in how early or late a note was.");
-		accuracyDisplay.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		accuracyDisplay.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				accuracyTypeInt += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				accuracyTypeInt -= 1;
 			}
@@ -613,13 +688,16 @@ class ConfigMenu extends UIStateExt {
 		comboDisplay.extraData[0] = "Ratings and combo count are a part of the world and move around with the camera.";
 		comboDisplay.extraData[1] = "Ratings and combo count are a part of the hud and stay in a static position.";
 		comboDisplay.extraData[2] = "Ratings and combo count are hidden.";
-		comboDisplay.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		comboDisplay.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				comboValue += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				comboValue -= 1;
 			}
@@ -635,13 +713,16 @@ class ConfigMenu extends UIStateExt {
 
 		var hpGain = new ConfigOption("HP GAIN MULTIPLIER", ": " + healthValue / 10.0, "Modifies how much Health you gain when hitting a note.");
 		hpGain.extraData[0] = 0;
-		hpGain.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		hpGain.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				healthValue += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				healthValue -= 1;
 			}
@@ -651,25 +732,30 @@ class ConfigMenu extends UIStateExt {
 			if (healthValue < 0)
 				healthValue = 100;
 
-			if (controls.RIGHT) {
+			if (controls.RIGHT)
+			{
 				hpGain.extraData[0]++;
 
-				if (hpGain.extraData[0] > 64 && hpGain.extraData[0] % 10 == 0) {
+				if (hpGain.extraData[0] > 64 && hpGain.extraData[0] % 10 == 0)
+				{
 					healthValue += 1;
 					textUpdate();
 				}
 			}
 
-			if (controls.LEFT) {
+			if (controls.LEFT)
+			{
 				hpGain.extraData[0]++;
 
-				if (hpGain.extraData[0] > 64 && hpGain.extraData[0] % 10 == 0) {
+				if (hpGain.extraData[0] > 64 && hpGain.extraData[0] % 10 == 0)
+				{
 					healthValue -= 1;
 					textUpdate();
 				}
 			}
 
-			if (!controls.RIGHT && !controls.LEFT) {
+			if (!controls.RIGHT && !controls.LEFT)
+			{
 				hpGain.extraData[0] = 0;
 				textUpdate();
 			}
@@ -679,13 +765,16 @@ class ConfigMenu extends UIStateExt {
 
 		var hpDrain = new ConfigOption("HP LOSS MULTIPLIER", ": " + healthDrainValue / 10.0, "Modifies how much Health you lose when missing a note.");
 		hpDrain.extraData[0] = 0;
-		hpDrain.optionUpdate = function() {
-			if (controls.RIGHT_P) {
+		hpDrain.optionUpdate = function()
+		{
+			if (controls.RIGHT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				healthDrainValue += 1;
 			}
 
-			if (controls.LEFT_P) {
+			if (controls.LEFT_P)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				healthDrainValue -= 1;
 			}
@@ -695,25 +784,30 @@ class ConfigMenu extends UIStateExt {
 			if (healthDrainValue < 0)
 				healthDrainValue = 100;
 
-			if (controls.RIGHT) {
+			if (controls.RIGHT)
+			{
 				hpGain.extraData[0]++;
 
-				if (hpGain.extraData[0] > 64 && hpGain.extraData[0] % 10 == 0) {
+				if (hpGain.extraData[0] > 64 && hpGain.extraData[0] % 10 == 0)
+				{
 					healthDrainValue += 1;
 					textUpdate();
 				}
 			}
 
-			if (controls.LEFT) {
+			if (controls.LEFT)
+			{
 				hpGain.extraData[0]++;
 
-				if (hpGain.extraData[0] > 64 && hpGain.extraData[0] % 10 == 0) {
+				if (hpGain.extraData[0] > 64 && hpGain.extraData[0] % 10 == 0)
+				{
 					healthDrainValue -= 1;
 					textUpdate();
 				}
 			}
 
-			if (!controls.RIGHT && !controls.LEFT) {
+			if (!controls.RIGHT && !controls.LEFT)
+			{
 				hpGain.extraData[0] = 0;
 				textUpdate();
 			}
@@ -722,8 +816,10 @@ class ConfigMenu extends UIStateExt {
 		};
 
 		var cacheSettings = new ConfigOption("[CACHE SETTINGS]", "", "Press ENTER to change what assets the game keeps cached.");
-		cacheSettings.optionUpdate = function() {
-			if (controls.ACCEPT) {
+		cacheSettings.optionUpdate = function()
+		{
+			if (controls.ACCEPT)
+			{
 				#if desktop
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				state = "transitioning";
@@ -739,14 +835,18 @@ class ConfigMenu extends UIStateExt {
 		scrollSpeed.extraData[0] = 0;
 		scrollSpeed.extraData[1] = "Press ENTER to enable.\nSets the song scroll speed to the set value instead of the song's default.";
 		scrollSpeed.extraData[2] = "Press ENTER to disable.\nSets the song scroll speed to the set value instead of the song's default.";
-		scrollSpeed.optionUpdate = function() {
-			if (scrollSpeedValue != -10) {
-				if (controls.RIGHT_P) {
+		scrollSpeed.optionUpdate = function()
+		{
+			if (scrollSpeedValue != -10)
+			{
+				if (controls.RIGHT_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					scrollSpeedValue += 1;
 				}
 
-				if (controls.LEFT_P) {
+				if (controls.LEFT_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					scrollSpeedValue -= 1;
 				}
@@ -756,36 +856,44 @@ class ConfigMenu extends UIStateExt {
 				if (scrollSpeedValue < 10)
 					scrollSpeedValue = 50;
 
-				if (controls.RIGHT) {
+				if (controls.RIGHT)
+				{
 					scrollSpeed.extraData[0]++;
 
-					if (scrollSpeed.extraData[0] > 64 && scrollSpeed.extraData[0] % 10 == 0) {
+					if (scrollSpeed.extraData[0] > 64 && scrollSpeed.extraData[0] % 10 == 0)
+					{
 						scrollSpeedValue += 1;
 						textUpdate();
 					}
 				}
 
-				if (controls.LEFT) {
+				if (controls.LEFT)
+				{
 					scrollSpeed.extraData[0]++;
 
-					if (scrollSpeed.extraData[0] > 64 && scrollSpeed.extraData[0] % 10 == 0) {
+					if (scrollSpeed.extraData[0] > 64 && scrollSpeed.extraData[0] % 10 == 0)
+					{
 						scrollSpeedValue -= 1;
 						textUpdate();
 					}
 				}
 
-				if (!controls.RIGHT && !controls.LEFT) {
+				if (!controls.RIGHT && !controls.LEFT)
+				{
 					scrollSpeed.extraData[0] = 0;
 					textUpdate();
 				}
 
-				if (controls.ACCEPT) {
+				if (controls.ACCEPT)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					scrollSpeedValue = -10;
 				}
 			}
-			else {
-				if (controls.ACCEPT) {
+			else
+			{
+				if (controls.ACCEPT)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					scrollSpeedValue = 10;
 				}
@@ -797,8 +905,10 @@ class ConfigMenu extends UIStateExt {
 
 		var showComboBreaks = new ConfigOption("SHOW COMBO BREAKS", ": " + genericOnOff[showComboBreaksValue ? 0 : 1],
 			"Show combo breaks instead of misses.\nMisses only happen when you actually miss a note.\nCombo breaks can happen in other instances like dropping hold notes.");
-		showComboBreaks.optionUpdate = function() {
-			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT) {
+		showComboBreaks.optionUpdate = function()
+		{
+			if (controls.RIGHT_P || controls.LEFT_P || controls.ACCEPT)
+			{
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				showComboBreaksValue = !showComboBreaksValue;
 			}
@@ -820,24 +930,28 @@ class ConfigMenu extends UIStateExt {
 		];
 	}
 
-	function writeToConfig() {
+	function writeToConfig()
+	{
 		Config.write(offsetValue, accuracyType, healthValue / 10.0, healthDrainValue / 10.0, comboValue, downValue, glowValue, randomTapValue, noCapValue,
 			scheme, dimValue, noteSplashValue, centeredValue, scrollSpeedValue / 10.0, showComboBreaksValue);
 	}
 }
 
-class ConfigOption {
+class ConfigOption
+{
 	public var name:String;
 	public var setting:String;
 	public var description:String;
 	public var optionUpdate:Void->Void;
 	public var extraData:Array<Dynamic> = [];
 
-	public function new(_name:String, _setting:String, _description:String, ?initFunction:Void->Void) {
+	public function new(_name:String, _setting:String, _description:String, ?initFunction:Void->Void)
+	{
 		name = _name;
 		setting = _setting;
 		description = _description;
-		if (initFunction != null) {
+		if (initFunction != null)
+		{
 			initFunction();
 		}
 	}

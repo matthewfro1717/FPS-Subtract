@@ -17,7 +17,8 @@ using StringTools;
 /**
 	*DEBUG MODE
  */
-class AnimationDebug extends FlxState {
+class AnimationDebug extends FlxState
+{
 	var dad:Character;
 	var dadBG:Character;
 	// var char:Character;
@@ -34,12 +35,14 @@ class AnimationDebug extends FlxState {
 
 	// var flippedChars:Array<String> = ["pico", "tankman"];
 
-	public function new(daAnim:String = 'spooky') {
+	public function new(daAnim:String = 'spooky')
+	{
 		super();
 		this.daAnim = daAnim;
 	}
 
-	override function create() {
+	override function create()
+	{
 		openfl.Lib.current.stage.frameRate = 144;
 
 		camGame = new FlxCamera();
@@ -92,10 +95,12 @@ class AnimationDebug extends FlxState {
 		super.create();
 	}
 
-	function genBoyOffsets(pushList:Bool = true):Void {
+	function genBoyOffsets(pushList:Bool = true):Void
+	{
 		var daLoop:Int = 0;
 
-		for (anim => offsets in dad.animOffsets) {
+		for (anim => offsets in dad.animOffsets)
+		{
 			var text:FlxText = new FlxText(10, 20 + (18 * daLoop), 0, anim + ": " + offsets, 15);
 			text.scrollFactor.set(0);
 			text.color = FlxColor.BLUE;
@@ -109,14 +114,17 @@ class AnimationDebug extends FlxState {
 		}
 	}
 
-	function updateTexts():Void {
-		dumbTexts.forEach(function(text:FlxText) {
+	function updateTexts():Void
+	{
+		dumbTexts.forEach(function(text:FlxText)
+		{
 			text.kill();
 			dumbTexts.remove(text, true);
 		});
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		textAnim.text = dad.animation.curAnim.name;
 
 		if (FlxG.keys.pressed.E)
@@ -124,11 +132,13 @@ class AnimationDebug extends FlxState {
 		if (FlxG.keys.pressed.Q)
 			FlxG.camera.zoom -= 0.0025;
 
-		if (FlxG.keys.pressed.CONTROL && FlxG.keys.justPressed.C) {
+		if (FlxG.keys.pressed.CONTROL && FlxG.keys.justPressed.C)
+		{
 			copyOffsetToClipboard();
 		}
 
-		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L) {
+		if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L)
+		{
 			if (FlxG.keys.pressed.I)
 				camFollow.velocity.y = -150;
 			else if (FlxG.keys.pressed.K)
@@ -143,15 +153,18 @@ class AnimationDebug extends FlxState {
 			else
 				camFollow.velocity.x = 0;
 		}
-		else {
+		else
+		{
 			camFollow.velocity.set();
 		}
 
-		if (FlxG.keys.justPressed.W) {
+		if (FlxG.keys.justPressed.W)
+		{
 			curAnim -= 1;
 		}
 
-		if (FlxG.keys.justPressed.S) {
+		if (FlxG.keys.justPressed.S)
+		{
 			curAnim += 1;
 		}
 
@@ -161,7 +174,8 @@ class AnimationDebug extends FlxState {
 		if (curAnim >= animList.length)
 			curAnim = 0;
 
-		if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE) {
+		if (FlxG.keys.justPressed.S || FlxG.keys.justPressed.W || FlxG.keys.justPressed.SPACE)
+		{
 			dad.playAnim(animList[curAnim], true);
 
 			if (animList[curAnim].endsWith("miss"))
@@ -173,7 +187,8 @@ class AnimationDebug extends FlxState {
 			genBoyOffsets(false);
 		}
 
-		if (FlxG.keys.justPressed.ESCAPE) {
+		if (FlxG.keys.justPressed.ESCAPE)
+		{
 			FlxG.switchState(new PlayState());
 		}
 
@@ -187,24 +202,29 @@ class AnimationDebug extends FlxState {
 		if (holdShift)
 			multiplier = 10;
 
-		if (upP || rightP || downP || leftP) {
+		if (upP || rightP || downP || leftP)
+		{
 			// updateTexts();
-			if (upP) {
+			if (upP)
+			{
 				dad.animOffsets.get(animList[curAnim])[1] += 1 * multiplier;
 				dadBG.animOffsets.get(animList[curAnim])[1] += 1 * multiplier;
 			}
 
-			if (downP) {
+			if (downP)
+			{
 				dad.animOffsets.get(animList[curAnim])[1] -= 1 * multiplier;
 				dadBG.animOffsets.get(animList[curAnim])[1] -= 1 * multiplier;
 			}
 
-			if (leftP) {
+			if (leftP)
+			{
 				dad.animOffsets.get(animList[curAnim])[0] += 1 * multiplier;
 				dadBG.animOffsets.get(animList[curAnim])[0] += 1 * multiplier;
 			}
 
-			if (rightP) {
+			if (rightP)
+			{
 				dad.animOffsets.get(animList[curAnim])[0] -= 1 * multiplier;
 				dadBG.animOffsets.get(animList[curAnim])[0] -= 1 * multiplier;
 			}
@@ -217,10 +237,12 @@ class AnimationDebug extends FlxState {
 		super.update(elapsed);
 	}
 
-	function copyOffsetToClipboard() {
+	function copyOffsetToClipboard()
+	{
 		var r = "";
 
-		for (x in animList) {
+		for (x in animList)
+		{
 			r += "addOffset(\"" + x + "\", " + dad.animOffsets.get(x)[0] + ", " + dad.animOffsets.get(x)[1] + ");\n";
 		}
 

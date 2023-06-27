@@ -8,22 +8,17 @@ import lime.utils.Assets;
 
 using StringTools;
 
-@:keep class CoolUtil {
-	public static inline function coolTextFile(path:String):Array<String> {
+@:keep class CoolUtil
+{
+	public static inline function coolTextFile(path:String):Array<String>
+	{
 		var daList:Array<String> = getText(path).trim().split('\n');
-
-		for (i in 0...daList.length) {
-			daList[i] = daList[i].trim();
-		}
-
-		return daList;
+		return [for (i in 0...daList.length) daList[i].trim()];
 	}
 
-	public static inline function numberArray(max:Int, ?min = 0):Array<Int> {
-		var dumbArray:Array<Int> = [];
-		for (i in min...max)
-			dumbArray.push(i);
-		return dumbArray;
+	public static inline function numberArray(max:Int, ?min = 0):Array<Int>
+	{
+		return [for (i in min...max) i];
 	}
 
 	/**
@@ -33,14 +28,16 @@ using StringTools;
 			Actually make and modify the scroll and lerp shit in it's own function
 			instead of solely relying on changing the lerp on the fly
 	 */
-	public static inline function fpsAdjust(value:Float, ?referenceFps:Float = 60):Float {
+	public static inline function fpsAdjust(value:Float, ?referenceFps:Float = 60):Float
+	{
 		return value * (FlxG.elapsed / (1 / referenceFps));
 	}
 
 	/*
 	 * just lerp that does camLerpShit for u so u dont have to do it every time
 	 */
-	public static inline function fpsAdjsutedLerp(a:Float, b:Float, ratio:Float):Float {
+	public static inline function fpsAdjsutedLerp(a:Float, b:Float, ratio:Float):Float
+	{
 		return FlxMath.lerp(a, b, fpsAdjust(ratio));
 	}
 
@@ -50,7 +47,8 @@ using StringTools;
 	 * This also means that if you delete a file, it will return true because it's still in the manifest.
 	 * FileSystem only works on certain build types though (namely, not web).
 	 */
-	public static inline function exists(path:String):Bool {
+	public static inline function exists(path:String):Bool
+	{
 		#if desktop
 		return FileSystem.exists(path);
 		#else
@@ -59,20 +57,27 @@ using StringTools;
 	}
 
 	// Same as above but for getting text from a file.
-	public static inline function getText(path:String):String {
-		#if desktop
-		return File.getContent(path);
-		#else
-		return Assets.getText(path);
-		#end
+	public static inline function getText(path:String):String
+	{
+		return #if sys File.getContent(path) #else Assets.getText(path) #end;
 	}
 
-	public static inline function inRange(a:Float, b:Float, tolerance:Float) {
+	public static inline function inRange(a:Float, b:Float, tolerance:Float)
+	{
 		return (a <= b + tolerance && a >= b - tolerance);
 	}
 
-	public static inline function boundInt(Value:Int, ?Min:Int, ?Max:Int):Int {
+	public static inline function boundInt(Value:Int, ?Min:Int, ?Max:Int):Int
+	{
 		var lowerBound:Int = (Min != null && Value < Min) ? Min : Value;
 		return (Max != null && lowerBound > Max) ? Max : lowerBound;
+	}
+
+	public static inline function truncateFloat(number:Float, precision:Int):Float
+	{
+		var num = number;
+		num = num * Math.pow(10, precision);
+		num = Math.round(num) / Math.pow(10, precision);
+		return num;
 	}
 }

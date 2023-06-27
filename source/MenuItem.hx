@@ -7,12 +7,14 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 
-class MenuItem extends FlxSpriteGroup {
+class MenuItem extends FlxSpriteGroup
+{
 	public var targetY:Float = 0;
 	public var week:FlxSprite;
 	public var flashingInt:Int = 0;
 
-	public function new(x:Float, y:Float, weekNum:Int = 0) {
+	public function new(x:Float, y:Float, weekNum:Int = 0)
+	{
 		super(x, y);
 		week = new FlxSprite().loadGraphic(Paths.image('menu/story/weeks/week' + weekNum));
 		add(week);
@@ -20,7 +22,8 @@ class MenuItem extends FlxSpriteGroup {
 
 	private var isFlashing:Bool = false;
 
-	public function startFlashing():Void {
+	public function startFlashing():Void
+	{
 		isFlashing = true;
 	}
 
@@ -30,7 +33,8 @@ class MenuItem extends FlxSpriteGroup {
 	// I'm still learning how math works thanks whoever is reading this lol
 	var fakeFramerate:Int = Math.round((1 / FlxG.elapsed) / 10);
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		super.update(elapsed);
 		y = CoolUtil.fpsAdjsutedLerp(y, (targetY * 120) + 480, 0.17);
 

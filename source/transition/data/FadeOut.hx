@@ -9,11 +9,13 @@ import flixel.FlxSprite;
 /**
 	A simple fade to a color.
 **/
-class FadeOut extends BasicTransition {
+class FadeOut extends BasicTransition
+{
 	var blockThing:FlxSprite;
 	var time:Float;
 
-	override public function new(_time:Float, ?_color:FlxColor = FlxColor.BLACK) {
+	override public function new(_time:Float, ?_color:FlxColor = FlxColor.BLACK)
+	{
 		super();
 
 		time = _time;
@@ -23,10 +25,12 @@ class FadeOut extends BasicTransition {
 		add(blockThing);
 	}
 
-	override public function play() {
+	override public function play()
+	{
 		FlxTween.tween(blockThing, {alpha: 1}, time, {
 			ease: FlxEase.quartOut,
-			onComplete: function(tween) {
+			onComplete: function(tween)
+			{
 				end();
 			}
 		});

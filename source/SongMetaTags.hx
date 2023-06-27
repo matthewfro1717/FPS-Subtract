@@ -14,12 +14,14 @@ import flixel.util.FlxColor;
 using StringTools;
 using flixel.util.FlxSpriteUtil;
 
-class SongMetaTags extends FlxSpriteGroup {
+class SongMetaTags extends FlxSpriteGroup
+{
 	var meta:Array<Array<String>> = [];
 	var size:Float = 0;
 	var fontSize:Int = 24;
 
-	public function new(_x:Float, _y:Float, _song:String) {
+	public function new(_x:Float, _y:Float, _song:String)
+	{
 		super(_x, _y);
 
 		var text = new FlxText(0, 0, 0, "", fontSize);
@@ -41,16 +43,19 @@ class SongMetaTags extends FlxSpriteGroup {
 		visible = false;
 	}
 
-	public function start() {
+	public function start()
+	{
 		visible = true;
 
 		FlxTween.tween(this, {x: x + size + (fontSize / 2)}, 1, {
 			ease: FlxEase.quintOut,
-			onComplete: function(twn:FlxTween) {
+			onComplete: function(twn:FlxTween)
+			{
 				FlxTween.tween(this, {x: x - size}, 1, {
 					ease: FlxEase.quintIn,
 					startDelay: 2,
-					onComplete: function(twn:FlxTween) {
+					onComplete: function(twn:FlxTween)
+					{
 						this.destroy();
 					}
 				});

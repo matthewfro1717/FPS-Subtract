@@ -10,16 +10,19 @@ import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
-class GameOverSubstate extends MusicBeatSubstate {
+class GameOverSubstate extends MusicBeatSubstate
+{
 	var bf:Character;
 	var camFollow:FlxObject;
 
 	var stageSuffix:String = "";
 
-	public function new(x:Float, y:Float, camX:Float, camY:Float, character:String) {
+	public function new(x:Float, y:Float, camX:Float, camY:Float, character:String)
+	{
 		var daStage = PlayState.curStage;
 		var daBf:String = character;
-		switch (daBf) {
+		switch (daBf)
+		{
 			case 'bf-pixel-dead':
 				stageSuffix = '-pixel';
 		}
@@ -46,16 +49,19 @@ class GameOverSubstate extends MusicBeatSubstate {
 		bf.playAnim('firstDeath');
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		super.update(elapsed);
 
 		FlxG.camera.follow(camFollow, LOCKON);
 
-		if (controls.ACCEPT && !isEnding) {
+		if (controls.ACCEPT && !isEnding)
+		{
 			endBullshit();
 		}
 
-		if (controls.BACK && !isEnding) {
+		if (controls.BACK && !isEnding)
+		{
 			FlxG.sound.music.stop();
 			isEnding = true;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -71,12 +77,15 @@ class GameOverSubstate extends MusicBeatSubstate {
 			FlxG.camera.fade(FlxColor.BLACK, 0.1, false);
 		}
 
-		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished) {
-			switch (PlayState.SONG.player2) {
+		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
+		{
+			switch (PlayState.SONG.player2)
+			{
 				case "tankman":
 					bf.playAnim('deathLoop');
 					FlxG.sound.playMusic(Paths.music('gameOver' + stageSuffix), 0.2);
-					FlxG.sound.play(Paths.sound('week7/jeffGameover/jeffGameover-' + FlxG.random.int(1, 25)), 1, false, null, true, function() {
+					FlxG.sound.play(Paths.sound('week7/jeffGameover/jeffGameover-' + FlxG.random.int(1, 25)), 1, false, null, true, function()
+					{
 						if (!isEnding)
 							FlxG.sound.music.fadeIn(2.5, 0.2, 1);
 					});
@@ -87,12 +96,14 @@ class GameOverSubstate extends MusicBeatSubstate {
 			}
 		}
 
-		if (FlxG.sound.music.playing) {
+		if (FlxG.sound.music.playing)
+		{
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
 	}
 
-	override function beatHit() {
+	override function beatHit()
+	{
 		super.beatHit();
 
 		FlxG.log.add('beat');
@@ -100,15 +111,18 @@ class GameOverSubstate extends MusicBeatSubstate {
 
 	var isEnding:Bool = false;
 
-	function endBullshit():Void {
+	function endBullshit():Void
+	{
 		// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyDown);
 		// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyUp);
 		isEnding = true;
 		bf.playAnim('deathConfirm', true);
 		FlxG.sound.music.stop();
 		FlxG.sound.play(Paths.music('gameOverEnd' + stageSuffix));
-		new FlxTimer().start(0.4, function(tmr:FlxTimer) {
-			FlxG.camera.fade(FlxColor.BLACK, 1.2, false, function() {
+		new FlxTimer().start(0.4, function(tmr:FlxTimer)
+		{
+			FlxG.camera.fade(FlxColor.BLACK, 1.2, false, function()
+			{
 				PlayState.instance.switchState(new PlayState());
 			});
 		});

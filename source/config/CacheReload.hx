@@ -64,8 +64,6 @@ class CacheReload extends FlxState
             songsCached = true;
         }
 
-        System.gc();
-
         var text = new FlxText(0, 0, 1280, "LOADING ASSETS...", 64);
 	    text.scrollFactor.set(0, 0);
 	    text.setFormat(Paths.font("vcr"), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -83,13 +81,8 @@ class CacheReload extends FlxState
 
     override function update(elapsed) 
     {
-
-        if(songsCached && charactersCached && graphicsCached){
-            
-            System.gc();
+        if(songsCached && charactersCached && graphicsCached)
             FlxG.switchState(nextState);
-
-        }
 
         if(startCachingCharacters){
             if(charI >= Startup.characters.length){

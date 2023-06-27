@@ -8,7 +8,8 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 
-class PauseSubState extends MusicBeatSubstate {
+class PauseSubState extends MusicBeatSubstate
+{
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = ['Resume', 'Restart Song', "Options", 'Exit to menu'];
@@ -16,28 +17,33 @@ class PauseSubState extends MusicBeatSubstate {
 
 	var pauseMusic:FlxSound;
 
-	public function new(x:Float, y:Float) {
+	public function new(x:Float, y:Float)
+	{
 		super();
 
 		openfl.Lib.current.stage.frameRate = 144;
 
 		FlxTween.globalManager.active = false;
 
-		if (PlayState.storyPlaylist.length > 1 && PlayState.isStoryMode) {
+		if (PlayState.storyPlaylist.length > 1 && PlayState.isStoryMode)
+		{
 			menuItems.insert(2, "Skip Song");
 		}
 
-		if (!PlayState.isStoryMode) {
+		if (!PlayState.isStoryMode)
+		{
 			menuItems.insert(2, "Chart Editor");
 		}
 
-		if (!PlayState.isStoryMode && PlayState.sectionStart) {
+		if (!PlayState.isStoryMode && PlayState.sectionStart)
+		{
 			menuItems.insert(1, "Restart Section");
 		}
 
 		var pauseSongName = "breakfast";
 
-		switch (PlayState.SONG.song.toLowerCase()) {
+		switch (PlayState.SONG.song.toLowerCase())
+		{
 			case "ugh" | "guns" | "stress":
 				pauseSongName = "distorto";
 		}
@@ -57,7 +63,8 @@ class PauseSubState extends MusicBeatSubstate {
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
 
-		for (i in 0...menuItems.length) {
+		for (i in 0...menuItems.length)
+		{
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menuItems[i], true, false);
 			songText.isMenuItem = true;
 			songText.targetY = i;
@@ -69,7 +76,8 @@ class PauseSubState extends MusicBeatSubstate {
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		if (pauseMusic.volume < 0.8)
 			pauseMusic.volume += 0.05 * elapsed;
 
@@ -79,19 +87,23 @@ class PauseSubState extends MusicBeatSubstate {
 		var downP = controls.DOWN_P;
 		var accepted = controls.ACCEPT;
 
-		if (upP) {
+		if (upP)
+		{
 			changeSelection(-1);
 		}
-		if (downP) {
+		if (downP)
+		{
 			changeSelection(1);
 		}
 
-		if (accepted) {
+		if (accepted)
+		{
 			FlxTween.globalManager.active = true;
 
 			var daSelected:String = menuItems[curSelected];
 
-			switch (daSelected) {
+			switch (daSelected)
+			{
 				case "Resume":
 					unpause();
 
@@ -131,7 +143,8 @@ class PauseSubState extends MusicBeatSubstate {
 
 					PlayState.sectionStart = false;
 
-					switch (PlayState.returnLocation) {
+					switch (PlayState.returnLocation)
+					{
 						case "freeplay":
 							PlayState.instance.switchState(new FreeplayState());
 						case "story":
@@ -143,19 +156,22 @@ class PauseSubState extends MusicBeatSubstate {
 		}
 	}
 
-	function unpause() {
+	function unpause()
+	{
 		if (Config.noFpsCap)
 			openfl.Lib.current.stage.frameRate = 999;
 		close();
 	}
 
-	override function destroy() {
+	override function destroy()
+	{
 		pauseMusic.destroy();
 
 		super.destroy();
 	}
 
-	function changeSelection(change:Int = 0):Void {
+	function changeSelection(change:Int = 0):Void
+	{
 		curSelected += change;
 
 		if (curSelected < 0)
@@ -165,14 +181,16 @@ class PauseSubState extends MusicBeatSubstate {
 
 		var bullShit:Int = 0;
 
-		for (item in grpMenuShit.members) {
+		for (item in grpMenuShit.members)
+		{
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
-			if (item.targetY == 0) {
+			if (item.targetY == 0)
+			{
 				item.alpha = 1;
 				// item.setGraphicSize(Std.int(item.width));
 			}

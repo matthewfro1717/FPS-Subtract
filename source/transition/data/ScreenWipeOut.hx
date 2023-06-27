@@ -9,11 +9,13 @@ import flixel.util.FlxGradient;
 /**
 	Recreation of the normal FNF transition out.
 **/
-class ScreenWipeOut extends BasicTransition {
+class ScreenWipeOut extends BasicTransition
+{
 	var blockThing:FlxSprite;
 	var time:Float;
 
-	override public function new(_time:Float) {
+	override public function new(_time:Float)
+	{
 		super();
 
 		time = _time;
@@ -23,9 +25,11 @@ class ScreenWipeOut extends BasicTransition {
 		add(blockThing);
 	}
 
-	override public function play() {
+	override public function play()
+	{
 		FlxTween.tween(blockThing, {y: 0}, time, {
-			onComplete: function(tween) {
+			onComplete: function(tween)
+			{
 				end();
 			}
 		});

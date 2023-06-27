@@ -11,7 +11,8 @@ import flixel.text.FlxText;
 
 using StringTools;
 
-class KeyBindMenuController extends MusicBeatState {
+class KeyBindMenuController extends MusicBeatState
+{
 	var keyTextDisplay:FlxText;
 	var keyWarning:FlxText;
 	var warningTween:FlxTween;
@@ -32,12 +33,15 @@ class KeyBindMenuController extends MusicBeatState {
 
 	var state:String = "select";
 
-	override function create() {
-		for (i in 0...42) {
+	override function create()
+	{
+		for (i in 0...42)
+		{
 			allowedKeys[i] = i;
 		}
 
-		for (i in 19...30) {
+		for (i in 19...30)
+		{
 			allowedKeys.remove(i);
 		}
 
@@ -84,36 +88,44 @@ class KeyBindMenuController extends MusicBeatState {
 		super.create();
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		var controller:FlxGamepad = FlxG.gamepads.lastActive;
 
 		var pressedAny = false;
 
-		for (x in allowedKeys) {
+		for (x in allowedKeys)
+		{
 			pressedAny = pressedAny || FlxG.gamepads.anyJustPressed(x);
 		}
 
-		switch (state) {
+		switch (state)
+		{
 			case "select":
-				if (controls.UP_P) {
+				if (controls.UP_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(-1);
 				}
 
-				if (controls.DOWN_P) {
+				if (controls.DOWN_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(1);
 				}
 
-				if (controls.ACCEPT) {
+				if (controls.ACCEPT)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					state = "input";
 				}
-				else if (controls.PAUSE) {
+				else if (controls.PAUSE)
+				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					quit();
 				}
-				else if (controls.RESET) {
+				else if (controls.RESET)
+				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					reset();
 				}
@@ -125,17 +137,20 @@ class KeyBindMenuController extends MusicBeatState {
 				state = "waiting";
 
 			case "waiting":
-				if (controls.PAUSE) {
+				if (controls.PAUSE)
+				{
 					keys[curSelected] = tempKey;
 					state = "select";
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 				}
-				else if (controls.RESET) {
+				else if (controls.RESET)
+				{
 					addKey(defaultKeys[curSelected]);
 					save();
 					state = "select";
 				}
-				else if (pressedAny) {
+				else if (pressedAny)
+				{
 					addKey(controller.firstJustPressedID());
 					save();
 					state = "select";
@@ -153,14 +168,17 @@ class KeyBindMenuController extends MusicBeatState {
 		super.update(elapsed);
 	}
 
-	function textUpdate() {
+	function textUpdate()
+	{
 		keyTextDisplay.clearFormats();
 		keyTextDisplay.text = "";
 
-		for (i in 0...4) {
+		for (i in 0...4)
+		{
 			var keyDisplay = keys[i];
 
-			switch (keyDisplay) {
+			switch (keyDisplay)
+			{
 				case "A":
 					keyDisplay = "A (CROSS)";
 				case "B":
@@ -177,7 +195,8 @@ class KeyBindMenuController extends MusicBeatState {
 			keyTextDisplay.text += keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " + ") : "") + keyText[i] + " ARROW\n";
 			var sectionEnd = keyTextDisplay.text.length - 1;
 
-			if (i == curSelected) {
+			if (i == curSelected)
+			{
 				keyTextDisplay.addFormat(new FlxTextFormat(0xFFFFFF00), sectionStart, sectionEnd);
 			}
 		}
@@ -185,7 +204,8 @@ class KeyBindMenuController extends MusicBeatState {
 		keyTextDisplay.screenCenter();
 	}
 
-	function save() {
+	function save()
+	{
 		FlxG.save.data.upBindController = keys[2];
 		FlxG.save.data.downBindController = keys[1];
 		FlxG.save.data.leftBindController = keys[0];
@@ -194,14 +214,17 @@ class KeyBindMenuController extends MusicBeatState {
 		FlxG.save.flush();
 	}
 
-	function reset() {
-		for (i in 0...4) {
+	function reset()
+	{
+		for (i in 0...4)
+		{
 			keys[i] = defaultKeys[i];
 		}
 		quit();
 	}
 
-	function quit() {
+	function quit()
+	{
 		state = "exiting";
 
 		save();
@@ -210,17 +233,22 @@ class KeyBindMenuController extends MusicBeatState {
 		switchState(new ConfigMenu());
 	}
 
-	function addKey(r:String) {
+	function addKey(r:String)
+	{
 		trace(r);
 
-		if (r == null) {
-			if (FlxG.gamepads.anyPressed(LEFT_TRIGGER)) {
+		if (r == null)
+		{
+			if (FlxG.gamepads.anyPressed(LEFT_TRIGGER))
+			{
 				r = "LEFT_TRIGGER";
 			}
-			else if (FlxG.gamepads.anyPressed(RIGHT_TRIGGER)) {
+			else if (FlxG.gamepads.anyPressed(RIGHT_TRIGGER))
+			{
 				r = "RIGHT_TRIGGER";
 			}
-			else {
+			else
+			{
 				r = "START";
 			}
 		}
@@ -229,47 +257,60 @@ class KeyBindMenuController extends MusicBeatState {
 
 		var notAllowed:Array<String> = [];
 
-		for (x in keys) {
-			if (x != tempKey) {
+		for (x in keys)
+		{
+			if (x != tempKey)
+			{
 				notAllowed.push(x);
 			}
 		}
 
-		for (x in blacklist) {
+		for (x in blacklist)
+		{
 			notAllowed.push(x);
 		}
 
-		if (curSelected != 4) {
-			for (x in keyText) {
-				if (x != keyText[curSelected]) {
+		if (curSelected != 4)
+		{
+			for (x in keyText)
+			{
+				if (x != keyText[curSelected])
+				{
 					notAllowed.push(x);
 				}
 			}
 		}
-		else {
-			for (x in keyText) {
+		else
+		{
+			for (x in keyText)
+			{
 				notAllowed.push(x);
 			}
 		}
 
 		trace(notAllowed);
 
-		for (x in notAllowed) {
-			if (x == r) {
+		for (x in notAllowed)
+		{
+			if (x == r)
+			{
 				shouldReturn = false;
 			}
 		}
 
-		if (shouldReturn) {
+		if (shouldReturn)
+		{
 			keys[curSelected] = r;
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
-		else if (!shouldReturn && keys.contains(r)) {
+		else if (!shouldReturn && keys.contains(r))
+		{
 			keys[keys.indexOf(r)] = tempKey;
 			keys[curSelected] = r;
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
-		else {
+		else
+		{
 			keys[curSelected] = tempKey;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			keyWarning.alpha = 1;
@@ -281,7 +322,8 @@ class KeyBindMenuController extends MusicBeatState {
 			changeItem(0);
 	}
 
-	function changeItem(_amount:Int = 0) {
+	function changeItem(_amount:Int = 0)
+	{
 		curSelected += _amount;
 
 		if (curSelected > 3)

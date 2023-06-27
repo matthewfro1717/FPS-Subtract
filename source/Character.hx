@@ -8,7 +8,8 @@ import flixel.graphics.frames.FlxAtlasFrames;
 
 using StringTools;
 
-class Character extends FlxSprite {
+class Character extends FlxSprite
+{
 	// Global character properties.
 	public static var LOOP_ANIM_ON_HOLD:Bool = true; // Determines whether hold notes will loop the sing animation. Default is true.
 	public static var USE_IDLE_END:Bool = true; // Determines whether you will go back to the start of the idle or the end of the idle when letting go of a note. Default is true for FPS Plus, false for base game.
@@ -32,7 +33,8 @@ class Character extends FlxSprite {
 
 	var facesLeft:Bool = false;
 
-	public function new(x:Float, y:Float, ?character:String = "bf", ?_isPlayer:Bool = false, ?_enableDebug:Bool = false) {
+	public function new(x:Float, y:Float, ?character:String = "bf", ?_isPlayer:Bool = false, ?_enableDebug:Bool = false)
+	{
 		debugMode = _enableDebug;
 		animOffsets = new Map<String, Array<Dynamic>>();
 
@@ -44,7 +46,8 @@ class Character extends FlxSprite {
 		var tex:FlxAtlasFrames;
 		antialiasing = true;
 
-		switch (curCharacter) {
+		switch (curCharacter)
+		{
 			case 'gf':
 				// GIRLFRIEND CODE
 				frames = Paths.getSparrowAtlas("GF_assets");
@@ -718,7 +721,8 @@ class Character extends FlxSprite {
 
 		dance();
 
-		if (((facesLeft && !isPlayer) || (!facesLeft && isPlayer)) && !debugMode) {
+		if (((facesLeft && !isPlayer) || (!facesLeft && isPlayer)) && !debugMode)
+		{
 			flipX = true;
 
 			// var animArray
@@ -730,7 +734,8 @@ class Character extends FlxSprite {
 			animOffsets.set("singLEFT", oldRightOffset);
 
 			// IF THEY HAVE MISS ANIMATIONS??
-			if (animation.getByName('singRIGHTmiss') != null) {
+			if (animation.getByName('singRIGHTmiss') != null)
+			{
 				var oldMiss = animation.getByName("singRIGHTmiss").frames;
 				var oldMissOffset = animOffsets.get("singRIGHTmiss");
 				animation.getByName("singRIGHTmiss").frames = animation.getByName("singLEFTmiss").frames;
@@ -742,57 +747,74 @@ class Character extends FlxSprite {
 
 		animation.finishCallback = animationEnd;
 
-		if (characterColor == null) {
+		if (characterColor == null)
+		{
 			characterColor = (isPlayer) ? 0xFF66FF33 : 0xFFFF0000;
 		}
 	}
 
-	override function update(elapsed:Float) {
-		if (!debugMode) {
-			if (!isPlayer) {
-				if (animation.curAnim.name.startsWith('sing')) {
+	override function update(elapsed:Float)
+	{
+		if (!debugMode)
+		{
+			if (!isPlayer)
+			{
+				if (animation.curAnim.name.startsWith('sing'))
+				{
 					holdTimer += elapsed;
 				}
 
-				if (holdTimer >= Conductor.stepCrochet * stepsUntilRelease * 0.001 && canAutoAnim) {
-					if (USE_IDLE_END) {
+				if (holdTimer >= Conductor.stepCrochet * stepsUntilRelease * 0.001 && canAutoAnim)
+				{
+					if (USE_IDLE_END)
+					{
 						idleEnd();
 					}
-					else {
+					else
+					{
 						dance();
 						danceLockout = true;
 					}
 					holdTimer = 0;
 				}
 			}
-			else {
-				if (animation.curAnim.name.startsWith('sing')) {
+			else
+			{
+				if (animation.curAnim.name.startsWith('sing'))
+				{
 					holdTimer += elapsed;
 				}
-				else {
+				else
+				{
 					holdTimer = 0;
 				}
 
-				if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && canAutoAnim) {
-					if (USE_IDLE_END) {
+				if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && canAutoAnim)
+				{
+					if (USE_IDLE_END)
+					{
 						idleEnd();
 					}
-					else {
+					else
+					{
 						dance();
 						danceLockout = true;
 					}
 				}
 			}
 
-			switch (curCharacter) {
+			switch (curCharacter)
+			{
 				case 'gf':
 					if (animation.curAnim.name == 'hairFall' && animation.curAnim.finished)
 						playAnim('danceRight');
 
 				case "pico-speaker":
 					// for pico??
-					if (TankmenBG.animationNotes.length > 0) {
-						if (Conductor.songPosition > TankmenBG.animationNotes[0][0]) {
+					if (TankmenBG.animationNotes.length > 0)
+					{
+						if (Conductor.songPosition > TankmenBG.animationNotes[0][0])
+						{
 							// trace('played shoot anim' + TankmenBG.animationNotes[0][1]);
 
 							var shootAnim:Int = 1;
@@ -818,16 +840,21 @@ class Character extends FlxSprite {
 	/**
 	 * FOR GF DANCING SHIT
 	 */
-	public function dance(?ignoreDebug:Bool = false) {
-		if (!debugMode || ignoreDebug) {
-			if (danceLockout) {
+	public function dance(?ignoreDebug:Bool = false)
+	{
+		if (!debugMode || ignoreDebug)
+		{
+			if (danceLockout)
+			{
 				danceLockout = false;
 				return;
 			}
 
-			switch (curCharacter) {
+			switch (curCharacter)
+			{
 				case 'gf' | 'gf-car' | 'gf-christmas' | 'gf-pixel' | "gf-tankmen":
-					if (!animation.curAnim.name.startsWith('hair')) {
+					if (!animation.curAnim.name.startsWith('hair'))
+					{
 						danced = !danced;
 
 						if (danced)
@@ -853,9 +880,12 @@ class Character extends FlxSprite {
 		}
 	}
 
-	public function idleEnd(?ignoreDebug:Bool = false) {
-		if (!debugMode || ignoreDebug) {
-			switch (curCharacter) {
+	public function idleEnd(?ignoreDebug:Bool = false)
+	{
+		if (!debugMode || ignoreDebug)
+		{
+			switch (curCharacter)
+			{
 				case 'gf' | 'gf-car' | 'gf-christmas' | 'gf-pixel' | "spooky" | "gf-tankmen":
 					playAnim('danceRight', true, false, animation.getByName('danceRight').numFrames - 1);
 				case "pico-speaker":
@@ -866,12 +896,16 @@ class Character extends FlxSprite {
 		}
 	}
 
-	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void {
-		if (animSet != "") {
-			if (animation.exists(AnimName + "-" + animSet)) {
+	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
+	{
+		if (animSet != "")
+		{
+			if (animation.exists(AnimName + "-" + animSet))
+			{
 				AnimName = AnimName + "-" + animSet;
 			}
-			else {
+			else
+			{
 				trace(AnimName + "-" + animSet + " not found. Reverting to " + AnimName);
 			}
 		}
@@ -879,62 +913,77 @@ class Character extends FlxSprite {
 		animation.play(AnimName, Force, Reversed, Frame);
 		changeOffsets();
 
-		if (curCharacter == 'gf') {
-			if (AnimName == 'singLEFT') {
+		if (curCharacter == 'gf')
+		{
+			if (AnimName == 'singLEFT')
+			{
 				danced = true;
 			}
-			else if (AnimName == 'singRIGHT') {
+			else if (AnimName == 'singRIGHT')
+			{
 				danced = false;
 			}
 
-			if (AnimName == 'singUP' || AnimName == 'singDOWN') {
+			if (AnimName == 'singUP' || AnimName == 'singDOWN')
+			{
 				danced = !danced;
 			}
 		}
 	}
 
-	function changeOffsets() {
-		if (animOffsets.exists(animation.curAnim.name)) {
+	function changeOffsets()
+	{
+		if (animOffsets.exists(animation.curAnim.name))
+		{
 			var animOffset = animOffsets.get(animation.curAnim.name);
 			var xOffsetAdjust:Float = animOffset[0];
-			if (flipX == true) {
+			if (flipX == true)
+			{
 				xOffsetAdjust *= -1;
 				xOffsetAdjust += frameWidth;
 				xOffsetAdjust -= width;
 			}
 			offset.set(xOffsetAdjust, animOffset[1]);
 		}
-		else {
+		else
+		{
 			offset.set(0, 0);
 		}
 	}
 
-	public function addOffset(name:String, x:Float = 0, y:Float = 0) {
+	public function addOffset(name:String, x:Float = 0, y:Float = 0)
+	{
 		animOffsets[name] = [x, y];
 	}
 
-	function animationEnd(name:String) {
+	function animationEnd(name:String)
+	{
 		danceLockout = false;
 
-		switch (curCharacter) {
+		switch (curCharacter)
+		{
 			case "dad" | "mom" | "mom-car" | "bf-car":
 				playAnim(name, true, false, animation.getByName(name).numFrames - 4);
 
 			case "bf" | "bf-christmas" | "bf-pixel" | "bf-holding-gf" | "pico":
-				if (name.contains("miss")) {
+				if (name.contains("miss"))
+				{
 					playAnim(name, true, false, animation.getByName(name).numFrames - 4);
 				}
 
 			case "bf-lil" | "guy-lil":
-				if (name.contains("miss")) {
+				if (name.contains("miss"))
+				{
 					playAnim(name, true, false, animation.getByName(name).numFrames - 4);
 				}
-				else {
+				else
+				{
 					playAnim(name, true, false, animation.getByName(name).numFrames - 2);
 				}
 
 			case "monster-christmas" | "monster":
-				switch (name) {
+				switch (name)
+				{
 					case "idle":
 						playAnim(name, false, false, 10);
 					case "singUP":

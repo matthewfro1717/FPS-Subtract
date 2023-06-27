@@ -8,7 +8,8 @@ import flixel.group.FlxSpriteGroup;
 /**
 	The base class for state transitions.
 **/
-class BasicTransition extends FlxSpriteGroup {
+class BasicTransition extends FlxSpriteGroup
+{
 	public var state:FlxState = null;
 
 	/**
@@ -16,7 +17,8 @@ class BasicTransition extends FlxSpriteGroup {
 
 		For custom animations, `super()` should be called at the top of the constructor.
 	**/
-	override public function new() {
+	override public function new()
+	{
 		super();
 	}
 
@@ -25,7 +27,8 @@ class BasicTransition extends FlxSpriteGroup {
 			
 		For custom animations, a `super()` call is not needed.
 	**/
-	public function play() {
+	public function play()
+	{
 		end();
 	}
 
@@ -34,13 +37,11 @@ class BasicTransition extends FlxSpriteGroup {
 
 		This shouldn't need to be overrided, but you can for whatever edge case you might have.
 	**/
-	public function end() {
-		if (state != null) {
+	public function end()
+	{
+		if (state != null)
 			FlxG.switchState(state);
-			System.gc();
-		}
-		else {
+		else
 			this.destroy();
-		}
 	}
 }

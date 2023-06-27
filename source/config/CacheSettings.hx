@@ -9,7 +9,8 @@ import flixel.text.FlxText;
 
 using StringTools;
 
-class CacheSettings extends MusicBeatState {
+class CacheSettings extends MusicBeatState
+{
 	public static var noFunMode = false;
 
 	var keyTextDisplay:FlxText;
@@ -27,11 +28,13 @@ class CacheSettings extends MusicBeatState {
 
 	var state:String = "select";
 
-	override function create() {
+	override function create()
+	{
 		var bgColor:FlxColor = 0xFF9766BE;
 		var font:String = Paths.font("Funkin-Bold", "otf");
 
-		if (noFunMode) {
+		if (noFunMode)
+		{
 			bgColor = 0xFF303030;
 			font = Paths.font("vcr");
 		}
@@ -69,7 +72,8 @@ class CacheSettings extends MusicBeatState {
 		backText.setFormat(Paths.font("vcr"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(backText);
 
-		if (FlxG.save.data.musicPreload2 == null || FlxG.save.data.charPreload2 == null || FlxG.save.data.graphicsPreload2 == null) {
+		if (FlxG.save.data.musicPreload2 == null || FlxG.save.data.charPreload2 == null || FlxG.save.data.graphicsPreload2 == null)
+		{
 			FlxG.save.data.musicPreload2 = true;
 			FlxG.save.data.charPreload2 = true;
 			FlxG.save.data.graphicsPreload2 = false;
@@ -94,24 +98,30 @@ class CacheSettings extends MusicBeatState {
 		super.create();
 	}
 
-	override function update(elapsed:Float) {
-		switch (state) {
+	override function update(elapsed:Float)
+	{
+		switch (state)
+		{
 			case "select":
-				if (controls.UP_P) {
+				if (controls.UP_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(-1);
 				}
 
-				if (controls.DOWN_P) {
+				if (controls.DOWN_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(1);
 				}
 
-				if (controls.ACCEPT || controls.LEFT_P || controls.RIGHT_P) {
+				if (controls.ACCEPT || controls.LEFT_P || controls.RIGHT_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					settings[curSelected] = !settings[curSelected];
 				}
-				else if (controls.BACK) {
+				else if (controls.BACK)
+				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					quit();
 				}
@@ -126,16 +136,19 @@ class CacheSettings extends MusicBeatState {
 			textUpdate();
 	}
 
-	function textUpdate() {
+	function textUpdate()
+	{
 		keyTextDisplay.clearFormats();
 		keyTextDisplay.text = "CACHE SETTINGS\n\n";
 
-		for (i in 0...3) {
+		for (i in 0...3)
+		{
 			var sectionStart = keyTextDisplay.text.length;
 			keyTextDisplay.text += names[i] + ": " + (settings[i] ? onOff[1] : onOff[0]) + "\n";
 			var sectionEnd = keyTextDisplay.text.length - 1;
 
-			if (i == curSelected) {
+			if (i == curSelected)
+			{
 				keyTextDisplay.addFormat(new FlxTextFormat(0xFFFFFF00), sectionStart, sectionEnd);
 			}
 		}
@@ -143,7 +156,8 @@ class CacheSettings extends MusicBeatState {
 		keyTextDisplay.screenCenter();
 	}
 
-	function save() {
+	function save()
+	{
 		FlxG.save.data.musicPreload2 = settings[0];
 		FlxG.save.data.charPreload2 = settings[1];
 		FlxG.save.data.graphicsPreload2 = settings[2];
@@ -153,7 +167,8 @@ class CacheSettings extends MusicBeatState {
 		// PlayerSettings.player1.controls.loadKeyBinds();
 	}
 
-	function quit() {
+	function quit()
+	{
 		state = "exiting";
 
 		save();
@@ -161,18 +176,21 @@ class CacheSettings extends MusicBeatState {
 		CacheReload.doMusic = true;
 		CacheReload.doGraphics = true;
 
-		if ((startingSettings[0] != settings[0] || startingSettings[1] != settings[1] || startingSettings[2] != settings[2])
-			&& !noFunMode) {
-			if (startingSettings[0] == settings[0]) {
+		if ((startingSettings[0] != settings[0] || startingSettings[1] != settings[1] || startingSettings[2] != settings[2]) && !noFunMode)
+		{
+			if (startingSettings[0] == settings[0])
+			{
 				CacheReload.doMusic = false;
 			}
-			if (startingSettings[1] == settings[1] && startingSettings[2] == settings[2]) {
+			if (startingSettings[1] == settings[1] && startingSettings[2] == settings[2])
+			{
 				CacheReload.doGraphics = false;
 			}
 			returnLoc = new CacheReload();
 			ConfigMenu.startSong = false;
 		}
-		else if (!noFunMode) {
+		else if (!noFunMode)
+		{
 			ConfigMenu.startSong = false;
 		}
 
@@ -181,7 +199,8 @@ class CacheSettings extends MusicBeatState {
 		switchState(returnLoc);
 	}
 
-	function changeItem(_amount:Int = 0) {
+	function changeItem(_amount:Int = 0)
+	{
 		curSelected += _amount;
 
 		if (curSelected > 2)

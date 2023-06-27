@@ -9,14 +9,17 @@ import flixel.FlxG;
 
 using StringTools;
 
-class NoteSplash extends FlxSprite {
+class NoteSplash extends FlxSprite
+{
 	public static var splashPath:String = "ui/noteSplashes";
 
-	public function new(x:Float, y:Float, note:Int) {
+	public function new(x:Float, y:Float, note:Int)
+	{
 		super(x, y);
 
 		var noteColor:String = "purple";
-		switch (note) {
+		switch (note)
+		{
 			case 1:
 				noteColor = "blue";
 			case 2:
@@ -28,14 +31,16 @@ class NoteSplash extends FlxSprite {
 		frames = Paths.getSparrowAtlas(splashPath);
 		antialiasing = true;
 		animation.addByPrefix("splash", "note impact " + FlxG.random.int(1, 2) + " " + noteColor, 24 + FlxG.random.int(-3, 4), false);
-		animation.finishCallback = function(n) {
+		animation.finishCallback = function(n)
+		{
 			kill();
 		}
 		animation.play("splash");
 
 		alpha = 0.6;
 
-		switch (splashPath) {
+		switch (splashPath)
+		{
 			case "week6/weeb/pixelUI/noteSplashes-pixel":
 				setGraphicSize(Std.int(width * PlayState.daPixelZoom));
 				antialiasing = false;

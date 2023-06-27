@@ -10,7 +10,8 @@ import flixel.text.FlxText;
 
 using StringTools;
 
-class KeyBindMenu extends MusicBeatState {
+class KeyBindMenu extends MusicBeatState
+{
 	var keyTextDisplay:FlxText;
 	var keyWarning:FlxText;
 	var warningTween:FlxTween;
@@ -31,7 +32,8 @@ class KeyBindMenu extends MusicBeatState {
 
 	var state:String = "select";
 
-	override function create() {
+	override function create()
+	{
 		persistentUpdate = persistentDraw = true;
 
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menu/menuDesat'));
@@ -75,28 +77,35 @@ class KeyBindMenu extends MusicBeatState {
 		super.create();
 	}
 
-	override function update(elapsed:Float) {
-		switch (state) {
+	override function update(elapsed:Float)
+	{
+		switch (state)
+		{
 			case "select":
-				if (controls.UP_P) {
+				if (controls.UP_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(-1);
 				}
 
-				if (controls.DOWN_P) {
+				if (controls.DOWN_P)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(1);
 				}
 
-				if (FlxG.keys.justPressed.ENTER) {
+				if (FlxG.keys.justPressed.ENTER)
+				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					state = "input";
 				}
-				else if (FlxG.keys.justPressed.ESCAPE || FlxG.gamepads.anyJustPressed(ANY)) {
+				else if (FlxG.keys.justPressed.ESCAPE || FlxG.gamepads.anyJustPressed(ANY))
+				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					quit();
 				}
-				else if (FlxG.keys.justPressed.BACKSPACE) {
+				else if (FlxG.keys.justPressed.BACKSPACE)
+				{
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					reset();
 				}
@@ -108,17 +117,20 @@ class KeyBindMenu extends MusicBeatState {
 				state = "waiting";
 
 			case "waiting":
-				if (FlxG.keys.justPressed.ESCAPE) {
+				if (FlxG.keys.justPressed.ESCAPE)
+				{
 					keys[curSelected] = tempKey;
 					state = "select";
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 				}
-				else if (FlxG.keys.justPressed.ENTER) {
+				else if (FlxG.keys.justPressed.ENTER)
+				{
 					addKey(defaultKeys[curSelected]);
 					save();
 					state = "select";
 				}
-				else if (FlxG.keys.justPressed.ANY) {
+				else if (FlxG.keys.justPressed.ANY)
+				{
 					addKey(FlxG.keys.getIsDown()[0].ID.toString());
 					save();
 					state = "select";
@@ -136,11 +148,13 @@ class KeyBindMenu extends MusicBeatState {
 		super.update(elapsed);
 	}
 
-	function textUpdate() {
+	function textUpdate()
+	{
 		keyTextDisplay.clearFormats();
 		keyTextDisplay.text = "";
 
-		for (i in 0...keys.length) {
+		for (i in 0...keys.length)
+		{
 			var sectionStart = keyTextDisplay.text.length;
 			if (i < 4)
 				keyTextDisplay.text += keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " + ") : "") + keyText[i] + " ARROW\n";
@@ -148,7 +162,8 @@ class KeyBindMenu extends MusicBeatState {
 				keyTextDisplay.text += "RESET: " + keys[4] + "\n";
 			var sectionEnd = keyTextDisplay.text.length - 1;
 
-			if (i == curSelected) {
+			if (i == curSelected)
+			{
 				keyTextDisplay.addFormat(new FlxTextFormat(0xFFFFFF00), sectionStart, sectionEnd);
 			}
 		}
@@ -156,7 +171,8 @@ class KeyBindMenu extends MusicBeatState {
 		keyTextDisplay.screenCenter();
 	}
 
-	function save() {
+	function save()
+	{
 		FlxG.save.data.upBind = keys[2];
 		FlxG.save.data.downBind = keys[1];
 		FlxG.save.data.leftBind = keys[0];
@@ -168,14 +184,17 @@ class KeyBindMenu extends MusicBeatState {
 		PlayerSettings.player1.controls.loadKeyBinds();
 	}
 
-	function reset() {
-		for (i in 0...5) {
+	function reset()
+	{
+		for (i in 0...5)
+		{
 			keys[i] = defaultKeys[i];
 		}
 		quit();
 	}
 
-	function quit() {
+	function quit()
+	{
 		state = "exiting";
 
 		save();
@@ -184,52 +203,66 @@ class KeyBindMenu extends MusicBeatState {
 		switchState(new ConfigMenu());
 	}
 
-	function addKey(r:String) {
+	function addKey(r:String)
+	{
 		var shouldReturn:Bool = true;
 
 		var notAllowed:Array<String> = [];
 
-		for (x in keys) {
-			if (x != tempKey) {
+		for (x in keys)
+		{
+			if (x != tempKey)
+			{
 				notAllowed.push(x);
 			}
 		}
 
-		for (x in blacklist) {
+		for (x in blacklist)
+		{
 			notAllowed.push(x);
 		}
 
-		if (curSelected != 4) {
-			for (x in keyText) {
-				if (x != keyText[curSelected]) {
+		if (curSelected != 4)
+		{
+			for (x in keyText)
+			{
+				if (x != keyText[curSelected])
+				{
 					notAllowed.push(x);
 				}
 			}
 		}
-		else {
-			for (x in keyText) {
+		else
+		{
+			for (x in keyText)
+			{
 				notAllowed.push(x);
 			}
 		}
 
 		trace(notAllowed);
 
-		for (x in notAllowed) {
-			if (x == r) {
+		for (x in notAllowed)
+		{
+			if (x == r)
+			{
 				shouldReturn = false;
 			}
 		}
 
-		if (shouldReturn) {
+		if (shouldReturn)
+		{
 			keys[curSelected] = r;
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
-		else if (!shouldReturn && keys.contains(r)) {
+		else if (!shouldReturn && keys.contains(r))
+		{
 			keys[keys.indexOf(r)] = tempKey;
 			keys[curSelected] = r;
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
-		else {
+		else
+		{
 			keys[curSelected] = tempKey;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			keyWarning.alpha = 1;
@@ -238,7 +271,8 @@ class KeyBindMenu extends MusicBeatState {
 		}
 	}
 
-	function changeItem(_amount:Int = 0) {
+	function changeItem(_amount:Int = 0)
+	{
 		curSelected += _amount;
 
 		if (curSelected > 4)

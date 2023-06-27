@@ -28,7 +28,8 @@ import openfl.Assets;
 
 using StringTools;
 
-class TitleScreen extends MusicBeatState {
+class TitleScreen extends MusicBeatState
+{
 	public static var titleMusic:String = "klaskiiLoop";
 
 	var camBackground:FlxCamera;
@@ -36,7 +37,8 @@ class TitleScreen extends MusicBeatState {
 
 	final bgScrollSpeed = 20;
 
-	override public function create():Void {
+	override public function create():Void
+	{
 		// DEBUG BULLSHIT
 
 		useDefaultTransIn = false;
@@ -116,13 +118,17 @@ class TitleScreen extends MusicBeatState {
 		add(logoBl);
 		add(titleText);
 
-		if (FlxG.sound.music == null) {
+		if (FlxG.sound.music == null)
+		{
 			FlxG.sound.playMusic(Paths.music(titleMusic), 1);
 		}
-		else {
-			if (!FlxG.sound.music.playing) {
+		else
+		{
+			if (!FlxG.sound.music.playing)
+			{
 				FlxG.sound.playMusic(Paths.music(titleMusic), 1);
-				switch (titleMusic) {
+				switch (titleMusic)
+				{
 					case "klaskiiLoop":
 						Conductor.changeBPM(158);
 					case "freakyMenu":
@@ -131,7 +137,8 @@ class TitleScreen extends MusicBeatState {
 			}
 		}
 
-		FlxG.sound.music.onComplete = function() {
+		FlxG.sound.music.onComplete = function()
+		{
 			lastStep = 0;
 		}
 
@@ -147,21 +154,25 @@ class TitleScreen extends MusicBeatState {
 
 	var transitioning:Bool = false;
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
-		if (FlxG.keys.justPressed.F) {
+		if (FlxG.keys.justPressed.F)
+		{
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
 
 		var pressedEnter:Bool = controls.ACCEPT || controls.PAUSE;
 
-		if (!transitioning && controls.BACK) {
+		if (!transitioning && controls.BACK)
+		{
 			System.exit(0);
 		}
 
-		if (pressedEnter && !transitioning) {
+		if (pressedEnter && !transitioning)
+		{
 			titleText.animation.play('press');
 
 			camMain.flash(FlxColor.WHITE, 1);
@@ -170,7 +181,8 @@ class TitleScreen extends MusicBeatState {
 			transitioning = true;
 			// FlxG.sound.music.stop();
 
-			new FlxTimer().start(2, function(tmr:FlxTimer) {
+			new FlxTimer().start(2, function(tmr:FlxTimer)
+			{
 				// Check if version is outdated
 				switchState(new MainMenuState());
 			});
@@ -179,19 +191,23 @@ class TitleScreen extends MusicBeatState {
 		super.update(elapsed);
 	}
 
-	override function beatHit() {
+	override function beatHit()
+	{
 		super.beatHit();
 
 		logoBl.animation.play('bump', true);
 
 		// i want the option
-		if (curBeat % 1 == 0) {
+		if (curBeat % 1 == 0)
+		{
 			danceLeft = !danceLeft;
 
-			if (danceLeft) {
+			if (danceLeft)
+			{
 				gfDance.animation.play('danceRight', true);
 			}
-			else {
+			else
+			{
 				gfDance.animation.play('danceLeft', true);
 			}
 		}

@@ -14,14 +14,16 @@ import transition.data.*;
 
 	Written by Rozebud
 **/
-class CustomTransition {
+class CustomTransition
+{
 	/**
 	 * Plays a custom transition animation and switches states.
 	 *
 	 * @param	transitionData  The animation that will get played. Can also be anything that extends `BasicTransition`.
 	 * @param	state           The state that will be switched to after the animation. If set to `null` the transition will be destroyed after playing instead of switching states.
 	**/
-	public static function transition(transitionData:BasicTransition, ?state:FlxState = null):Void {
+	public static function transition(transitionData:BasicTransition, ?state:FlxState = null):Void
+	{
 		var transitionCamera = new FlxCamera();
 		transitionCamera.bgColor.alpha = 0;
 		FlxG.cameras.add(transitionCamera, false);

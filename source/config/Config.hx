@@ -4,7 +4,8 @@ import flixel.FlxG;
 
 using StringTools;
 
-class Config {
+class Config
+{
 	public static var offset:Float;
 	public static var accuracy:String;
 	public static var healthMultiplier:Float;
@@ -21,7 +22,8 @@ class Config {
 	public static var scrollSpeedOverride:Float;
 	public static var showComboBreaks:Bool;
 
-	public static function resetSettings():Void {
+	public static function resetSettings():Void
+	{
 		FlxG.save.data.offset = 0.0;
 		FlxG.save.data.accuracy = "simple";
 		FlxG.save.data.healthMultiplier = 1.0;
@@ -40,7 +42,8 @@ class Config {
 		reload();
 	}
 
-	public static function reload():Void {
+	public static function reload():Void
+	{
 		offset = FlxG.save.data.offset;
 		accuracy = FlxG.save.data.accuracy;
 		healthMultiplier = FlxG.save.data.healthMultiplier;
@@ -60,7 +63,8 @@ class Config {
 
 	public static function write(offsetW:Float, accuracyW:String, healthMultiplierW:Float, healthDrainMultiplierW:Float, comboTypeW:Int, downscrollW:Bool,
 			noteGlowW:Bool, ghostTapTypeW:Int, noFpsCapW:Bool, controllerSchemeW:Int, bgDimW:Int, noteSplashTypeW:Int, centeredNotesW:Bool,
-			scrollSpeedOverrideW:Float, showComboBreaksW:Bool):Void {
+			scrollSpeedOverrideW:Float, showComboBreaksW:Bool):Void
+	{
 		FlxG.save.data.offset = offsetW;
 		FlxG.save.data.accuracy = accuracyW;
 		FlxG.save.data.healthMultiplier = healthMultiplierW;
@@ -82,7 +86,8 @@ class Config {
 		reload();
 	}
 
-	public static function configCheck():Void {
+	public static function configCheck():Void
+	{
 		if (FlxG.save.data.offset == null)
 			FlxG.save.data.offset = 0.0;
 		if (FlxG.save.data.accuracy == null)

@@ -185,7 +185,6 @@ class Startup extends FlxState
                 FlxG.switchState(new TitleVideo());
 
             if (songsCached && charactersCached && graphicsCached && splash.animation.curAnim.finished && splash.animation.curAnim.name != "end") {
-                System.gc();
                 splash.animation.play("end");
                 splash.updateHitbox();
                 splash.screenCenter();

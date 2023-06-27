@@ -8,7 +8,8 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.ui.FlxUIState;
 
-class UIStateExt extends FlxUIState {
+class UIStateExt extends FlxUIState
+{
 	private var useDefaultTransIn:Bool = true;
 	private var useDefaultTransOut:Bool = true;
 
@@ -25,8 +26,10 @@ class UIStateExt extends FlxUIState {
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
-	override function create() {
-		if (customTransIn != null) {
+	override function create()
+	{
+		if (customTransIn != null)
+		{
 			CustomTransition.transition(customTransIn, null);
 		}
 		else if (useDefaultTransIn)
@@ -34,18 +37,13 @@ class UIStateExt extends FlxUIState {
 		super.create();
 	}
 
-	public function switchState(_state:FlxState) {
-		if (customTransOut != null) {
+	public function switchState(_state:FlxState)
+	{
+		if (customTransOut != null)
 			CustomTransition.transition(customTransOut, _state);
-		}
-		else if (useDefaultTransOut) {
+		else if (useDefaultTransOut)
 			CustomTransition.transition(Type.createInstance(defaultTransOut, defaultTransOutArgs), _state);
-			return;
-		}
-		else {
+		else
 			FlxG.switchState(_state);
-			System.gc();
-			return;
-		}
 	}
 }

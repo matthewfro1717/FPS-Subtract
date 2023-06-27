@@ -3,8 +3,10 @@ package;
 import flixel.FlxG;
 import flixel.FlxSubState;
 
-class MusicBeatSubstate extends FlxSubState {
-	public function new() {
+class MusicBeatSubstate extends FlxSubState
+{
+	public function new()
+	{
 		super();
 	}
 
@@ -21,11 +23,13 @@ class MusicBeatSubstate extends FlxSubState {
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
-	override function create() {
+	override function create()
+	{
 		super.create();
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		everyStep();
 
 		updateCurStep();
@@ -37,20 +41,25 @@ class MusicBeatSubstate extends FlxSubState {
 	/**
 	 * CHECKS EVERY FRAME
 	 */
-	private function everyStep():Void {
+	private function everyStep():Void
+	{
 		if (Conductor.songPosition > lastStep + Conductor.stepCrochet - Conductor.safeZoneOffset
-			|| Conductor.songPosition < lastStep + Conductor.safeZoneOffset) {
-			if (Conductor.songPosition > lastStep + Conductor.stepCrochet) {
+			|| Conductor.songPosition < lastStep + Conductor.safeZoneOffset)
+		{
+			if (Conductor.songPosition > lastStep + Conductor.stepCrochet)
+			{
 				stepHit();
 			}
 		}
 	}
 
-	private function updateCurStep():Void {
+	private function updateCurStep():Void
+	{
 		curStep = Math.floor(Conductor.songPosition / Conductor.stepCrochet);
 	}
 
-	public function stepHit():Void {
+	public function stepHit():Void
+	{
 		totalSteps += 1;
 		lastStep += Conductor.stepCrochet;
 
@@ -58,7 +67,8 @@ class MusicBeatSubstate extends FlxSubState {
 			beatHit();
 	}
 
-	public function beatHit():Void {
+	public function beatHit():Void
+	{
 		lastBeat += Conductor.crochet;
 		totalBeats += 1;
 	}

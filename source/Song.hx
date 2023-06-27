@@ -7,7 +7,8 @@ import lime.utils.Assets;
 
 using StringTools;
 
-typedef SwagSong = {
+typedef SwagSong =
+{
 	var song:String;
 	var notes:Array<SwagSection>;
 	var bpm:Float;
@@ -21,11 +22,13 @@ typedef SwagSong = {
 	var validScore:Bool;
 }
 
-typedef SongEvents = {
+typedef SongEvents =
+{
 	var events:Array<Dynamic>;
 }
 
-class Song {
+class Song
+{
 	public var song:String;
 	public var notes:Array<SwagSection>;
 	public var bpm:Float;
@@ -37,16 +40,19 @@ class Song {
 	public var stage:String = '';
 	public var gf:String = 'gf';
 
-	public function new(song, notes, bpm) {
+	public function new(song, notes, bpm)
+	{
 		this.song = song;
 		this.notes = notes;
 		this.bpm = bpm;
 	}
 
-	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong {
+	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
+	{
 		var rawJson = CoolUtil.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
 
-		while (!rawJson.endsWith("}")) {
+		while (!rawJson.endsWith("}"))
+		{
 			rawJson = rawJson.substr(0, rawJson.length - 1);
 			// LOL GOING THROUGH THE BULLSHIT TO CLEAN IDK WHATS STRANGE
 		}
@@ -70,13 +76,15 @@ class Song {
 		return parseJSONshit(rawJson);
 	}
 
-	public static function parseJSONshit(rawJson:String):SwagSong {
+	public static function parseJSONshit(rawJson:String):SwagSong
+	{
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;
 		swagShit.validScore = true;
 		return swagShit;
 	}
 
-	public static function parseEventJSON(rawJson:String):SongEvents {
+	public static function parseEventJSON(rawJson:String):SongEvents
+	{
 		var swagShit:SongEvents = cast Json.parse(rawJson).events;
 		return swagShit;
 	}

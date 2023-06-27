@@ -8,7 +8,8 @@ import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 
-class FPS extends TextField {
+class FPS extends TextField
+{
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/
@@ -22,7 +23,8 @@ class FPS extends TextField {
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
 
-	public function new(x:Float = 10, y:Float = 10, color:Int = 0xFFFFFF) {
+	public function new(x:Float = 10, y:Float = 10, color:Int = 0xFFFFFF)
+	{
 		super();
 
 		this.x = x;
@@ -32,24 +34,20 @@ class FPS extends TextField {
 		selectable = mouseEnabled = false;
 
 		defaultTextFormat = new TextFormat('_sans',
-			#if mobile
-			Std.int(14 * Math.min(Lib.current.stage.stageWidth / FlxG.width, Lib.current.stage.stageHeight / FlxG.height))
-			#else
-			14
-			#end,
-			color
-		);
+			#if mobile Std.int(14 * Math.min(Lib.current.stage.stageWidth / FlxG.width, Lib.current.stage.stageHeight / FlxG.height)) #else 14 #end, color);
 
 		currentTime = 0;
 		times = [];
 
-		addEventListener(Event.ENTER_FRAME, function(e:Event) {
+		addEventListener(Event.ENTER_FRAME, function(e:Event)
+		{
 			var time:Int = Lib.getTimer();
 			onEnterFrame(time - currentTime);
 		});
 
 		#if mobile
-		addEventListener(Event.RESIZE, function(e:Event) {
+		addEventListener(Event.RESIZE, function(e:Event)
+		{
 			final daSize:Int = Std.int(14 * Math.min(Lib.current.stage.stageWidth / FlxG.width, Lib.current.stage.stageHeight / FlxG.height));
 			if (defaultTextFormat.size != daSize)
 				defaultTextFormat.size = daSize;
@@ -57,7 +55,8 @@ class FPS extends TextField {
 		#end
 	}
 
-	private function onEnterFrame(deltaTime:Float):Void {
+	private function onEnterFrame(deltaTime:Float):Void
+	{
 		currentTime += deltaTime;
 
 		times.push(currentTime);
