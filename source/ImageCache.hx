@@ -1,18 +1,19 @@
 package;
 
 import flixel.graphics.FlxGraphic;
-import openfl.display.BitmapData;
 
 class ImageCache
 {
-	public static var cache:Map<String, FlxGraphic> = new Map<String, FlxGraphic>();
+	public static var cache:Map<String, FlxGraphic> = [];
 
 	public static function add(path:String):Void
 	{
-		var data:FlxGraphic = FlxGraphic.fromBitmapData(GPUBitmap.create(path));
+		if (cache.exists(path))
+			return;
+		
+		var data:FlxGraphic = FlxG.bitmap.add(path, false, path);
 		data.persist = true;
 		data.destroyOnNoUse = false;
-
 		cache.set(path, data);
 	}
 
@@ -21,7 +22,7 @@ class ImageCache
 		return cache.get(path);
 	}
 
-	public static function exists(path:String)
+	public static function exists(path:String):Bool
 	{
 		return cache.exists(path);
 	}
