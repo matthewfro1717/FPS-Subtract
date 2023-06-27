@@ -1163,7 +1163,6 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'thorns':
 					schoolIntro(doof);
-
 				case "ugh":
 					videoCutscene(Paths.video("week7/ughCutsceneFade"), function()
 					{
@@ -1179,7 +1178,6 @@ class PlayState extends MusicBeatState
 						}
 						FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, ((Conductor.crochet / 1000) * 5) - 0.1, {ease: FlxEase.quadOut});
 					});
-
 				case "guns":
 					videoCutscene(Paths.video("week7/gunsCutsceneFade"), function()
 					{
@@ -1195,7 +1193,6 @@ class PlayState extends MusicBeatState
 						}
 						FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, ((Conductor.crochet / 1000) * 5) - 0.1, {ease: FlxEase.quadOut});
 					});
-
 				case "stress":
 					videoCutscene(Paths.video("week7/stressCutsceneFade"), function()
 					{
@@ -1211,7 +1208,6 @@ class PlayState extends MusicBeatState
 						}
 						FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, ((Conductor.crochet / 1000) * 5) - 0.1, {ease: FlxEase.quadOut});
 					});
-
 				default:
 					startCountdown();
 			}
@@ -1229,33 +1225,6 @@ class PlayState extends MusicBeatState
 					{
 						startCountdown();
 					}
-				/*case "ugh":
-						videoCutscene(Paths.video("week7/ughCutsceneFade"), function(){
-							camMove(camFollow.x, camFollow.y + 100, 0, null);
-							FlxG.camera.zoom = defaultCamZoom * 1.2;
-							if(PlayState.SONG.notes[0].mustHitSection){ camFocusBF(); }
-							else{ camFocusOpponent(); }
-							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, ((Conductor.crochet / 1000) * 5) - 0.1, {ease: FlxEase.quadOut});
-						});
-						
-					case "guns":
-						videoCutscene(Paths.video("week7/gunsCutsceneFade"), function(){
-							camMove(camFollow.x, camFollow.y + 100, 0, null);
-							FlxG.camera.zoom = defaultCamZoom * 1.2;
-							if(PlayState.SONG.notes[0].mustHitSection){ camFocusBF(); }
-							else{ camFocusOpponent(); }
-							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, ((Conductor.crochet / 1000) * 5) - 0.1, {ease: FlxEase.quadOut});
-						});
-
-					case "stress":
-						videoCutscene(Paths.video("week7/stressCutsceneFade"), function(){
-							camMove(camFollow.x, camFollow.y + 100, 0, null);
-							FlxG.camera.zoom = defaultCamZoom * 1.2;
-							if(PlayState.SONG.notes[0].mustHitSection){ camFocusBF(); }
-							else{ camFocusOpponent(); }
-							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, ((Conductor.crochet / 1000) * 5) - 0.1, {ease: FlxEase.quadOut});
-				});*/
-
 				default:
 					startCountdown();
 			}
