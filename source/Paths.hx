@@ -24,9 +24,14 @@ class Paths
 		return file(key, location, "json");
 	}
 
-	inline static public function image(key:String):String
+	inline static public function image(key:String):Dynamic
 	{
-		return file(key, "images", "png");
+		var path:String = file(key, "images", "png");
+		
+		if (ImageCache.exists(path))
+			return ImageCache.get(path);
+
+		return path;
 	}
 
 	inline static public function sound(key:String):String
