@@ -1,7 +1,7 @@
 package backend.overlay;
 
 import flixel.FlxG;
-import flixel.math.FlxMath;
+import flixel.util.FlxStringUtil;
 import openfl.Lib;
 import openfl.events.Event;
 import openfl.system.System;
@@ -14,12 +14,10 @@ class Overlay extends TextField {
 	**/
 	public var currentFPS(default, null):Int = 0;
 
-	#if cpp
 	/**
 		Whether to show the ram usage or not.
 	**/
 	public var showRAM:Bool = true;
-	#end
 
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
@@ -61,6 +59,7 @@ class Overlay extends TextField {
 
 	private function onEnterFrame(deltaTime:Float):Void {
 		currentTime += deltaTime;
+
 		times.push(currentTime);
 
 		while (times[0] < currentTime - 1000)
@@ -75,10 +74,8 @@ class Overlay extends TextField {
 		final stats:Array<String> = [];
 		stats.push('FPS: ${currentFPS}');
 
-		#if cpp
 		if (showRAM)
-			stats.push('RAM: ${flixel.util.FlxStringUtil.formatBytes(System.totalMemory)}');
-		#end
+			stats.push('RAM: ${FlxStringUtil.formatBytes(System.totalMemory)}');
 
 		stats.push(''); // adding this to not hide the last line.
 		text = stats.join('\n');
