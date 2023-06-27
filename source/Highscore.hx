@@ -2,6 +2,18 @@ package;
 
 import flixel.FlxG;
 
+class Rank
+{
+	public var name:String;
+	public var accuracy:Float;
+
+	public function new(_name:String, _accuracy:Float):Void
+	{
+		this.name = _name;
+		this.accuracy = _accuracy;
+	}
+}
+
 class Highscore
 {
 	#if (haxe >= "4.0.0")
