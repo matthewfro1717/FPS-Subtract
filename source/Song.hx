@@ -44,13 +44,11 @@ class Song
 
 	public static function parseSong(rawJson:String):SwagSong
 	{
-		var swagShit:SwagSong = cast Json.parse(rawJson).song;
-		return swagShit;
+		return cast(Json.parse(rawJson).song, SwagSong);
 	}
 
 	public static function parseEvents(rawJson:String):SwagEvents
 	{
-		var swagShit:SwagEvents = cast Json.parse(rawJson).events;
-		return swagShit;
+		return cast(Json.parse(rawJson).events, SwagEvents);
 	}
 }
