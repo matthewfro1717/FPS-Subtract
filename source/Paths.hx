@@ -9,7 +9,7 @@ class Paths
 		return 'assets/$location/$key.$extension';
 	}
 
-	inline static public function xml(key:String, ?location:String = "images"):String
+	inline static public function xml(key:String, ?location:String = "data"):String
 	{
 		return file(key, location, "xml");
 	}
@@ -66,7 +66,7 @@ class Paths
 
 	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames
 	{
-		return FlxAtlasFrames.fromSparrow(image(key), xml(key));
+		return FlxAtlasFrames.fromSparrow(image(key), xml(key, "images"));
 	}
 
 	inline static public function getPackerAtlas(key:String):FlxAtlasFrames
