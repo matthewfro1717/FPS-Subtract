@@ -9,7 +9,7 @@ using StringTools;
 class TitleVideo extends FlxState {
 	var titleState:TitleScreen = new TitleScreen();
 
-	#if hxCodec
+	#if VIDEOS
 	var video:hxcodec.flixel.FlxVideoSprite;
 	#end
 
@@ -17,7 +17,7 @@ class TitleVideo extends FlxState {
 		super.create();
 
 		if (!Main.novid) {
-			#if hxCodec
+			#if VIDEOS
 			video = new hxcodec.flixel.FlxVideoSprite();
 			video.play(Paths.video('klaskiiTitle'));
 			video.bitmap.onEndReached.add(next);
@@ -30,7 +30,7 @@ class TitleVideo extends FlxState {
 			next();
 	}
 
-	#if hxCodec
+	#if VIDEOS
 	public override function update(elapsed:Float):Void {
 		super.update(elapsed);
 

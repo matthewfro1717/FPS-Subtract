@@ -24,8 +24,6 @@ class DiscordClient
 			Discord.UpdateConnection();
 			#end
 			Discord.RunCallbacks();
-
-			Sys.sleep(2);
 		});
 	}
 

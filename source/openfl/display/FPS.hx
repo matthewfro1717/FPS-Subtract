@@ -1,4 +1,4 @@
-package backend.overlay;
+package openfl.display;
 
 import flixel.FlxG;
 import flixel.util.FlxStringUtil;
@@ -8,7 +8,7 @@ import openfl.system.System;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 
-class Overlay extends TextField {
+class FPS extends TextField {
 	/**
 		The current frame rate, expressed using frames-per-second
 	**/

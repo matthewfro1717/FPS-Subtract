@@ -1292,7 +1292,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	function videoCutscene(path:String, ?endFunc:Void->Void, ?startFunc:Void->Void) {
-		#if hxCodec
+		#if VIDEOS
 		inCutscene = true;
 
 		var blackShit:FlxSprite = new FlxSprite(-200, -200).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
