@@ -2,12 +2,13 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxGame;
+import flixel.FlxState;
 import openfl.display.FPS;
 import openfl.display.Sprite;
+import openfl.system.System;
+import openfl.utils.Assets;
 
 class Main extends Sprite {
-	public static var novid:Bool = false;
-	public static var flippymode:Bool = false;
 	public static var fpsCounter:FPS;
 
 	public function new() {
