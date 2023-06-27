@@ -1,7 +1,5 @@
 package;
 
-import openfl.desktop.ClipboardFormats;
-import openfl.desktop.Clipboard;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -11,6 +9,8 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import openfl.desktop.Clipboard;
+import openfl.desktop.ClipboardFormats;
 
 using StringTools;
 

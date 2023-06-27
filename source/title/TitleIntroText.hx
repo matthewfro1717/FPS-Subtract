@@ -2,26 +2,8 @@ package title;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.transition.TransitionData;
-import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
-import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
-import flixel.system.FlxSound;
-import flixel.system.ui.FlxSoundTray;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import lime.app.Application;
-import openfl.Assets;
 
 using StringTools;
 
@@ -47,9 +29,6 @@ class TitleIntroText extends MusicBeatState
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		// blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		// credGroup.add(blackScreen);
-
 		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
 		add(ngSpr);
 		ngSpr.visible = false;
@@ -66,14 +45,11 @@ class TitleIntroText extends MusicBeatState
 	function getIntroTextShit():Array<Array<String>>
 	{
 		var fullText:String = CoolUtil.getText(Paths.text("introText"));
-
 		var firstArray:Array<String> = fullText.split('\n');
 		var swagGoodArray:Array<Array<String>> = [];
 
 		for (i in firstArray)
-		{
 			swagGoodArray.push(i.split('--'));
-		}
 
 		return swagGoodArray;
 	}
@@ -83,15 +59,8 @@ class TitleIntroText extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		Conductor.songPosition = FlxG.sound.music.time;
-		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
-
-		if (FlxG.keys.justPressed.F)
-		{
-			FlxG.fullscreen = !FlxG.fullscreen;
-		}
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
-
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
 		if (gamepad != null)
@@ -106,9 +75,7 @@ class TitleIntroText extends MusicBeatState
 		}
 
 		if (pressedEnter)
-		{
 			skipIntro();
-		}
 
 		super.update(elapsed);
 	}
@@ -171,13 +138,13 @@ class TitleIntroText extends MusicBeatState
 				addMoreText(curWacky[1]);
 			case 12:
 				deleteCoolText();
-				addMoreText('Friday');
 			case 13:
-				addMoreText('Night');
+				addMoreText('Friday');
 			case 14:
-				addMoreText('Funkin');
+				addMoreText('Night');
+
 			case 15:
-				addMoreText('FPS PLUS');
+				addMoreText('Funkin');
 			case 16:
 				skipIntro();
 		}

@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
 
 class ImageCache
@@ -10,7 +11,7 @@ class ImageCache
 	{
 		if (cache.exists(path))
 			return;
-		
+
 		var data:FlxGraphic = FlxG.bitmap.add(path, false, path);
 		data.persist = true;
 		data.destroyOnNoUse = false;

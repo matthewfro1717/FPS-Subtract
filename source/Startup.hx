@@ -1,23 +1,20 @@
 package;
 
-import sys.FileSystem;
-import flixel.tweens.FlxTween;
-import flixel.ui.FlxBar;
-import openfl.media.Sound;
-import title.*;
 import config.*;
-import transition.data.*;
-
-import flixel.FlxState;
-import openfl.Assets;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
+import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
+import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import flixel.text.FlxText;
+import openfl.Assets;
+import openfl.media.Sound;
 import openfl.system.System;
-//import openfl.utils.Future;
-//import flixel.addons.util.FlxAsyncLoop;
+import sys.FileSystem;
+import title.*;
+import transition.data.*;
 
 using StringTools;
 
@@ -124,6 +121,9 @@ class Startup extends FlxState
         UIStateExt.defaultTransInArgs = [1.2];
         UIStateExt.defaultTransOut = ScreenWipeOut;
         UIStateExt.defaultTransOutArgs = [0.6];
+
+        DiscordClient.start();
+        DiscordClient.changePresence("Work in Progress!", "FPS Subtract");
 
         initSave();
         loadData();

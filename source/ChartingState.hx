@@ -1,18 +1,12 @@
 package;
 
-import flixel.group.FlxSpriteGroup;
-import transition.data.BasicTransition;
-import openfl.display.Bitmap;
-import flixel.addons.plugin.screengrab.FlxScreenGrab;
-import openfl.display.BitmapData;
-import flixel.graphics.FlxGraphic;
-import Song.SwagEvents;
-import openfl.media.SoundChannel;
 import Conductor.BPMChangeEvent;
+import Song.SwagEvents;
 import Song;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
+import flixel.addons.plugin.screengrab.FlxScreenGrab;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
@@ -22,8 +16,10 @@ import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
 import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
+import flixel.graphics.FlxGraphic;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
@@ -32,12 +28,16 @@ import flixel.ui.FlxButton;
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import haxe.Json;
-import openfl.utils.Assets;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.media.Sound;
+import openfl.media.SoundChannel;
 import openfl.net.FileReference;
+import openfl.utils.Assets;
 import openfl.utils.ByteArray;
+import transition.data.BasicTransition;
 
 using StringTools;
 
@@ -1693,12 +1693,11 @@ class ChartingState extends MusicBeatState
 	private function addSection(lengthInSteps:Int = 16):Void
 	{
 		var sec:SwagSection = {
+			sectionNotes: [],
 			lengthInSteps: lengthInSteps,
+			mustHitSection: true,
 			bpm: _song.bpm,
 			changeBPM: false,
-			mustHitSection: true,
-			sectionNotes: [],
-			typeOfSection: 0,
 			altAnim: false
 		};
 

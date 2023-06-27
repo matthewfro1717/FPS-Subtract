@@ -1,9 +1,8 @@
 package;
 
-import flixel.util.FlxSort;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import haxe.display.Display.Package;
+import flixel.util.FlxSort;
 
 class TankmenBG extends FlxSprite
 {

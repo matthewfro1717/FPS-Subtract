@@ -83,20 +83,10 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
-		var upP = controls.UP_P;
-		var downP = controls.DOWN_P;
-		var accepted = controls.ACCEPT;
+		if (controls.UP_P || controls.DOWN_P)
+			changeSelection(controls.DOWN_P ? 1 : -1);
 
-		if (upP)
-		{
-			changeSelection(-1);
-		}
-		if (downP)
-		{
-			changeSelection(1);
-		}
-
-		if (accepted)
+		if (controls.ACCEPT)
 		{
 			FlxTween.globalManager.active = true;
 
@@ -108,22 +98,16 @@ class PauseSubState extends MusicBeatSubstate
 					unpause();
 
 				case "Restart Song":
-					// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyDown);
-					// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyUp);
 					FlxTween.globalManager.clear();
 					PlayState.instance.switchState(new PlayState());
 					PlayState.sectionStart = false;
 
 				case "Restart Section":
-					// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyDown);
-					// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyUp);
 					FlxTween.globalManager.clear();
 					PlayState.instance.switchState(new PlayState());
 
 				case "Chart Editor":
 					PlayerSettings.menuControls();
-					// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyDown);
-					// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyUp);
 					FlxTween.globalManager.clear();
 					PlayState.instance.switchState(new ChartingState());
 
@@ -137,10 +121,7 @@ class PauseSubState extends MusicBeatSubstate
 					ConfigMenu.exitTo = PlayState;
 
 				case "Exit to menu":
-					// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyDown);
-					// FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, PlayState.instance.keyUp);
 					FlxTween.globalManager.clear();
-
 					PlayState.sectionStart = false;
 
 					switch (PlayState.returnLocation)
@@ -166,34 +147,19 @@ class PauseSubState extends MusicBeatSubstate
 	override function destroy()
 	{
 		pauseMusic.destroy();
-
 		super.destroy();
 	}
 
 	function changeSelection(change:Int = 0):Void
 	{
-		curSelected += change;
-
-		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
-		if (curSelected >= menuItems.length)
-			curSelected = 0;
+		curSelected = flixel.math.FlxMath.wrap(curSelected + change, 0, menuItems.length - 1);
 
 		var bullShit:Int = 0;
-
 		for (item in grpMenuShit.members)
 		{
 			item.targetY = bullShit - curSelected;
+			item.alpha = item.targetY == 0 ? 1.0 : 0.6;
 			bullShit++;
-
-			item.alpha = 0.6;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
-
-			if (item.targetY == 0)
-			{
-				item.alpha = 1;
-				// item.setGraphicSize(Std.int(item.width));
-			}
 		}
 	}
 }

@@ -1,6 +1,5 @@
 package transition.data;
 
-import openfl.system.System;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;

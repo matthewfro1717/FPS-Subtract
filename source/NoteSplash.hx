@@ -1,11 +1,7 @@
 package;
 
-import openfl.display.BlendMode;
-import openfl.display.BitmapData;
-import flixel.FlxSprite;
-import flixel.animation.FlxBaseAnimation;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxG;
+import flixel.FlxSprite;
 
 using StringTools;
 
@@ -48,14 +44,10 @@ class NoteSplash extends FlxSprite
 				offset.set(width * -0.1, height * -0.1);
 				var angles = [0, 90, 180, 270];
 				angle = angles[FlxG.random.int(0, 3)];
-			// alpha = 0.8;
-
 			default:
 				updateHitbox();
 				offset.set(width * 0.3, height * 0.3);
 				angle = FlxG.random.int(0, 359);
 		}
-
-		// blend = BlendMode.SCREEN;
 	}
 }

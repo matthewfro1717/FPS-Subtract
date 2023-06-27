@@ -1,14 +1,14 @@
 package config;
 
-import flixel.group.FlxSpriteGroup;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import transition.data.*;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.text.FlxText;
+import transition.data.*;
 
 using StringTools;
 

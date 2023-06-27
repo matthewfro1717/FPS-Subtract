@@ -1,20 +1,17 @@
 package config;
 
-import openfl.media.Sound;
-import title.*;
 import config.*;
-import transition.data.*;
-
-import flixel.FlxState;
-import openfl.Assets;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
+import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import flixel.text.FlxText;
+import openfl.Assets;
+import openfl.media.Sound;
 import openfl.system.System;
-//import openfl.utils.Future;
-//import flixel.addons.util.FlxAsyncLoop;
+import title.*;
+import transition.data.*;
 
 using StringTools;
 
@@ -48,11 +45,9 @@ class CacheReload extends FlxState
         charactersCached = !FlxG.save.data.charPreload2;
         graphicsCached = !FlxG.save.data.graphicsPreload2;
 
-        if(doGraphics){
-            GPUBitmap.disposeAll();
+        if(doGraphics)
             ImageCache.cache.clear();
-        }
-        else{
+        else {
             charactersCached = true;
             graphicsCached = true;
         }

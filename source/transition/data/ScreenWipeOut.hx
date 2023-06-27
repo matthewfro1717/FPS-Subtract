@@ -1,9 +1,9 @@
 package transition.data;
 
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 import flixel.util.FlxGradient;
 
 /**

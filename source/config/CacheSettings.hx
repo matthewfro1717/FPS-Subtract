@@ -1,11 +1,11 @@
 package config;
 
-import transition.data.*;
-import flixel.FlxState;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxColor;
+import flixel.FlxState;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import transition.data.*;
 
 using StringTools;
 

@@ -3,13 +3,13 @@ package;
 #if sys
 import sys.io.File;
 #end
-import openfl.utils.Assets;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import openfl.utils.Assets;
 
 using StringTools;
 using flixel.util.FlxSpriteUtil;

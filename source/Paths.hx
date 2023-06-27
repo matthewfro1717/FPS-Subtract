@@ -27,7 +27,7 @@ class Paths
 	inline static public function image(key:String):Dynamic
 	{
 		var path:String = file(key, "images", "png");
-		
+
 		if (ImageCache.exists(path))
 			return ImageCache.get(path);
 

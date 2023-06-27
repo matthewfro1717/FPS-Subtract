@@ -1,9 +1,8 @@
 package;
 
-import openfl.utils.Assets;
+import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.FlxSprite;
 
 class HealthIcon extends FlxSprite
 {

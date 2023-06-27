@@ -1,21 +1,8 @@
 package;
 
-import flixel.math.FlxAngle;
-import flixel.group.FlxGroup;
-#if sys
-import sys.FileSystem;
-#end
-import config.*;
-import title.*;
-import transition.data.*;
-import openfl.utils.Assets;
-import flixel.math.FlxRect;
-import openfl.system.System;
-import openfl.ui.KeyLocation;
-import flixel.input.keyboard.FlxKey;
-import openfl.ui.Keyboard;
-import openfl.events.KeyboardEvent;
+import Highscore.Rank;
 import Song;
+import config.*;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -26,8 +13,12 @@ import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxGroup;
+import flixel.input.keyboard.FlxKey;
+import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -36,9 +27,19 @@ import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
-import Highscore.Rank;
+import openfl.events.KeyboardEvent;
+import openfl.system.System;
+import openfl.ui.KeyLocation;
+import openfl.ui.Keyboard;
+import openfl.utils.Assets;
+import title.*;
+import transition.data.*;
 
 using StringTools;
+
+#if sys
+import sys.FileSystem;
+#end
 
 class PlayState extends MusicBeatState
 {
@@ -968,7 +969,6 @@ class PlayState extends MusicBeatState
 
 		add(dad);
 		add(boyfriend);
-
 		add(foregroundSprites);
 
 		if (!pixelSongs.contains(SONG.song.toLowerCase()))
@@ -1024,21 +1024,12 @@ class PlayState extends MusicBeatState
 		}
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
-		// doof.x += 70;
-		// doof.y = FlxG.height * 0.5;
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
 
 		Conductor.songPosition = -5000;
 
-		if (Config.downscroll)
-		{
-			strumLine = new FlxSprite(0, 570).makeGraphic(FlxG.width, 10);
-		}
-		else
-		{
-			strumLine = new FlxSprite(0, 30).makeGraphic(FlxG.width, 10);
-		}
+		strumLine = new FlxSprite(0, Config.downscroll ? 570 : 30).makeGraphic(FlxG.width, 10);
 		strumLine.scrollFactor.set();
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
@@ -1047,11 +1038,7 @@ class PlayState extends MusicBeatState
 		playerStrums = new FlxTypedGroup<FlxSprite>();
 		enemyStrums = new FlxTypedGroup<FlxSprite>();
 
-		// startCountdown();
-
 		generateSong(SONG.song);
-
-		// add(strumLine);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 
@@ -1067,7 +1054,6 @@ class PlayState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, LOCKON);
 
-		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.focusOn(camFollow.getPosition());
 
@@ -1230,9 +1216,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		// FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-		// FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
-
 		var bgDim = new FlxSprite(1280 / -2, 720 / -2).makeGraphic(1280 * 2, 720 * 2, FlxColor.BLACK);
 		bgDim.cameras = [camOverlay];
 		bgDim.alpha = Config.bgDim / 10;
@@ -1241,6 +1224,12 @@ class PlayState extends MusicBeatState
 		fromChartEditor = false;
 
 		super.create();
+	}
+
+	public override function destroy():Void
+	{
+		instance = null;
+		super.destroy();
 	}
 
 	function updateAccuracy()

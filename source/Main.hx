@@ -5,7 +5,6 @@ import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.display.FPS;
 import openfl.display.Sprite;
-import openfl.system.System;
 import openfl.utils.Assets;
 
 class Main extends Sprite
@@ -29,9 +28,9 @@ class Main extends Sprite
 			Assets.cache.clear('assets/songs');
 
 			// Run the garbage colector...
-			System.gc();
+			openfl.system.System.gc();
 		});
-		FlxG.signals.postStateSwitch.add(System.gc);
+		FlxG.signals.postStateSwitch.add(openfl.system.System.gc);
 
 		addChild(new FlxGame(1280, 720, Startup, 144, 144, true));
 

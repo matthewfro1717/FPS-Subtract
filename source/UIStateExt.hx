@@ -1,12 +1,10 @@
 package;
 
-import transition.*;
-import transition.data.*;
-import cpp.vm.Gc;
-import openfl.system.System;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.ui.FlxUIState;
+import transition.*;
+import transition.data.*;
 
 class UIStateExt extends FlxUIState
 {

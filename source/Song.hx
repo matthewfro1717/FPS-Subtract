@@ -1,7 +1,6 @@
 package;
 
 import haxe.Json;
-import openfl.utils.Assets;
 
 using StringTools;
 
@@ -44,11 +43,11 @@ class Song
 
 	public static function parseSong(rawJson:String):SwagSong
 	{
-		return cast(Json.parse(rawJson).song, SwagSong);
+		return cast Json.parse(rawJson).song;
 	}
 
 	public static function parseEvents(rawJson:String):SwagEvents
 	{
-		return cast(Json.parse(rawJson).events, SwagEvents);
+		return cast Json.parse(rawJson).events;
 	}
 }

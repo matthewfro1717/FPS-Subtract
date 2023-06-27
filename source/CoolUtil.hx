@@ -1,10 +1,10 @@
 package;
 
-import sys.io.File;
-import sys.FileSystem;
-import flixel.math.FlxMath;
 import flixel.FlxG;
+import flixel.math.FlxMath;
 import openfl.utils.Assets;
+import sys.FileSystem;
+import sys.io.File;
 
 using StringTools;
 

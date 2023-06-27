@@ -1,9 +1,9 @@
 package;
 
-import flixel.tweens.FlxTween;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
+import flixel.tweens.FlxTween;
 
 using StringTools;
 

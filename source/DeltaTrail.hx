@@ -1,15 +1,15 @@
 package;
 
-import flixel.addons.effects.FlxTrail;
-import flixel.animation.FlxAnimation;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.effects.FlxTrail;
+import flixel.animation.FlxAnimation;
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;
 import flixel.util.FlxArrayUtil;
 import flixel.util.FlxDestroyUtil;
-import flixel.math.FlxPoint;
 
 /**
  * FlxTrail but it uses delta time.

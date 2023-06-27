@@ -3,7 +3,6 @@ package;
 import config.*;
 import flixel.FlxSprite;
 
-// import polymod.format.ParseRules.TargetSignatureElement;
 using StringTools;
 
 class Note extends FlxSprite

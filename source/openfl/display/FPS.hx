@@ -1,6 +1,5 @@
 package openfl.display;
 
-import flixel.FlxG;
 import flixel.util.FlxStringUtil;
 import openfl.Lib;
 import openfl.events.Event;

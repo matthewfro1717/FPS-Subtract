@@ -1,8 +1,8 @@
 package transition;
 
-import flixel.FlxState;
-import flixel.FlxG;
 import flixel.FlxCamera;
+import flixel.FlxG;
+import flixel.FlxState;
 import transition.data.*;
 
 /**
