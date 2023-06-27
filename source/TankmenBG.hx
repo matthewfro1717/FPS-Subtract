@@ -91,7 +91,7 @@ class TankmenBG extends FlxSprite
 
 	static public function loadMappedAnims(fileName:String, song:String)
 	{
-		var swagshit = Song.loadFromJson(fileName, song);
+		var swagshit = Song.loadJson(fileName, song);
 
 		var notes = swagshit.notes;
 

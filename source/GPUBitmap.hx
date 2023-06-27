@@ -3,7 +3,7 @@ package;
 import openfl.display3D.textures.RectangleTexture;
 import openfl.display3D.textures.Texture;
 import openfl.Assets;
-import lime.utils.Assets as LimeAssets;
+import openfl.utils.Assets as LimeAssets;
 import openfl.display.BitmapData;
 import flixel.FlxG;
 import openfl.display3D.Context3DTextureFormat;

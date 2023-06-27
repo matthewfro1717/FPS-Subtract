@@ -6,11 +6,10 @@ import openfl.display.Bitmap;
 import flixel.addons.plugin.screengrab.FlxScreenGrab;
 import openfl.display.BitmapData;
 import flixel.graphics.FlxGraphic;
-import Song.SongEvents;
+import Song.SwagEvents;
 import openfl.media.SoundChannel;
 import Conductor.BPMChangeEvent;
-import Section.SwagSection;
-import Song.SwagSong;
+import Song;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
@@ -33,7 +32,7 @@ import flixel.ui.FlxButton;
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import haxe.Json;
-import lime.utils.Assets;
+import openfl.utils.Assets;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.media.Sound;
@@ -103,7 +102,7 @@ class ChartingState extends MusicBeatState
 	var gridBGOverlay:FlxSprite;
 
 	var _song:SwagSong;
-	var _events:SongEvents;
+	var _events:SwagEvents;
 
 	var typingShit:FlxInputText;
 
@@ -283,8 +282,8 @@ class ChartingState extends MusicBeatState
 			};
 		}
 
-		if (PlayState.EVENTS != null)
-			_events = PlayState.EVENTS;
+		if (PlayState.Events != null)
+			_events = PlayState.Events;
 		else
 		{
 			_events = {
@@ -1019,7 +1018,7 @@ class ChartingState extends MusicBeatState
 		if (FlxG.keys.justPressed.ENTER)
 		{
 			PlayState.SONG = _song;
-			PlayState.EVENTS = _events;
+			PlayState.Events = _events;
 			FlxG.sound.music.stop();
 			vocals.stop();
 
@@ -1298,7 +1297,7 @@ class ChartingState extends MusicBeatState
 				customTransOut = new BasicTransition();
 
 				var poop:String = Highscore.formatSong("lil-buddies", 2);
-				PlayState.SONG = Song.loadFromJson(poop, "lil-buddies");
+				PlayState.SONG = Song.loadJson(poop, "lil-buddies");
 				PlayState.isStoryMode = false;
 				PlayState.storyDifficulty = 2;
 				PlayState.loadEvents = true;
@@ -1902,14 +1901,14 @@ class ChartingState extends MusicBeatState
 
 	function loadJson(song:String):Void
 	{
-		PlayState.SONG = Song.loadFromJson(song.toLowerCase() + diffDropFinal, song.toLowerCase());
+		PlayState.SONG = Song.loadJson(song.toLowerCase() + diffDropFinal, song.toLowerCase());
 		FlxG.resetState();
 	}
 
 	function loadAutosave():Void
 	{
-		PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
-		PlayState.EVENTS = Song.parseEventJSON(FlxG.save.data.autosaveEvents);
+		PlayState.SONG = Song.parseSong(FlxG.save.data.autosave);
+		PlayState.Events = Song.parseEvents(FlxG.save.data.autosaveEvents);
 		FlxG.resetState();
 	}
 

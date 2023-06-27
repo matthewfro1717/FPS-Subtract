@@ -1,11 +1,19 @@
 package;
 
-import Section.SwagSection;
 import haxe.Json;
-import haxe.format.JsonParser;
-import lime.utils.Assets;
+import openfl.utils.Assets;
 
 using StringTools;
+
+typedef SwagSection =
+{
+	var sectionNotes:Array<Dynamic>;
+	var lengthInSteps:Int;
+	var mustHitSection:Bool;
+	var bpm:Float;
+	var changeBPM:Bool;
+	var altAnim:Bool;
+}
 
 typedef SwagSong =
 {
@@ -22,70 +30,27 @@ typedef SwagSong =
 	var validScore:Bool;
 }
 
-typedef SongEvents =
+typedef SwagEvents =
 {
 	var events:Array<Dynamic>;
 }
 
 class Song
 {
-	public var song:String;
-	public var notes:Array<SwagSection>;
-	public var bpm:Float;
-	public var needsVoices:Bool = true;
-	public var speed:Float = 1;
-
-	public var player1:String = 'bf';
-	public var player2:String = 'dad';
-	public var stage:String = '';
-	public var gf:String = 'gf';
-
-	public function new(song, notes, bpm)
+	public static function loadJson(jsonInput:String, ?folder:String):SwagSong
 	{
-		this.song = song;
-		this.notes = notes;
-		this.bpm = bpm;
+		return parseSong(CoolUtil.getText(Paths.json(folder + '/' + jsonInput).toLowerCase()).trim());
 	}
 
-	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
-	{
-		var rawJson = CoolUtil.getText(Paths.json(folder.toLowerCase() + '/' + jsonInput.toLowerCase())).trim();
-
-		while (!rawJson.endsWith("}"))
-		{
-			rawJson = rawJson.substr(0, rawJson.length - 1);
-			// LOL GOING THROUGH THE BULLSHIT TO CLEAN IDK WHATS STRANGE
-		}
-
-		// FIX THE CASTING ON WINDOWS/NATIVE
-		// Windows???
-		// trace(songData);
-
-		// trace('LOADED FROM JSON: ' + songData.notes);
-		/* 
-			for (i in 0...songData.notes.length)
-			{
-				trace('LOADED FROM JSON: ' + songData.notes[i].sectionNotes);
-				// songData.notes[i].sectionNotes = songData.notes[i].sectionNotes
-			}
-
-				daNotes = songData.notes;
-				daSong = songData.song;
-				daBpm = songData.bpm; */
-
-		return parseJSONshit(rawJson);
-	}
-
-	public static function parseJSONshit(rawJson:String):SwagSong
+	public static function parseSong(rawJson:String):SwagSong
 	{
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;
-		swagShit.validScore = true;
 		return swagShit;
 	}
 
-	public static function parseEventJSON(rawJson:String):SongEvents
+	public static function parseEvents(rawJson:String):SwagEvents
 	{
-		var swagShit:SongEvents = cast Json.parse(rawJson).events;
+		var swagShit:SwagEvents = cast Json.parse(rawJson).events;
 		return swagShit;
 	}
 }

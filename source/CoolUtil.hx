@@ -4,7 +4,7 @@ import sys.io.File;
 import sys.FileSystem;
 import flixel.math.FlxMath;
 import flixel.FlxG;
-import lime.utils.Assets;
+import openfl.utils.Assets;
 
 using StringTools;
 

@@ -8,16 +8,14 @@ import sys.FileSystem;
 import config.*;
 import title.*;
 import transition.data.*;
-import lime.utils.Assets;
+import openfl.utils.Assets;
 import flixel.math.FlxRect;
 import openfl.system.System;
 import openfl.ui.KeyLocation;
 import flixel.input.keyboard.FlxKey;
 import openfl.ui.Keyboard;
 import openfl.events.KeyboardEvent;
-import Section.SwagSection;
-import Song.SwagSong;
-import Song.SongEvents;
+import Song;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -48,7 +46,7 @@ class PlayState extends MusicBeatState
 
 	public static var curStage:String = '';
 	public static var SONG:SwagSong;
-	public static var EVENTS:SongEvents;
+	public static var Events:SwagEvents;
 	public static var loadEvents:Bool = true;
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
@@ -255,18 +253,18 @@ class PlayState extends MusicBeatState
 			{
 				trace("loaded events");
 				trace(Paths.json(SONG.song.toLowerCase() + "/events"));
-				EVENTS = Song.parseEventJSON(CoolUtil.getText(Paths.json(SONG.song.toLowerCase() + "/events")));
+				Events = Song.parseEvents(CoolUtil.getText(Paths.json(SONG.song.toLowerCase() + "/events")));
 			}
 			else
 			{
 				trace("No events found");
-				EVENTS = {
+				Events = {
 					events: []
 				};
 			}
 		}
 
-		for (i in EVENTS.events)
+		for (i in Events.events)
 		{
 			eventList.push([i[1], i[3]]);
 		}
@@ -316,7 +314,7 @@ class PlayState extends MusicBeatState
 		persistentDraw = true;
 
 		if (SONG == null)
-			SONG = Song.loadFromJson('tutorial');
+			SONG = Song.loadJson('tutorial');
 
 		Conductor.changeBPM(SONG.bpm);
 		Conductor.mapBPMChanges(SONG);
@@ -2506,7 +2504,7 @@ class PlayState extends MusicBeatState
 					prevCamFollow = camFollow;
 				}
 
-				PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + difficulty, PlayState.storyPlaylist[0]);
+				PlayState.SONG = Song.loadJson(PlayState.storyPlaylist[0].toLowerCase() + difficulty, PlayState.storyPlaylist[0]);
 				FlxG.sound.music.stop();
 
 				switchState(new PlayState());

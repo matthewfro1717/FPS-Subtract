@@ -10,7 +10,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import lime.utils.Assets;
+import openfl.utils.Assets;
 import flixel.text.FlxText;
 
 using StringTools;
