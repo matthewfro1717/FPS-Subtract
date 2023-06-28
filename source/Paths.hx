@@ -5,29 +5,29 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 
 class Paths
 {
-	inline static public function file(key:String, location:String, extension:String):String
+	inline static public function file(key:String, location:String):String
 	{
-		return 'assets/$location/$key.$extension';
+		return 'assets/$location/$key';
 	}
 
 	inline static public function xml(key:String, ?location:String = "data"):String
 	{
-		return file(key, location, "xml");
+		return file('$key.xml', location, "xml");
 	}
 
 	inline static public function text(key:String, ?location:String = "data"):String
 	{
-		return file(key, location, "txt");
+		return file('$key.txt', location, "txt");
 	}
 
 	inline static public function json(key:String, ?location:String = "data"):String
 	{
-		return file(key, location, "json");
+		return file('$key.json', location, "json");
 	}
 
 	inline static public function image(key:String):FlxGraphicAsset
 	{
-		var path:String = file(key, "images", "png");
+		var path:String = file('$key.png', "images");
 
 		if (ImageCache.exists(path))
 			return ImageCache.get(path);
@@ -37,32 +37,32 @@ class Paths
 
 	inline static public function sound(key:String):String
 	{
-		return file(key, "sounds", "ogg");
+		return file('$key.ogg', "sounds");
 	}
 
 	inline static public function music(key:String):String
 	{
-		return file(key, "music", "ogg");
+		return file('$key.ogg', "music");
 	}
 
 	inline static public function voices(key:String):String
 	{
-		return file('$key/Voices', "songs", "ogg");
+		return file('$key/Voices.ogg', "songs");
 	}
 
 	inline static public function inst(key:String):String
 	{
-		return file('$key/Inst', "songs", "ogg");
+		return file('$key/Inst.ogg', "songs");
 	}
 
 	inline static public function video(key:String):String
 	{
-		return file(key, "videos", "mp4");
+		return file('$key.mp4', "videos");
 	}
 
-	inline static public function font(key:String, ?extension:String = "ttf"):String
+	inline static public function font(key:String):String
 	{
-		return file(key, "fonts", extension);
+		return file(key, "fonts");
 	}
 
 	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames
