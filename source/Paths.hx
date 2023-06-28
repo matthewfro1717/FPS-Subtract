@@ -1,7 +1,6 @@
 package;
 
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.system.FlxAssets.FlxGraphicAsset;
 import haxe.io.Path;
 
 using StringTools;
@@ -65,7 +64,6 @@ class Paths
 
 	inline static public function font(key:String):String
 	{
-
 		var path:String = file(key, "fonts");
 
 		if (Path.extension(path) == '')
