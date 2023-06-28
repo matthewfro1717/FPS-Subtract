@@ -1,6 +1,7 @@
 package;
 
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.system.FlxAssets.FlxGraphicAsset;
 
 class Paths
 {
@@ -24,7 +25,7 @@ class Paths
 		return file(key, location, "json");
 	}
 
-	inline static public function image(key:String):Dynamic
+	inline static public function image(key:String):FlxGraphicAsset
 	{
 		var path:String = file(key, "images", "png");
 
