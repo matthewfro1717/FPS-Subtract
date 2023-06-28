@@ -64,9 +64,9 @@ class Paths
 
 	inline static public function font(key:String):String
 	{
-		var hasDot:Bool = key.charCodeAt(key.lastIndexOf(".")) != -1;
+		var hasDot:Bool = key.charCodeAt(key.lastIndexOf(".")) != null;
 		var realKey:String = file(key, "fonts");
-		if (hasDot)
+		if (!hasDot)
 		{
 			if (CoolUtil.exists(realKey + ".ttf"))
 				realKey = realKey + ".ttf";
