@@ -3,6 +3,8 @@ package;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
+using StringTools;
+
 class Paths
 {
 	inline static public function file(key:String, location:String):String
@@ -12,20 +14,20 @@ class Paths
 
 	inline static public function xml(key:String, ?location:String = "data"):String
 	{
-		return file('$key.xml', location, "xml");
+		return file('$key.xml', location);
 	}
 
 	inline static public function text(key:String, ?location:String = "data"):String
 	{
-		return file('$key.txt', location, "txt");
+		return file('$key.txt', location);
 	}
 
 	inline static public function json(key:String, ?location:String = "data"):String
 	{
-		return file('$key.json', location, "json");
+		return file('$key.json', location);
 	}
 
-	inline static public function image(key:String):FlxGraphicAsset
+	inline static public function image(key:String):Dynamic
 	{
 		var path:String = file('$key.png', "images");
 
@@ -62,7 +64,16 @@ class Paths
 
 	inline static public function font(key:String):String
 	{
-		return file(key, "fonts");
+		var hasDot:Bool = key.charCodeAt(key.lastIndexOf(".")) != -1;
+		var realKey:String = file(key, "fonts");
+		if (hasDot)
+		{
+			if (CoolUtil.exists(realKey + ".ttf"))
+				realKey = realKey + ".ttf";
+			else if (CoolUtil.exists(realKey + ".otf"))
+				realKey = realKey + ".otf";
+		}
+		return realKey;
 	}
 
 	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames

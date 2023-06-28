@@ -159,7 +159,7 @@ class ConfigMenu extends UIStateExt
 
 		configText = new FlxText(0, 0, 1280, "", 60);
 		configText.scrollFactor.set(0, 0);
-		configText.setFormat(Paths.font("Funkin-Bold", "otf"), configText.textField.defaultTextFormat.size, FlxColor.WHITE, FlxTextAlign.CENTER,
+		configText.setFormat(Paths.font("Funkin-Bold"), configText.textField.defaultTextFormat.size, FlxColor.WHITE, FlxTextAlign.CENTER,
 			FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		configText.borderSize = 3;
 		configText.borderQuality = 1;

@@ -262,7 +262,7 @@ class Startup extends FlxState
 
     function preloadCharacters() {
         for(x in characters)
-            ImageCache.add(Paths.file(x, "images", "png"));
+            ImageCache.add(Paths.file(x + ".png", "images"));
 
         loadingText.text = "Characters cached...";
         charactersCached = true;
@@ -270,7 +270,7 @@ class Startup extends FlxState
 
     function preloadGraphics(){
         for(x in graphics)
-            ImageCache.add(Paths.file(x, "images", "png"));
+            ImageCache.add(Paths.file(x + ".png", "images"));
 
         loadingText.text = "Graphics cached...";
         graphicsCached = true;

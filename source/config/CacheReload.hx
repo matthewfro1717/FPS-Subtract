@@ -87,7 +87,7 @@ class CacheReload extends FlxState
                 charactersCached = true;
             }
             else{
-                ImageCache.add(Paths.file(Startup.characters[charI], "images", "png"));
+                ImageCache.add(Paths.file(Startup.characters[charI] + ".png", "images"));
                 charI++;
             }
         }
@@ -100,7 +100,7 @@ class CacheReload extends FlxState
                 graphicsCached = true;
             }
             else{
-                ImageCache.add(Paths.file(Startup.graphics[gfxI], "images", "png"));
+                ImageCache.add(Paths.file(Startup.graphics[gfxI] + ".png", "images"));
                 gfxI++;
             }
         }
@@ -123,7 +123,7 @@ class CacheReload extends FlxState
         /*if(!charactersCached){
             var i = 0;
             var charLoadLoop = new FlxAsyncLoop(characters.length, function(){
-                ImageCache.add(Paths.file(characters[i], "images", "png"));
+                ImageCache.add(Paths.file(characters[i] + ".png", "images"));
                 i++;
             }, 1);
         }
@@ -162,7 +162,7 @@ class CacheReload extends FlxState
     /*
     function preloadCharacters(){
         for(x in Startup.characters){
-            ImageCache.add(Paths.file(x, "images", "png"));
+            ImageCache.add(Paths.file(x + ".png", "images"));
             //trace("Chached " + x);
         }
         loadingText.text = "Characters cached...";
@@ -171,12 +171,11 @@ class CacheReload extends FlxState
 
     function preloadGraphics(){
         for(x in Startup.graphics){
-            ImageCache.add(Paths.file(x, "images", "png"));
+            ImageCache.add(Paths.file(x + ".png", "images"));
             //trace("Chached " + x);
         }
         loadingText.text = "Graphics cached...";
         graphicsCached = true;
     }
     */
-
 }

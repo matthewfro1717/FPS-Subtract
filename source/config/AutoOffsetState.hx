@@ -17,7 +17,7 @@ class AutoOffsetState extends MusicBeatState
 
 	public static var forceEasterEgg:Int = 0;
 
-	var font:Array<String> = [Paths.font("Funkin-Bold", "otf"), Paths.font("vcr")];
+	var font:Array<String> = [Paths.font("Funkin-Bold"), Paths.font("vcr")];
 
 	var hitBeats:Int = 0;
 	var offsetCalc:Int = 0;

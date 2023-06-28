@@ -31,7 +31,7 @@ class CacheSettings extends MusicBeatState
 	override function create()
 	{
 		var bgColor:FlxColor = 0xFF9766BE;
-		var font:String = Paths.font("Funkin-Bold", "otf");
+		var font:String = Paths.font("Funkin-Bold");
 
 		if (noFunMode)
 		{
