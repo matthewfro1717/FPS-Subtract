@@ -3,15 +3,16 @@ package title;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.util.FlxColor;
+#if VIDEOS
+import hxcodec.flixel.FlxVideo;
+#end
 
 using StringTools;
 
 class TitleVideo extends FlxState
 {
-	var titleState:TitleScreen = new TitleScreen();
-
 	#if VIDEOS
-	var video:hxcodec.flixel.FlxVideoSprite;
+	var video:FlxVideo;
 	#end
 
 	override public function create():Void
@@ -19,35 +20,35 @@ class TitleVideo extends FlxState
 		super.create();
 
 		#if VIDEOS
-		video = new hxcodec.flixel.FlxVideoSprite();
+		video = new FlxVideo();
+		video.onEndReached.add(function()
+		{
+			video.dispose();
+			next();
+		});
 		video.play(Paths.video('klaskiiTitle'));
-		video.bitmap.onEndReached.add(next);
-		add(video);
 		#else
 		next();
 		#end
 	}
 
 	#if VIDEOS
-	public override function update(elapsed:Float):Void
+	override function update(elapsed:Float):Void
 	{
-		super.update(elapsed);
-
 		if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.ESCAPE)
-		{
-			video.stop();
-			video.destroy();
-			remove(video);
-			next();
-		}
+			video.onEndReached.dispatch();
+
+		super.update(elapsed);
 	}
 	#end
 
 	function next():Void
 	{
 		FlxG.camera.flash(FlxColor.WHITE, 60);
-		FlxG.sound.playMusic(Paths.music(TitleScreen.titleMusic), 1);
+
 		Conductor.changeBPM(158);
-		FlxG.switchState(titleState);
+		FlxG.sound.playMusic(Paths.music(TitleScreen.titleMusic), 1);
+
+		FlxG.switchState(new TitleScreen());
 	}
 }

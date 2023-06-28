@@ -1356,15 +1356,11 @@ class PlayState extends MusicBeatState
 		blackShit.scrollFactor.set();
 		add(blackShit);
 
-		var video = new hxcodec.flixel.FlxVideoSprite();
-		video.scrollFactor.set();
-		video.antialiasing = true;
-
-		FlxG.camera.zoom = 1;
-
-		video.play(path);
-		video.bitmap.onEndReached.add(function()
+		var video = new hxcodec.flixel.FlxVideo();
+		video.onEndReached.add(function()
 		{
+			video.dispose();
+
 			FlxTween.tween(blackShit, {alpha: 0}, 0.4, {
 				ease: FlxEase.quadInOut,
 				onComplete: function(t)
@@ -1372,16 +1368,18 @@ class PlayState extends MusicBeatState
 					remove(blackShit);
 				}
 			});
-			remove(video);
 
 			FlxG.camera.zoom = defaultCamZoom;
+
 			if (endFunc != null)
 				endFunc();
 
 			startCountdown();
 		});
+		video.play(path);
 
-		add(video);
+		FlxG.camera.zoom = 1;
+
 		if (startFunc != null)
 			startFunc();
 		#else
