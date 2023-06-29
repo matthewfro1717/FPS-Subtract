@@ -68,10 +68,10 @@ class Paths
 
 		if (path.extension() == '')
 		{
-			if (CoolUtil.exists(path.withExtension(".ttf")))
-				path = path.withExtension(".ttf");
-			else if (CoolUtil.exists(path.withExtension(".otf")))
-				path = path.withExtension(".otf");
+			if (CoolUtil.exists(path.withExtension("ttf")))
+				path = path.withExtension("ttf");
+			else if (CoolUtil.exists(path.withExtension("otf")))
+				path = path.withExtension("otf");
 		}
 
 		return path;
