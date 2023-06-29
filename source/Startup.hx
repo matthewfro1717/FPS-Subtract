@@ -240,9 +240,11 @@ class Startup extends flixel.FlxState
             loadingBar.visible = true;
 
         if(!songsCached) { 
-            #if sys sys.thread.Thread.create(() -> { #end
-                preloadMusic();
-            #if sys }); #end
+            #if sys
+            sys.thread.Thread.create(preloadMusic);
+            #else
+            preloadMusic();
+            #end
         }
 
         if(!charactersCached) startCachingCharacters = true;
