@@ -149,7 +149,7 @@ class Startup extends FlxState
             add(loadingBar);
         }
 
-        loadingText = new FlxText(5, FlxG.height - 30, 0, "", 24);
+        loadingText = new FlxText(5, FlxG.height - 30, 0, '', 24);
         loadingText.setFormat(Paths.font("vcr"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         add(loadingText);
 

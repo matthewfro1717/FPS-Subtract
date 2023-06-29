@@ -120,7 +120,7 @@ class ConfigMenu extends UIStateExt
 
 		splatter = new FlxSprite();
 		splatter.frames = Paths.getSparrowAtlas("fpsPlus/config/splatter");
-		splatter.animation.addByPrefix("boil", "", 24);
+		splatter.animation.addByPrefix("boil", '', 24);
 		splatter.animation.play("boil");
 		splatter.antialiasing = true;
 		topLevelMenuGroup.add(splatter);
@@ -146,8 +146,8 @@ class ConfigMenu extends UIStateExt
 
 			var text = new FlxSprite();
 			text.frames = textTexture;
-			text.animation.addByIndices('active', options[i] + "Text", [0, 1, 2], "", 24, true);
-			text.animation.addByIndices('inactive', options[i] + "Text", [3, 6, 9], "", 8, true);
+			text.animation.addByIndices('active', options[i] + "Text", [0, 1, 2], '', 24, true);
+			text.animation.addByIndices('inactive', options[i] + "Text", [3, 6, 9], '', 8, true);
 			text.animation.play("inactive");
 			text.antialiasing = true;
 			text.x = icon.getGraphicMidpoint().x;
@@ -157,7 +157,7 @@ class ConfigMenu extends UIStateExt
 			add(text);
 		}
 
-		configText = new FlxText(0, 0, 1280, "", 60);
+		configText = new FlxText(0, 0, 1280, '', 60);
 		configText.scrollFactor.set(0, 0);
 		configText.setFormat(Paths.font("Funkin-Bold"), configText.textField.defaultTextFormat.size, FlxColor.WHITE, FlxTextAlign.CENTER,
 			FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -165,7 +165,7 @@ class ConfigMenu extends UIStateExt
 		configText.borderQuality = 1;
 		subMenuGroup.add(configText);
 
-		descText = new FlxText(320, 638, 640, "", 20);
+		descText = new FlxText(320, 638, 640, '', 20);
 		descText.scrollFactor.set(0, 0);
 		descText.setFormat(Paths.font("vcr"), descText.textField.defaultTextFormat.size, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE,
 			FlxColor.BLACK);
@@ -369,7 +369,7 @@ class ConfigMenu extends UIStateExt
 	function textUpdate()
 	{
 		configText.clearFormats();
-		configText.text = "";
+		configText.text = '';
 
 		for (i in 0...configOptions[curSelected].length)
 		{
@@ -494,7 +494,7 @@ class ConfigMenu extends UIStateExt
 
 		var noteOffset = new ConfigOption("NOTE OFFSET", ": " + offsetValue,
 			"Adjust note timings.\nPress \"ENTER\" to start the offset calibration." +
-			(FlxG.save.data.ee1 ? "\nHold \"SHIFT\" to force the pixel calibration.\nHold \"CTRL\" to force the normal calibration." : ""));
+			(FlxG.save.data.ee1 ? "\nHold \"SHIFT\" to force the pixel calibration.\nHold \"CTRL\" to force the normal calibration." : ''));
 		noteOffset.extraData[0] = 0;
 		noteOffset.optionUpdate = function()
 		{
@@ -574,7 +574,7 @@ class ConfigMenu extends UIStateExt
 			centeredNotes.setting = ": " + genericOnOff[centeredValue ? 0 : 1];
 		}
 
-		var ghostTap = new ConfigOption("ALLOW GHOST TAPPING", ": " + randomTapTypes[randomTapValue], "");
+		var ghostTap = new ConfigOption("ALLOW GHOST TAPPING", ": " + randomTapTypes[randomTapValue], '');
 		ghostTap.extraData[0] = "Any key press that isn't for a valid note will cause you to miss.";
 		ghostTap.extraData[1] = "You can only  miss while you need to sing.";
 		ghostTap.extraData[2] = "You cannot miss unless you do not hit a note.";
@@ -601,7 +601,7 @@ class ConfigMenu extends UIStateExt
 			ghostTap.description = ": " + ghostTap.extraData[randomTapValue];
 		}
 
-		var keyBinds = new ConfigOption("[EDIT KEY BINDS]", "", "Press ENTER to change key binds.");
+		var keyBinds = new ConfigOption("[EDIT KEY BINDS]", '', "Press ENTER to change key binds.");
 		keyBinds.optionUpdate = function()
 		{
 			if (controls.ACCEPT)
@@ -614,7 +614,7 @@ class ConfigMenu extends UIStateExt
 			}
 		}
 
-		var controllerBinds = new ConfigOption("CONTROLLER SCHEME", "", "");
+		var controllerBinds = new ConfigOption("CONTROLLER SCHEME", '', '');
 		controllerBinds.extraData[0] = "DEFAULT";
 		controllerBinds.extraData[1] = "ALT 1";
 		controllerBinds.extraData[2] = "ALT 2";
@@ -684,7 +684,7 @@ class ConfigMenu extends UIStateExt
 			accuracyDisplay.setting = ": " + accuracyType;
 		};
 
-		var comboDisplay = new ConfigOption("COMBO DISPLAY", ": " + comboTypes[comboValue], "");
+		var comboDisplay = new ConfigOption("COMBO DISPLAY", ": " + comboTypes[comboValue], '');
 		comboDisplay.extraData[0] = "Ratings and combo count are a part of the world and move around with the camera.";
 		comboDisplay.extraData[1] = "Ratings and combo count are a part of the hud and stay in a static position.";
 		comboDisplay.extraData[2] = "Ratings and combo count are hidden.";
@@ -815,7 +815,7 @@ class ConfigMenu extends UIStateExt
 			hpDrain.setting = ": " + healthDrainValue / 10.0;
 		};
 
-		var cacheSettings = new ConfigOption("[CACHE SETTINGS]", "", "Press ENTER to change what assets the game keeps cached.");
+		var cacheSettings = new ConfigOption("[CACHE SETTINGS]", '', "Press ENTER to change what assets the game keeps cached.");
 		cacheSettings.optionUpdate = function()
 		{
 			if (controls.ACCEPT)
@@ -831,7 +831,7 @@ class ConfigMenu extends UIStateExt
 			}
 		}
 
-		var scrollSpeed = new ConfigOption("STATIC SCROLL SPEED", ": " + (scrollSpeedValue > 0 ? "" + (scrollSpeedValue / 10.0) : "[DISABLED]"), "");
+		var scrollSpeed = new ConfigOption("STATIC SCROLL SPEED", ": " + (scrollSpeedValue > 0 ? '' + (scrollSpeedValue / 10.0) : "[DISABLED]"), '');
 		scrollSpeed.extraData[0] = 0;
 		scrollSpeed.extraData[1] = "Press ENTER to enable.\nSets the song scroll speed to the set value instead of the song's default.";
 		scrollSpeed.extraData[2] = "Press ENTER to disable.\nSets the song scroll speed to the set value instead of the song's default.";
@@ -900,7 +900,7 @@ class ConfigMenu extends UIStateExt
 			}
 
 			scrollSpeed.description = scrollSpeedValue > 0 ? scrollSpeed.extraData[2] : scrollSpeed.extraData[1];
-			scrollSpeed.setting = ": " + (scrollSpeedValue > 0 ? "" + (scrollSpeedValue / 10.0) : "[DISABLED]");
+			scrollSpeed.setting = ": " + (scrollSpeedValue > 0 ? '' + (scrollSpeedValue / 10.0) : "[DISABLED]");
 		};
 
 		var showComboBreaks = new ConfigOption("SHOW COMBO BREAKS", ": " + genericOnOff[showComboBreaksValue ? 0 : 1],

@@ -20,10 +20,10 @@ class Alphabet extends FlxSpriteGroup
 	public var targetY:Float = 0;
 	public var isMenuItem:Bool = false;
 
-	public var text:String = "";
+	public var text:String = '';
 
-	var _finalText:String = "";
-	var _curText:String = "";
+	var _finalText:String = '';
+	var _curText:String = '';
 
 	public var widthOfWords:Float = FlxG.width;
 
@@ -39,7 +39,7 @@ class Alphabet extends FlxSpriteGroup
 
 	var isBold:Bool = false;
 
-	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false)
+	public function new(x:Float, y:Float, text:String = '', ?bold:Bool = false, typed:Bool = false)
 	{
 		super(x, y);
 
@@ -47,7 +47,7 @@ class Alphabet extends FlxSpriteGroup
 		this.text = text;
 		isBold = bold;
 
-		if (text != "")
+		if (text != '')
 		{
 			if (typed)
 			{
@@ -111,7 +111,7 @@ class Alphabet extends FlxSpriteGroup
 
 	function doSplitWords():Void
 	{
-		splitWords = _finalText.split("");
+		splitWords = _finalText.split('');
 	}
 
 	public var personTalking:String = 'gf';

@@ -19,7 +19,7 @@ import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -73,7 +73,7 @@ class PlayState extends MusicBeatState
 	public static final pixelSongs = ["senpai", "roses", "thorns"];
 	public static final tankSongs = ["ugh", "guns", "stress"];
 
-	private var camFocus:String = "";
+	private var camFocus:String = '';
 	private var camTween:FlxTween;
 	private var camZoomTween:FlxTween;
 	private var uiZoomTween:FlxTween;
@@ -137,7 +137,7 @@ class PlayState extends MusicBeatState
 	private var enemyStrums:FlxTypedGroup<FlxSprite>;
 
 	private var camZooming:Bool = true;
-	private var curSong:String = "";
+	private var curSong:String = '';
 
 	private var health:Float = 1;
 	private var healthLerp:Float = 1;
@@ -1079,7 +1079,7 @@ class PlayState extends MusicBeatState
 		healthBar.antialiasing = true;
 		// healthBar
 
-		scoreTxt = new FlxText(healthBarBG.x - 105, (FlxG.height * 0.9) + 36, 800, "", 22);
+		scoreTxt = new FlxText(healthBarBG.x - 105, (FlxG.height * 0.9) + 36, 800, '', 22);
 		scoreTxt.setFormat(Paths.font("vcr"), 22, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.borderSize = 2.1;
 		updateScore();
@@ -1477,7 +1477,7 @@ class PlayState extends MusicBeatState
 		]);
 
 		var introAlts:Array<String> = introAssets.get('default');
-		var altSuffix:String = "";
+		var altSuffix:String = '';
 
 		for (value in introAssets.keys())
 		{
@@ -2335,7 +2335,7 @@ class PlayState extends MusicBeatState
 
 				daNote.wasGoodHit = true;
 
-				var altAnim:String = "";
+				var altAnim:String = '';
 
 				if (SONG.notes[Math.floor(curStep / 16)] != null)
 				{
@@ -2431,7 +2431,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				var difficulty:String = "";
+				var difficulty:String = '';
 
 				if (storyDifficulty == 0)
 					difficulty = '-easy';
@@ -3600,7 +3600,7 @@ class PlayState extends MusicBeatState
 		camMove(followX, followY, 1.9, FlxEase.quintOut, "bf");
 	}
 
-	function camMove(_x:Float, _y:Float, _time:Float, _ease:Null<flixel.tweens.EaseFunction>, ?_focus:String = "",
+	function camMove(_x:Float, _y:Float, _time:Float, _ease:Null<flixel.tweens.EaseFunction>, ?_focus:String = '',
 			?_onComplete:Null<TweenCallback> = null):Void
 	{
 		if (_onComplete == null)

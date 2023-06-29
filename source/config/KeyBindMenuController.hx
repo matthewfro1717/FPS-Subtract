@@ -28,7 +28,7 @@ class KeyBindMenuController extends MusicBeatState
 		FlxG.save.data.rightBindController
 	];
 
-	var tempKey:String = "";
+	var tempKey:String = '';
 	var blacklist:Array<String> = ["START", "BACK"];
 
 	var state:String = "select";
@@ -57,7 +57,7 @@ class KeyBindMenuController extends MusicBeatState
 		bg.color = 0xFF9766BE;
 		add(bg);
 
-		keyTextDisplay = new FlxText(0, 0, 1280, "", 72);
+		keyTextDisplay = new FlxText(0, 0, 1280, '', 72);
 		keyTextDisplay.scrollFactor.set(0, 0);
 		keyTextDisplay.setFormat(Paths.font("Funkin-Bold"), 72, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		keyTextDisplay.borderSize = 3;
@@ -171,7 +171,7 @@ class KeyBindMenuController extends MusicBeatState
 	function textUpdate()
 	{
 		keyTextDisplay.clearFormats();
-		keyTextDisplay.text = "";
+		keyTextDisplay.text = '';
 
 		for (i in 0...4)
 		{
@@ -192,7 +192,7 @@ class KeyBindMenuController extends MusicBeatState
 			}
 
 			var sectionStart = keyTextDisplay.text.length;
-			keyTextDisplay.text += keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " + ") : "") + keyText[i] + " ARROW\n";
+			keyTextDisplay.text += keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " + ") : '') + keyText[i] + " ARROW\n";
 			var sectionEnd = keyTextDisplay.text.length - 1;
 
 			if (i == curSelected)

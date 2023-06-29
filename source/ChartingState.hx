@@ -22,7 +22,7 @@ import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
-import flixel.system.FlxSound;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.ui.FlxSpriteButton;
@@ -67,8 +67,8 @@ class ChartingState extends MusicBeatState
 	var player2DropDown:FlxUIDropDownMenu;
 	var gfDropDown:FlxUIDropDownMenu;
 	var stageDropDown:FlxUIDropDownMenu;
-	var diffList:Array<String> = ["-easy", "", "-hard"];
-	var diffDropFinal:String = "";
+	var diffList:Array<String> = ["-easy", '', "-hard"];
+	var diffDropFinal:String = '';
 	var bfClick:FlxUICheckBox;
 	var opClick:FlxUICheckBox;
 	var gotoSectionStepper:FlxUINumericStepper;
@@ -110,7 +110,7 @@ class ChartingState extends MusicBeatState
 
 	var eventTagName:FlxInputText;
 	var eventTagDrop:FlxUIDropDownMenu;
-	var eventTagList:Array<String> = [""];
+	var eventTagList:Array<String> = [''];
 
 	/*
 	 * WILL BE THE CURRENT / LAST PLACED NOTE
@@ -320,7 +320,7 @@ class ChartingState extends MusicBeatState
 		Conductor.changeBPM(_song.bpm);
 		Conductor.mapBPMChanges(_song);
 
-		bpmTxt = new FlxText(1140, 50, 0, "", 16);
+		bpmTxt = new FlxText(1140, 50, 0, '', 16);
 		bpmTxt.scrollFactor.set();
 		add(bpmTxt);
 
@@ -682,7 +682,7 @@ class ChartingState extends MusicBeatState
 		var tab_group_note = new FlxUI(null, UI_box);
 		tab_group_note.name = 'Note';
 
-		noteType = new FlxUIInputText(10, 70, 70, "", 8);
+		noteType = new FlxUIInputText(10, 70, 70, '', 8);
 
 		stepperSusLength = new FlxUINumericStepper(10, 10, Conductor.stepCrochet / 2, 0, 0, Conductor.stepCrochet * 16 * 16);
 		stepperSusLength.value = 0;
@@ -699,7 +699,7 @@ class ChartingState extends MusicBeatState
 
 	function addEventUI():Void
 	{
-		eventTagName = new FlxUIInputText(10, 70, 160, "", 8);
+		eventTagName = new FlxUIInputText(10, 70, 160, '', 8);
 
 		eventTagDrop = new FlxUIDropDownMenu(10, 100, FlxUIDropDownMenu.makeStrIdLabelArray(eventTagList, true), function(tag:String)
 		{
@@ -1240,7 +1240,7 @@ class ChartingState extends MusicBeatState
 						{
 							FlxG.sound.play(Paths.sound("tick"), 0.6);
 						}
-						lilBf.animation.play("" + (x.noteData % 4), true);
+						lilBf.animation.play('' + (x.noteData % 4), true);
 					}
 					else if (!x.editorBFNote)
 					{
@@ -1248,7 +1248,7 @@ class ChartingState extends MusicBeatState
 						{
 							FlxG.sound.play(Paths.sound("tick"), 0.6);
 						}
-						lilOpp.animation.play("" + (x.noteData % 4), true);
+						lilOpp.animation.play('' + (x.noteData % 4), true);
 					}
 				}
 
@@ -1471,7 +1471,7 @@ class ChartingState extends MusicBeatState
 			var type = note[3];
 			if (type == null)
 			{
-				type = "";
+				type = '';
 			}
 
 			var copiedNote:Array<Dynamic> = [strum, note[1], note[2], type];
@@ -1842,7 +1842,7 @@ class ChartingState extends MusicBeatState
 
 		trace(noteStrum);
 		trace(curSection);
-		trace("adding \"" + noteType.text + "\" note");
+		trace("adding \'' + noteType.text + "\" note");
 		trace(_song.notes[curSection].sectionNotes);
 
 		updateGrid();
@@ -2132,7 +2132,7 @@ class ChartingState extends MusicBeatState
 			}
 		}
 
-		var remove = (tag != "");
+		var remove = (tag != '');
 		if (remove)
 		{
 			for (i in _events.events)

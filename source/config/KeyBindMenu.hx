@@ -27,7 +27,7 @@ class KeyBindMenu extends MusicBeatState
 		FlxG.save.data.killBind
 	];
 
-	var tempKey:String = "";
+	var tempKey:String = '';
 	var blacklist:Array<String> = ["ESCAPE", "ENTER", "BACKSPACE", "SPACE"];
 
 	var state:String = "select";
@@ -46,7 +46,7 @@ class KeyBindMenu extends MusicBeatState
 		bg.color = 0xFF9766BE;
 		add(bg);
 
-		keyTextDisplay = new FlxText(0, 0, 1280, "", 72);
+		keyTextDisplay = new FlxText(0, 0, 1280, '', 72);
 		keyTextDisplay.scrollFactor.set(0, 0);
 		keyTextDisplay.setFormat(Paths.font("Funkin-Bold"), 72, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		keyTextDisplay.borderSize = 3;
@@ -151,13 +151,13 @@ class KeyBindMenu extends MusicBeatState
 	function textUpdate()
 	{
 		keyTextDisplay.clearFormats();
-		keyTextDisplay.text = "";
+		keyTextDisplay.text = '';
 
 		for (i in 0...keys.length)
 		{
 			var sectionStart = keyTextDisplay.text.length;
 			if (i < 4)
-				keyTextDisplay.text += keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " + ") : "") + keyText[i] + " ARROW\n";
+				keyTextDisplay.text += keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " + ") : '') + keyText[i] + " ARROW\n";
 			else
 				keyTextDisplay.text += "RESET: " + keys[4] + "\n";
 			var sectionEnd = keyTextDisplay.text.length - 1;

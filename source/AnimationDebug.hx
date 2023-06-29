@@ -239,11 +239,11 @@ class AnimationDebug extends FlxState
 
 	function copyOffsetToClipboard()
 	{
-		var r = "";
+		var r = '';
 
 		for (x in animList)
 		{
-			r += "addOffset(\"" + x + "\", " + dad.animOffsets.get(x)[0] + ", " + dad.animOffsets.get(x)[1] + ");\n";
+			r += "addOffset(\'' + x + "\", " + dad.animOffsets.get(x)[0] + ", " + dad.animOffsets.get(x)[1] + ");\n";
 		}
 
 		Clipboard.generalClipboard.setData(ClipboardFormats.TEXT_FORMAT, r);
