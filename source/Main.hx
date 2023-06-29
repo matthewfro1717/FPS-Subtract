@@ -19,12 +19,10 @@ class Main extends Sprite
 
 		FlxG.signals.preStateCreate.add(function(state:FlxState)
 		{
-			/*
-				// Clear the loaded graphics if they are no longer in flixel cache...
-				for (key => value in Assets.cache.bitmapData)
-					if (!FlxG.bitmap.checkCache(key))
-						Assets.cache.removeBitmapData(key);
-			 */
+			// Clear the loaded graphics if they are no longer in flixel cache...
+			for (key in Assets.cache.getBitmapKeys())
+				if (!FlxG.bitmap.checkCache(key))
+					Assets.cache.removeBitmapData(key);
 
 			// Clear the loaded songs as they use the most memory...
 			Assets.cache.clear('assets/songs');
