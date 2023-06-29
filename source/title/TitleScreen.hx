@@ -29,26 +29,25 @@ class TitleScreen extends MusicBeatState
 
 		camMain = new FlxCamera();
 		camMain.bgColor.alpha = 0;
-		camMain.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camBackground);
 		FlxG.cameras.add(camMain, false);
 
-		FlxG.cameras.setDefaultDrawTarget(camBackground, true);
+		FlxG.cameras.setDefaultDrawTarget(camMain, true);
 
 		var bgBfTop = new FlxBackdrop(Paths.image("fpsPlus/title/backgroundBf"), X);
 		bgBfTop.y = 365 - bgBfTop.height;
 		bgBfTop.velocity.x = bgScrollSpeed;
 		bgBfTop.antialiasing = true;
 		bgBfTop.alpha = 0.5;
-		bgBfTop.cameras = [camBackground];
+		bgBfTop.camera = camBackground;
 
 		var bgBfBottom = new FlxBackdrop(Paths.image("fpsPlus/title/backgroundBf"), X);
 		bgBfBottom.y = 355;
 		bgBfBottom.velocity.x = bgScrollSpeed * -1;
 		bgBfBottom.antialiasing = true;
 		bgBfBottom.alpha = 0.5;
-		bgBfBottom.cameras = [camBackground];
+		bgBfBottom.camera = camBackground;
 
 		logoBl = new FlxSprite(-175, -125);
 		logoBl.frames = Paths.getSparrowAtlas("logoBumpin");
