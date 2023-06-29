@@ -12,8 +12,6 @@ class Main extends Sprite
 	public static final menuMusic:String = "klaskiiLoop";
 	public static final frameRate:Int = #if desktop 144 #else 60 #end;
 
-	public static var fpsCounter:FPS;
-
 	public function new():Void
 	{
 		super();
@@ -22,9 +20,7 @@ class Main extends Sprite
 		FlxG.signals.preStateCreate.add(onStateCreate);
 
 		addChild(new FlxGame(1280, 720, Startup, frameRate, frameRate, true));
-
-		fpsCounter = new FPS(10, 10, 0xFFFFFFFF);
-		addChild(fpsCounter);
+		addChild(new FPS(10, 10, 0xFFFFFFFF));
 	}
 
 	private function onResizeGame(width:Int, heigth:Int):Void
