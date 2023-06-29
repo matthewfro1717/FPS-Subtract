@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.util.FlxColor;
 import funkin.backend.Conductor;
-import funkin.stage.objs.TankmenUnit;
+import funkin.objects.background.TankmenUnit;
 import funkin.states.PlayState;
 
 using StringTools;

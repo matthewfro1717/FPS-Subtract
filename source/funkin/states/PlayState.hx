@@ -28,7 +28,6 @@ import funkin.backend.Conductor;
 import funkin.backend.Highscore;
 import funkin.backend.Song;
 import funkin.objects.*;
-import funkin.stage.*;
 import funkin.states.debug.*;
 import funkin.states.menus.*;
 import funkin.states.subStates.*;

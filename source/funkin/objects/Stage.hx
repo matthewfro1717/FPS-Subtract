@@ -1,4 +1,4 @@
-package funkin.stage;
+package funkin.objects;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -6,7 +6,7 @@ import flixel.group.FlxGroup;
 import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import flixel.sound.FlxSound;
-import funkin.stage.objs.*;
+import funkin.objects.background.*;
 import funkin.states.PlayState;
 import funkin.states.debug.ChartingState;
 import subtract.ui.DeltaTrail;

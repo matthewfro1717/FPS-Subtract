@@ -1,4 +1,4 @@
-package funkin.stage.objs;
+package funkin.objects.background;
 
 import flixel.FlxSprite;
 
