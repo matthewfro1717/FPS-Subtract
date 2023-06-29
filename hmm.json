@@ -1,0 +1,34 @@
+{
+	"dependencies":[
+		{
+			"name":"lime",
+			"type":"haxelib"
+		},
+		{
+			"name":"openfl",
+			"type":"haxelib"
+		},
+		{
+			"name":"flixel",
+			"type":"haxelib"
+		},
+		{
+			"name":"flixel-addons",
+			"type":"haxelib"
+		},
+		{
+			"name":"flixel-ui",
+			"type":"haxelib"
+		},
+		{
+			"name":"hxdiscord_rpc",
+			"type":"haxelib"
+		},
+		{
+			"name":"hxCodec",
+			"type":"git",
+			"ref":"main",
+			"url":"https://github.com/polybiusproxy/hxCodec.git"
+		}
+	]
+}
