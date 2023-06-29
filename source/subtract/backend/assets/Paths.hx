@@ -5,29 +5,29 @@ import flixel.graphics.frames.FlxAtlasFrames;
 using StringTools;
 using haxe.io.Path;
 
-class Paths
+@:keep class Paths
 {
-	inline static public function file(key:String, location:String):String
+	public static inline function file(key:String, location:String):String
 	{
 		return 'assets/$location/$key';
 	}
 
-	inline static public function xml(key:String, ?location:String = "data"):String
+	public static inline function xml(key:String, ?location:String = "data"):String
 	{
 		return file('$key.xml', location);
 	}
 
-	inline static public function text(key:String, ?location:String = "data"):String
+	public static inline function text(key:String, ?location:String = "data"):String
 	{
 		return file('$key.txt', location);
 	}
 
-	inline static public function json(key:String, ?location:String = "data"):String
+	public static inline function json(key:String, ?location:String = "data"):String
 	{
 		return file('$key.json', location);
 	}
 
-	inline static public function image(key:String):Dynamic
+	public static inline function image(key:String):Dynamic
 	{
 		var path:String = file('$key.png', "images");
 
@@ -37,32 +37,32 @@ class Paths
 		return path;
 	}
 
-	inline static public function sound(key:String):String
+	public static inline function sound(key:String):String
 	{
 		return file('$key.ogg', "sounds");
 	}
 
-	inline static public function music(key:String):String
+	public static inline function music(key:String):String
 	{
 		return file('$key.ogg', "music");
 	}
 
-	inline static public function voices(key:String):String
+	public static inline function voices(key:String):String
 	{
 		return file('$key/Voices.ogg', "songs");
 	}
 
-	inline static public function inst(key:String):String
+	public static inline function inst(key:String):String
 	{
 		return file('$key/Inst.ogg', "songs");
 	}
 
-	inline static public function video(key:String):String
+	public static inline function video(key:String):String
 	{
 		return file('$key.mp4', "videos");
 	}
 
-	inline static public function font(key:String):String
+	public static inline function font(key:String):String
 	{
 		var path:String = file(key, "fonts");
 
@@ -77,12 +77,12 @@ class Paths
 		return path;
 	}
 
-	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames
+	public static inline function getSparrowAtlas(key:String):FlxAtlasFrames
 	{
 		return FlxAtlasFrames.fromSparrow(image(key), xml(key, "images"));
 	}
 
-	inline static public function getPackerAtlas(key:String):FlxAtlasFrames
+	public static inline function getPackerAtlas(key:String):FlxAtlasFrames
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key), text(key, "images"));
 	}

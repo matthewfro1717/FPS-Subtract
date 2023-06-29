@@ -7,13 +7,12 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.ui.FlxBar;
-import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import funkin.states.menus.StoryMenu;
 import subtract.backend.DiscordClient;
-import subtract.input.PlayerSettings;
 import subtract.backend.assets.ImageCache;
+import subtract.input.PlayerSettings;
 import subtract.transition.data.*;
 import subtract.ui.SubtractUIState;
 

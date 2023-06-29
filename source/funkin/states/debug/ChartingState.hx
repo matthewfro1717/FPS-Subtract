@@ -38,13 +38,14 @@ import openfl.net.FileReference;
 import openfl.utils.Assets;
 import openfl.utils.ByteArray;
 import subtract.transition.data.BasicTransition;
+
+using StringTools;
+
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
 #else
 import flixel.system.FlxSound;
 #end
-
-using StringTools;
 
 class ChartingState extends funkin.backend.MusicBeat.MusicBeatState
 {

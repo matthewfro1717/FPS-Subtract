@@ -2,8 +2,6 @@ package subtract;
 
 import flixel.FlxG;
 import flixel.math.FlxMath;
-import sys.FileSystem;
-import sys.io.File;
 
 using StringTools;
 
@@ -48,8 +46,8 @@ using StringTools;
 	 */
 	public static inline function exists(path:String):Bool
 	{
-		#if desktop
-		return FileSystem.exists(path);
+		#if sys
+		return sys.FileSystem.exists(path);
 		#else
 		return Assets.exists(path);
 		#end
@@ -58,7 +56,7 @@ using StringTools;
 	// Same as above but for getting text from a file.
 	public static inline function getText(path:String):String
 	{
-		return #if sys File.getContent(path) #else Assets.getText(path) #end;
+		return #if sys sys.io.File.getContent(path) #else Assets.getText(path) #end;
 	}
 
 	public static inline function inRange(a:Float, b:Float, tolerance:Float)

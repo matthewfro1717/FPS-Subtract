@@ -1,8 +1,7 @@
 package funkin.stage;
 
-import funkin.stage.objs.BGSprite;
-import flixel.math.FlxPoint;
 import flixel.group.FlxGroup;
+import flixel.math.FlxPoint;
 import funkin.states.PlayState;
 
 /**
