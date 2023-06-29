@@ -9,7 +9,8 @@ import openfl.utils.Assets;
 
 class Main extends Sprite
 {
-	public static var menuMusic:String = "klaskiiLoop";
+	public static final menuMusic:String = "klaskiiLoop";
+	public static final frameRate:Int = #if desktop 144 #else 60 #end;
 
 	public static var fpsCounter:FPS;
 
@@ -20,7 +21,7 @@ class Main extends Sprite
 		FlxG.signals.gameResized.add(onResizeGame);
 		FlxG.signals.preStateCreate.add(onStateCreate);
 
-		addChild(new FlxGame(1280, 720, Startup, 144, 144, true));
+		addChild(new FlxGame(1280, 720, Startup, frameRate, frameRate, true));
 
 		fpsCounter = new FPS(10, 10, 0xFFFFFFFF);
 		addChild(fpsCounter);
