@@ -2,10 +2,10 @@ package subtract.backend.assets;
 
 import flixel.graphics.frames.FlxAtlasFrames;
 
-using StringTools;
 using haxe.io.Path;
 
-@:keep class Paths
+@:keep
+class Paths
 {
 	public static inline function file(key:String, location:String):String
 	{
