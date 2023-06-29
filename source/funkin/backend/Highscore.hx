@@ -7,20 +7,16 @@ class Rank
 	public var name:String;
 	public var accuracy:Float;
 
-	public function new(_name:String, _accuracy:Float):Void
+	public function new(name:String, accuracy:Float):Void
 	{
-		this.name = _name;
-		this.accuracy = _accuracy;
+		this.name = name;
+		this.accuracy = accuracy;
 	}
 }
 
 class Highscore
 {
-	#if (haxe >= "4.0.0")
-	public static var songScores:Map<String, Int> = new Map();
-	#else
-	public static var songScores:Map<String, Int> = new Map<String, Int>();
-	#end
+	public static var songScores:Map<String, Int> = [];
 
 	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0):Void
 	{
@@ -48,13 +44,10 @@ class Highscore
 			setScore(daWeek, score);
 	}
 
-	/**
-	 * YOU SHOULD FORMAT SONG WITH formatSong() BEFORE TOSSING IN SONG VARIABLE
-	 */
-	static function setScore(song:String, score:Int):Void
+	private static function setScore(song:String, score:Int):Void
 	{
-		// Reminder that I don't need to format this song, it should come formatted!
 		songScores.set(song, score);
+
 		FlxG.save.data.songScores = songScores;
 		FlxG.save.flush();
 	}
@@ -90,8 +83,6 @@ class Highscore
 	public static function load():Void
 	{
 		if (FlxG.save.data.songScores != null)
-		{
 			songScores = FlxG.save.data.songScores;
-		}
 	}
 }
