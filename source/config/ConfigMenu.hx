@@ -2,17 +2,16 @@ package config;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import transition.data.*;
+import subtract.transition.data.*;
 
 using StringTools;
 
-class ConfigMenu extends UIStateExt
+class ConfigMenu extends subtract.ui.SubtractUIState
 {
 	public static var exitTo:Class<Dynamic>;
 	public static var startSong = true;
@@ -82,7 +81,7 @@ class ConfigMenu extends UIStateExt
 
 		if (exitTo == null)
 		{
-			exitTo = MainMenuState;
+			exitTo = funkin.states.menus.MainMenu;
 		}
 
 		if (startSong)

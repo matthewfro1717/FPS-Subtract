@@ -9,6 +9,8 @@ import openfl.utils.Assets;
 
 class Main extends Sprite
 {
+	public static var menuMusic:String = "klaskiiLoop";
+
 	public static var fpsCounter:FPS;
 
 	public function new()

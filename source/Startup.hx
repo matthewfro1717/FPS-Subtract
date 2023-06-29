@@ -1,24 +1,25 @@
 package;
 
-import config.*;
+import config.CacheSettings;
+import config.Config;
+import config.KeyBinds;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
+import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import openfl.Assets;
-import openfl.media.Sound;
-import openfl.system.System;
-import sys.FileSystem;
-import title.*;
-import transition.data.*;
+import funkin.states.menus.StoryMenu;
+import subtract.backend.DiscordClient;
+import subtract.input.PlayerSettings;
+import subtract.backend.assets.ImageCache;
+import subtract.transition.data.*;
+import subtract.ui.SubtractUIState;
 
 using StringTools;
 
-class Startup extends FlxState
+class Startup extends flixel.FlxState
 {
     var splash:FlxSprite;
     var loadingBar:FlxBar;
@@ -78,7 +79,7 @@ class Startup extends FlxState
     function initSave():Void {
         FlxG.save.bind('data');
 
-        Highscore.load();
+        funkin.backend.Highscore.load();
         KeyBinds.keyCheck();
         PlayerSettings.init();
         PlayerSettings.player1.controls.loadKeyBinds();
@@ -91,12 +92,12 @@ class Startup extends FlxState
             // WEEK UNLOCK PROGRESSION!!
             // StoryMenuState.weekUnlocked = FlxG.save.data.weekUnlocked;
 
-            if (StoryMenuState.weekUnlocked.length < 4)
-                StoryMenuState.weekUnlocked.insert(0, true);
+            if (StoryMenu.weekUnlocked.length < 4)
+                StoryMenu.weekUnlocked.insert(0, true);
 
             // QUICK PATCH OOPS!
-            if (!StoryMenuState.weekUnlocked[0])
-                StoryMenuState.weekUnlocked[0] = true;
+            if (!StoryMenu.weekUnlocked[0])
+                StoryMenu.weekUnlocked[0] = true;
         }
 
         if( FlxG.save.data.musicPreload2 == null ||
@@ -117,10 +118,10 @@ class Startup extends FlxState
         FlxG.mouse.visible = false;
         FlxG.sound.muteKeys = null;
 
-        UIStateExt.defaultTransIn = ScreenWipeIn;
-        UIStateExt.defaultTransInArgs = [1.2];
-        UIStateExt.defaultTransOut = ScreenWipeOut;
-        UIStateExt.defaultTransOutArgs = [0.6];
+        SubtractUIState.defaultTransIn = ScreenWipeIn;
+        SubtractUIState.defaultTransInArgs = [1.2];
+        SubtractUIState.defaultTransOut = ScreenWipeOut;
+        SubtractUIState.defaultTransOutArgs = [0.6];
 
         DiscordClient.start();
         DiscordClient.changePresence("Work in Progress!", "FPS Subtract");
@@ -158,7 +159,7 @@ class Startup extends FlxState
             new FlxTimer().start(1.0, function(tmr:FlxTimer) {
                 splash.animation.play("end", true);
                 splash.animation.finishCallback = function(anim:String):Void
-                    FlxG.switchState(new TitleVideo());
+                    FlxG.switchState(new funkin.states.title.TitleVideo());
             });
         });
 

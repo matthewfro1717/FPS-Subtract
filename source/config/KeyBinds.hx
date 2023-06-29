@@ -17,7 +17,7 @@ class KeyBinds
 		FlxG.save.data.leftBindController = "X";
 		FlxG.save.data.rightBindController = "B";
 
-		PlayerSettings.player1.controls.loadKeyBinds();
+		subtract.input.PlayerSettings.player1.controls.loadKeyBinds();
 	}
 
 	public static function keyCheck():Void

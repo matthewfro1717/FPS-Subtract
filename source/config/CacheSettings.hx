@@ -5,11 +5,11 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import transition.data.*;
+import subtract.transition.data.*;
 
 using StringTools;
 
-class CacheSettings extends MusicBeatState
+class CacheSettings extends funkin.backend.MusicBeat.MusicBeatState
 {
 	public static var noFunMode = false;
 

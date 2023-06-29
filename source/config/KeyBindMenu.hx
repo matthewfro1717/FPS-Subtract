@@ -6,11 +6,10 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import transition.data.*;
 
 using StringTools;
 
-class KeyBindMenu extends MusicBeatState
+class KeyBindMenu extends funkin.backend.MusicBeat.MusicBeatState
 {
 	var keyTextDisplay:FlxText;
 	var keyWarning:FlxText;
@@ -71,8 +70,8 @@ class KeyBindMenu extends MusicBeatState
 
 		textUpdate();
 
-		customTransIn = new WeirdBounceIn(0.6);
-		customTransOut = new WeirdBounceOut(0.6);
+		customTransIn = new subtract.transition.data.WeirdBounceIn(0.6);
+		customTransOut = new subtract.transition.data.WeirdBounceOut(0.6);
 
 		super.create();
 	}
@@ -181,7 +180,7 @@ class KeyBindMenu extends MusicBeatState
 
 		FlxG.save.flush();
 
-		PlayerSettings.player1.controls.loadKeyBinds();
+		subtract.input.PlayerSettings.player1.controls.loadKeyBinds();
 	}
 
 	function reset()

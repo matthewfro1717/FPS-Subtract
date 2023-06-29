@@ -7,11 +7,11 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import transition.data.*;
+import funkin.backend.Conductor;
 
 using StringTools;
 
-class AutoOffsetState extends MusicBeatState
+class AutoOffsetState extends funkin.backend.MusicBeat.MusicBeatState
 {
 	var easterEgg:Bool = FlxG.random.bool(1);
 
@@ -38,13 +38,13 @@ class AutoOffsetState extends MusicBeatState
 	override function create()
 	{
 		// Setup Conductor
-		Conductor.changeBPM(100);
+		Conductor.bpm = 100;
 		Conductor.songPosition = 0;
 
 		FlxG.sound.music.volume = 0;
 
 		useDefaultTransIn = false;
-		customTransOut = new WeirdBounceOut(0.6);
+		customTransOut = new subtract.transition.data.WeirdBounceOut(0.6);
 
 		// Cache the 3 2 1 go
 		FlxG.sound.cache(Paths.sound('intro3' + (easterEgg ? "-pixel" : "")));

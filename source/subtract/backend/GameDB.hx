@@ -2,7 +2,6 @@ package subtract.backend;
 
 // kinda just here as a placeholder for now
 // WIP
-
 import flixel.util.FlxColor;
 import flixel.util.typeLimit.OneOfThree;
 

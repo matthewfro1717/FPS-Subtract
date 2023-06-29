@@ -1,30 +1,22 @@
 package config;
 
-import config.*;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import openfl.Assets;
-import openfl.media.Sound;
-import openfl.system.System;
-import title.*;
-import transition.data.*;
+import openfl.utils.Assets;
+import subtract.backend.assets.ImageCache;
 
 using StringTools;
 
-class CacheReload extends FlxState
+class CacheReload extends flixel.FlxState
 {
-
     public static var doMusic = true;
     public static var doGraphics = true;
 
-    var nextState:FlxState = new ConfigMenu();
+    var nextState:flixel.FlxState = new ConfigMenu();
 
     var splash:FlxSprite;
-    //var dummy:FlxSprite;
     var loadingText:FlxText;
 
     var songsCached:Bool;
@@ -45,19 +37,17 @@ class CacheReload extends FlxState
         charactersCached = !FlxG.save.data.charPreload2;
         graphicsCached = !FlxG.save.data.graphicsPreload2;
 
-        if(doGraphics)
+        if (doGraphics)
             ImageCache.cache.clear();
         else {
             charactersCached = true;
             graphicsCached = true;
         }
 
-        if(doMusic){
+        if (doMusic)
             Assets.cache.clear("music");
-        }
-        else{
+        else
             songsCached = true;
-        }
 
         var text = new FlxText(0, 0, 1280, "LOADING ASSETS...", 64);
 	    text.scrollFactor.set(0, 0);
@@ -71,35 +61,36 @@ class CacheReload extends FlxState
         cacheStart = true;
 
         super.create();
-
     }
 
     override function update(elapsed) 
     {
-        if(songsCached && charactersCached && graphicsCached)
+        if (songsCached && charactersCached && graphicsCached)
             FlxG.switchState(nextState);
 
-        if(startCachingCharacters){
-            if(charI >= Startup.characters.length){
-                //loadingText.text = "Characters cached...";
-                //FlxG.sound.play(Paths.sound("tick"), 1);
+        if (startCachingCharacters)
+        {
+            if (charI >= Startup.characters.length)
+            {
                 startCachingCharacters = false;
                 charactersCached = true;
             }
-            else{
+            else
+            {
                 ImageCache.add(Paths.file(Startup.characters[charI] + ".png", "images"));
                 charI++;
             }
         }
 
-        if(startCachingGraphics){
-            if(gfxI >= Startup.graphics.length){
-                //loadingText.text = "Graphics cached...";
-                //FlxG.sound.play(Paths.sound("tick"), 1);
+        if (startCachingGraphics)
+        {
+            if (gfxI >= Startup.graphics.length)
+            {
                 startCachingGraphics = false;
                 graphicsCached = true;
             }
-            else{
+            else
+            {
                 ImageCache.add(Paths.file(Startup.graphics[gfxI] + ".png", "images"));
                 gfxI++;
             }
@@ -109,73 +100,27 @@ class CacheReload extends FlxState
 
     }
 
-    function preload(){
-
-        //loadingText.text = "Preloading Assets...";
-        
-        if(!songsCached){ 
+    function preload()
+    {
+        if (!songsCached){ 
             #if sys sys.thread.Thread.create(() -> { #end
                 preloadMusic();
             #if sys }); #end
         }
-        
 
-        /*if(!charactersCached){
-            var i = 0;
-            var charLoadLoop = new FlxAsyncLoop(characters.length, function(){
-                ImageCache.add(Paths.file(characters[i] + ".png", "images"));
-                i++;
-            }, 1);
-        }
-
-        for(x in characters){
-            
-            //trace("Chached " + x);
-        }
-        loadingText.text = "Characters cached...";
-        charactersCached = true;*/
-
-        if(!charactersCached){
-            startCachingCharacters = true;
-        }
-
-        if(!graphicsCached){
-            startCachingGraphics = true;
-        }
-
+        if (!charactersCached) startCachingCharacters = true;
+        if (!graphicsCached) startCachingGraphics = true;
     }
 
     function preloadMusic(){
-        for(x in Startup.songs){
-            if(CoolUtil.exists(Paths.inst(x))){
+        for (x in Startup.songs)
+        {
+            if (CoolUtil.exists(Paths.inst(x)))
                 FlxG.sound.cache(Paths.inst(x));
-            }
-            else{
+            else
                 FlxG.sound.cache(Paths.music(x));
-            }
         }
-        //loadingText.text = "Songs cached...";
-        //FlxG.sound.play(Paths.sound("tick"), 1);
+
         songsCached = true;
     }
-
-    /*
-    function preloadCharacters(){
-        for(x in Startup.characters){
-            ImageCache.add(Paths.file(x + ".png", "images"));
-            //trace("Chached " + x);
-        }
-        loadingText.text = "Characters cached...";
-        charactersCached = true;
-    }
-
-    function preloadGraphics(){
-        for(x in Startup.graphics){
-            ImageCache.add(Paths.file(x + ".png", "images"));
-            //trace("Chached " + x);
-        }
-        loadingText.text = "Graphics cached...";
-        graphicsCached = true;
-    }
-    */
 }

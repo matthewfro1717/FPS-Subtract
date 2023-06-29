@@ -7,11 +7,11 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import transition.data.*;
+import subtract.transition.data.*;
 
 using StringTools;
 
-class KeyBindMenuController extends MusicBeatState
+class KeyBindMenuController extends funkin.backend.MusicBeat.MusicBeatState
 {
 	var keyTextDisplay:FlxText;
 	var keyWarning:FlxText;
