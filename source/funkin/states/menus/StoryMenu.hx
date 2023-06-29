@@ -87,7 +87,7 @@ class StoryMenu extends funkin.backend.MusicBeat.MusicBeatState
 		scoreText = new FlxText(10, 10, 0, "SCORE: 49324858", 36);
 		scoreText.setFormat(Paths.font("vcr"), 32);
 
-		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
+		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, '', 32);
 		txtWeekTitle.setFormat(Paths.font("vcr"), 32, FlxColor.WHITE, RIGHT);
 		txtWeekTitle.alpha = 0.7;
 
@@ -303,7 +303,7 @@ class StoryMenu extends funkin.backend.MusicBeat.MusicBeatState
 			PlayState.isStoryMode = true;
 			selectedWeek = true;
 
-			var diffic = "";
+			var diffic = '';
 
 			switch (curDifficulty)
 			{

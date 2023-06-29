@@ -47,10 +47,10 @@ class AutoOffsetState extends funkin.backend.MusicBeat.MusicBeatState
 		customTransOut = new subtract.transition.data.WeirdBounceOut(0.6);
 
 		// Cache the 3 2 1 go
-		FlxG.sound.cache(Paths.sound('intro3' + (easterEgg ? "-pixel" : "")));
-		FlxG.sound.cache(Paths.sound('intro2' + (easterEgg ? "-pixel" : "")));
-		FlxG.sound.cache(Paths.sound('intro1' + (easterEgg ? "-pixel" : "")));
-		FlxG.sound.cache(Paths.sound('introGo' + (easterEgg ? "-pixel" : "")));
+		FlxG.sound.cache(Paths.sound('intro3' + (easterEgg ? "-pixel" : '')));
+		FlxG.sound.cache(Paths.sound('intro2' + (easterEgg ? "-pixel" : '')));
+		FlxG.sound.cache(Paths.sound('intro1' + (easterEgg ? "-pixel" : '')));
+		FlxG.sound.cache(Paths.sound('introGo' + (easterEgg ? "-pixel" : '')));
 
 		// Easter egg check
 		switch (forceEasterEgg)
@@ -109,14 +109,14 @@ class AutoOffsetState extends funkin.backend.MusicBeat.MusicBeatState
 		}
 
 		// Init Text
-		offsetText = new FlxText(0, 235, 1280, "", 58);
+		offsetText = new FlxText(0, 235, 1280, '', 58);
 		offsetText.scrollFactor.set(0, 0);
 		offsetText.setFormat(font[easterEgg ? 1 : 0], 58, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		offsetText.borderSize = 3;
 		offsetText.borderQuality = 1;
 		offsetText.alpha = 0;
 
-		previousText = new FlxText(0, 400, 1280, "", 58);
+		previousText = new FlxText(0, 400, 1280, '', 58);
 		previousText.scrollFactor.set(0, 0);
 		previousText.setFormat(font[easterEgg ? 1 : 0], 58, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		previousText.borderSize = 3;
@@ -140,7 +140,7 @@ class AutoOffsetState extends funkin.backend.MusicBeat.MusicBeatState
 		FlxG.camera.fade(FlxColor.BLACK, 0.5, true, function()
 		{
 			FlxG.sound.music.volume = 1;
-			FlxG.sound.playMusic(Paths.music("offsetSong" + (easterEgg ? "-pixel" : "")), 1, false);
+			FlxG.sound.playMusic(Paths.music("offsetSong" + (easterEgg ? "-pixel" : '')), 1, false);
 			FlxG.sound.music.onComplete = exit;
 
 			started = true;
@@ -201,24 +201,24 @@ class AutoOffsetState extends funkin.backend.MusicBeat.MusicBeatState
 	// Cues the 3, 2, 1, GO! sound effects
 	function countdown()
 	{
-		FlxG.sound.play(Paths.sound('intro3' + (easterEgg ? "-pixel" : "")), 0.6);
+		FlxG.sound.play(Paths.sound('intro3' + (easterEgg ? "-pixel" : '')), 0.6);
 		speakers.animation.play("bump", true);
 
 		new FlxTimer().start(0.6, function(tmr:FlxTimer)
 		{
-			FlxG.sound.play(Paths.sound('intro2' + (easterEgg ? "-pixel" : "")), 0.6);
+			FlxG.sound.play(Paths.sound('intro2' + (easterEgg ? "-pixel" : '')), 0.6);
 			speakers.animation.play("bump", true);
 		});
 
 		new FlxTimer().start(1.2, function(tmr:FlxTimer)
 		{
-			FlxG.sound.play(Paths.sound('intro1' + (easterEgg ? "-pixel" : "")), 0.6);
+			FlxG.sound.play(Paths.sound('intro1' + (easterEgg ? "-pixel" : '')), 0.6);
 			speakers.animation.play("bump", true);
 		});
 
 		new FlxTimer().start(1.8, function(tmr:FlxTimer)
 		{
-			FlxG.sound.play(Paths.sound('introGo' + (easterEgg ? "-pixel" : "")), 0.6);
+			FlxG.sound.play(Paths.sound('introGo' + (easterEgg ? "-pixel" : '')), 0.6);
 			speakers.animation.play("bump", true);
 		});
 	}

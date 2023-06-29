@@ -49,7 +49,7 @@ class CacheSettings extends funkin.backend.MusicBeat.MusicBeatState
 		bg.color = bgColor;
 		add(bg);
 
-		keyTextDisplay = new FlxText(0, 0, 1280, "", 72);
+		keyTextDisplay = new FlxText(0, 0, 1280, '', 72);
 		keyTextDisplay.scrollFactor.set(0, 0);
 		keyTextDisplay.setFormat(font, 72, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		keyTextDisplay.borderSize = 3;

@@ -14,7 +14,7 @@ class GameOverSubstate extends funkin.backend.MusicBeat.MusicBeatSubstate
 	var bf:Character;
 	var camFollow:FlxObject;
 
-	var stageSuffix:String = "";
+	var stageSuffix:String = '';
 
 	public function new(x:Float, y:Float, camX:Float, camY:Float, character:String)
 	{

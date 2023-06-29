@@ -11,8 +11,8 @@ class BackgroundGirls extends FlxSprite
 		// BG fangirls dissuaded
 		frames = Paths.getSparrowAtlas("week6/weeb/bgFreaks");
 
-		animation.addByIndices('danceLeft', 'BG girls group', CoolUtil.numberArray(14), "", 24, false);
-		animation.addByIndices('danceRight', 'BG girls group', CoolUtil.numberArray(30, 15), "", 24, false);
+		animation.addByIndices('danceLeft', 'BG girls group', CoolUtil.numberArray(14), '', 24, false);
+		animation.addByIndices('danceRight', 'BG girls group', CoolUtil.numberArray(30, 15), '', 24, false);
 
 		animation.play('danceLeft');
 	}
@@ -21,8 +21,8 @@ class BackgroundGirls extends FlxSprite
 
 	public function getScared():Void
 	{
-		animation.addByIndices('danceLeft', 'BG fangirls dissuaded', CoolUtil.numberArray(14), "", 24, false);
-		animation.addByIndices('danceRight', 'BG fangirls dissuaded', CoolUtil.numberArray(30, 15), "", 24, false);
+		animation.addByIndices('danceLeft', 'BG fangirls dissuaded', CoolUtil.numberArray(14), '', 24, false);
+		animation.addByIndices('danceRight', 'BG fangirls dissuaded', CoolUtil.numberArray(30, 15), '', 24, false);
 		dance();
 	}
 
