@@ -45,6 +45,12 @@ import subtract.ui.DeltaTrail;
 
 using StringTools;
 
+#if (flixel >= "5.3.0")
+import flixel.sound.FlxSound;
+#else
+import flixel.system.FlxSound;
+#end
+
 #if sys
 import sys.FileSystem;
 #end

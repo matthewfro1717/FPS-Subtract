@@ -39,6 +39,12 @@ import openfl.utils.Assets;
 import openfl.utils.ByteArray;
 import subtract.transition.data.BasicTransition;
 
+#if (flixel >= "5.3.0")
+import flixel.sound.FlxSound;
+#else
+import flixel.system.FlxSound;
+#end
+
 using StringTools;
 
 class ChartingState extends funkin.backend.MusicBeat.MusicBeatState
@@ -1842,7 +1848,7 @@ class ChartingState extends funkin.backend.MusicBeat.MusicBeatState
 
 		trace(noteStrum);
 		trace(curSection);
-		trace("adding \'' + noteType.text + "\" note");
+		trace('adding \"${noteType.text}\" note');
 		trace(_song.notes[curSection].sectionNotes);
 
 		updateGrid();

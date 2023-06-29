@@ -9,6 +9,12 @@ import flixel.util.FlxColor;
 import funkin.states.menus.*;
 import funkin.ui.Alphabet;
 
+#if (flixel >= "5.3.0")
+import flixel.sound.FlxSound;
+#else
+import flixel.system.FlxSound;
+#end
+
 class PauseSubState extends funkin.backend.MusicBeat.MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
