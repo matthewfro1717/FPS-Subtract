@@ -105,7 +105,7 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 	public var gf:Character;
 	public var boyfriend:Character;
 
-	public var stage:StageBuilder;
+	public var stage:Stage;
 
 	// Wacky input stuff=========================
 	private var skipListener:Bool = false;
@@ -365,20 +365,7 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 		else
 			stageCheck = SONG.stage;
 
-		stage = switch (stageCheck)
-		{
-			case 'chart': new ChartStage();
-			case 'tank': new Military();
-			case 'schoolEvil': new GlitchedSchool();
-			case 'school': new HatingSchool();
-			case 'mallEvil': new RedMall();
-			case 'mall': new ChristmasMall();
-			case 'limo': new Highway();
-			case 'philly': new PhillyCity();
-			case 'spooky': new SpookyMansion();
-			case 'stage': new Stage();
-			default: new StageBuilder();
-		}
+		stage = new Stage(stageCheck);
 		add(stage);
 
 		curStage = stage.name;
