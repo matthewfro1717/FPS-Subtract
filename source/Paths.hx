@@ -1,7 +1,7 @@
 package;
 
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.system.FlxAssets.FlxGraphicAsset;
+import haxe.io.Path;
 
 using StringTools;
 
@@ -64,16 +64,17 @@ class Paths
 
 	inline static public function font(key:String):String
 	{
-		var hasDot:Bool = key.charCodeAt(key.lastIndexOf(".")) != null;
-		var realKey:String = file(key, "fonts");
-		if (!hasDot)
+		var path:String = file(key, "fonts");
+
+		if (Path.extension(path) == '')
 		{
-			if (CoolUtil.exists(realKey + ".ttf"))
-				realKey = realKey + ".ttf";
-			else if (CoolUtil.exists(realKey + ".otf"))
-				realKey = realKey + ".otf";
+			if (CoolUtil.exists(path + ".ttf"))
+				path = path + ".ttf";
+			else if (CoolUtil.exists(path + ".otf"))
+				path = path + ".otf";
 		}
-		return realKey;
+
+		return path;
 	}
 
 	inline static public function getSparrowAtlas(key:String):FlxAtlasFrames
