@@ -10,7 +10,7 @@ class Stage extends StageBuilder
 {
 	public function new():Void
 	{
-		super("stage", 0.0);
+		super("stage");
 
 		var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image("week1/stageback"));
 		bg.scrollFactor.set(0.9, 0.9);
