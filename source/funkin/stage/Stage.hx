@@ -30,12 +30,12 @@ class Stage extends FlxGroup
 	/**
 		Layer that goes over dad and bf
 	**/
-	public var above:FlxGroup;
+	public var above:FlxTypedGroup<FlxSprite>;
 
 	/**
 		Layer that goes over everything
 	**/
-	public var foreground:FlxGroup;
+	public var foreground:FlxTypedGroup<FlxSprite>;
 
 	/**
 		The name of your stage
@@ -108,8 +108,8 @@ class Stage extends FlxGroup
 
 		this.name = name;
 
-		above = new FlxGroup();
-		foreground = new FlxGroup();
+		above = new FlxTypedGroup<FlxSprite>();
+		foreground = new FlxTypedGroup<FlxSprite>();
 
 		switch (name)
 		{
