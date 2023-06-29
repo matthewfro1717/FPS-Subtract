@@ -77,7 +77,7 @@ class ConfigMenu extends subtract.ui.SubtractUIState
 
 	override function create()
 	{
-		openfl.Lib.current.stage.frameRate = 144;
+		openfl.Lib.current.stage.frameRate = Main.frameRate;
 
 		if (exitTo == null)
 		{

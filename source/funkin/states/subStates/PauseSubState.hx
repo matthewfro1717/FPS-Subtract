@@ -28,7 +28,7 @@ class PauseSubState extends funkin.backend.MusicBeat.MusicBeatSubstate
 	{
 		super();
 
-		openfl.Lib.current.stage.frameRate = 144;
+		openfl.Lib.current.stage.frameRate = Main.frameRate;
 
 		FlxTween.globalManager.active = false;
 

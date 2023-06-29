@@ -28,7 +28,7 @@ class MainMenu extends funkin.backend.MusicBeat.MusicBeatState
 
 	override function create()
 	{
-		openfl.Lib.current.stage.frameRate = 144;
+		openfl.Lib.current.stage.frameRate = Main.frameRate;
 
 		if (!FlxG.sound.music.playing)
 			FlxG.sound.playMusic(Paths.music(Main.menuMusic), 1);

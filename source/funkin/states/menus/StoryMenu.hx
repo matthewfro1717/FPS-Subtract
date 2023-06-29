@@ -51,7 +51,7 @@ class StoryMenu extends funkin.backend.MusicBeat.MusicBeatState
 
 	override function create()
 	{
-		openfl.Lib.current.stage.frameRate = 144;
+		openfl.Lib.current.stage.frameRate = Main.frameRate;
 
 		weekData = [
 			['Tutorial'],

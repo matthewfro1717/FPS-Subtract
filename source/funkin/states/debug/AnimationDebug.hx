@@ -41,7 +41,7 @@ class AnimationDebug extends funkin.backend.MusicBeat.MusicBeatState
 
 	override function create()
 	{
-		openfl.Lib.current.stage.frameRate = 144;
+		openfl.Lib.current.stage.frameRate = Main.frameRate;
 
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
