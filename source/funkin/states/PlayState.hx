@@ -2503,6 +2503,11 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 				totalNotesHit += 1;
 			}
 
+			if (!note.isSustainNote)
+				health += 0.015 * Config.healthMultiplier;
+			else
+				health += 0.0075 * Config.healthMultiplier;
+
 			health += 0.015 * Config.healthMultiplier;
 
 			if (boyfriend.canAutoAnim && (Character.LOOP_ANIM_ON_HOLD ? true : !note.isSustainNote))
