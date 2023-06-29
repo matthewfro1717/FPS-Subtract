@@ -30,12 +30,12 @@ class Stage extends FlxGroup
 	/**
 		Layer that goes over dad and bf
 	**/
-	public var above:FlxTypedGroup<FlxSprite>;
+	public var above:FlxTypedGroup<Dynamic>;
 
 	/**
 		Layer that goes over everything
 	**/
-	public var foreground:FlxTypedGroup<FlxSprite>;
+	public var foreground:FlxTypedGroup<Dynamic>;
 
 	/**
 		The name of your stage
@@ -108,8 +108,8 @@ class Stage extends FlxGroup
 
 		this.name = name;
 
-		above = new FlxTypedGroup<FlxSprite>();
-		foreground = new FlxTypedGroup<FlxSprite>();
+		above = new FlxTypedGroup();
+		foreground = new FlxTypedGroup();
 
 		switch (name)
 		{
@@ -182,7 +182,7 @@ class Stage extends FlxGroup
 				playerOffset.x += 260;
 				playerOffset.y -= 220;
 
-				this.cameraZoom = 0.90;
+				cameraZoom = 0.90;
 
 				var skyBG:FlxSprite = new FlxSprite(-120, -50).loadGraphic(Paths.image("week4/limo/limoSunset"));
 				skyBG.scrollFactor.set(0.1, 0.1);
@@ -205,16 +205,6 @@ class Stage extends FlxGroup
 					grpLimoDancers.add(dancer);
 				}
 
-				// overlayShit:FlxSprite = new FlxSprite(-500, -600).loadGraphic(Paths.images("limo/limoOverlay"));
-				// overlayShit.alpha = 0.5;
-				// add(overlayShit);
-
-				// var shaderBullshit = new BlendModeEffect(new OverlayShader(), FlxColor.RED);
-
-				// FlxG.camera.setFilters([new ShaderFilter(cast shaderBullshit.shader)]);
-
-				// overlayShit.shader = shaderBullshit;
-
 				limo = new FlxSprite(-120, 550);
 				limo.frames = Paths.getSparrowAtlas("week4/limo/limoDrive");
 				limo.animation.addByPrefix('drive', "Limo stage", 24);
@@ -229,7 +219,7 @@ class Stage extends FlxGroup
 			case "mall": // Week 5: Cocoa, Eggnog
 				playerOffset.x += 200;
 
-				this.cameraZoom = 0.80;
+				cameraZoom = 0.80;
 
 				var bg:FlxSprite = new FlxSprite(-1000, -500).loadGraphic(Paths.image('week5/christmas/bgWalls'));
 				bg.antialiasing = true;
@@ -312,29 +302,26 @@ class Stage extends FlxGroup
 				bgSky.scrollFactor.set(0.1, 0.1);
 				add(bgSky);
 
-				var repositionShit = -200;
-
-				var bgSchool:FlxSprite = new FlxSprite(repositionShit, 0).loadGraphic(Paths.image('week6/weeb/weebSchool'));
+				var bgSchool:FlxSprite = new FlxSprite(-200, 0).loadGraphic(Paths.image('week6/weeb/weebSchool'));
 				bgSchool.scrollFactor.set(0.6, 0.90);
 				add(bgSchool);
 
-				var bgStreet:FlxSprite = new FlxSprite(repositionShit).loadGraphic(Paths.image('week6/weeb/weebStreet'));
+				var bgStreet:FlxSprite = new FlxSprite(-200).loadGraphic(Paths.image('week6/weeb/weebStreet'));
 				bgStreet.scrollFactor.set(0.95, 0.95);
 				add(bgStreet);
 
-				var fgTrees:FlxSprite = new FlxSprite(repositionShit + 170, 130).loadGraphic(Paths.image('week6/weeb/weebTreesBack'));
+				var fgTrees:FlxSprite = new FlxSprite(-30, 130).loadGraphic(Paths.image('week6/weeb/weebTreesBack'));
 				fgTrees.scrollFactor.set(0.9, 0.9);
 				add(fgTrees);
 
-				var bgTrees:FlxSprite = new FlxSprite(repositionShit - 380, -800);
-				var treetex = Paths.getPackerAtlas("week6/weeb/weebTrees");
-				bgTrees.frames = treetex;
+				var bgTrees:FlxSprite = new FlxSprite(-580, -800);
+				bgTrees.frames = Paths.getPackerAtlas("week6/weeb/weebTrees");
 				bgTrees.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
 				bgTrees.animation.play('treeLoop');
 				bgTrees.scrollFactor.set(0.85, 0.85);
 				add(bgTrees);
 
-				var treeLeaves:FlxSprite = new FlxSprite(repositionShit, -40);
+				var treeLeaves:FlxSprite = new FlxSprite(-200, -40);
 				treeLeaves.frames = Paths.getSparrowAtlas("week6/weeb/petals");
 				treeLeaves.animation.addByPrefix('leaves', 'PETALS ALL', 24, true);
 				treeLeaves.animation.play('leaves');
@@ -381,9 +368,7 @@ class Stage extends FlxGroup
 				bg.scale.set(6, 6);
 				add(bg);
 
-				var evilTrail = new DeltaTrail(game.dad, null, 10, 3 / 60, 0.4);
-				// var evilTrail = new DeltaTrail(game.dad, null, 10, 24 / 60, 0.4, 0.005); //This is basically the default look of Spirit in base game.
-				add(evilTrail);
+				add(new DeltaTrail(game.dad, null, 10, 3 / 60, 0.4));
 
 			case "tank":
 				spectatorOffset.y += 10;
@@ -393,7 +378,7 @@ class Stage extends FlxGroup
 				opponentOffset.y += 60;
 				opponentOffset.x -= 80;
 
-				this.cameraZoom = 0.90;
+				cameraZoom = 0.90;
 
 				if (game.gf.curCharacter != 'pico-speaker')
 				{
@@ -429,11 +414,8 @@ class Stage extends FlxGroup
 				tankRuins.updateHitbox();
 				add(tankRuins);
 
-				var smokeLeft:BGSprite = new BGSprite('week7/stage/smokeLeft', -200, -100, 0.4, 0.4, ['SmokeBlurLeft'], true);
-				add(smokeLeft);
-
-				var smokeRight:BGSprite = new BGSprite('week7/stage/smokeRight', 1100, -100, 0.4, 0.4, ['SmokeRight'], true);
-				add(smokeRight);
+				add(new BGSprite('week7/stage/smokeLeft', -200, -100, 0.4, 0.4, ['SmokeBlurLeft'], true));
+				add(new BGSprite('week7/stage/smokeRight', 1100, -100, 0.4, 0.4, ['SmokeRight'], true));
 
 				// tankGround.
 
@@ -454,26 +436,12 @@ class Stage extends FlxGroup
 
 				moveTank();
 
-				// smokeLeft.screenCenter();
-
-				var fgTank0:BGSprite = new BGSprite('week7/stage/tank0', -500, 650, 1.7, 1.5, ['fg']);
-				foreground.add(fgTank0);
-
-				var fgTank1:BGSprite = new BGSprite('week7/stage/tank1', -300, 750, 2, 0.2, ['fg']);
-				foreground.add(fgTank1);
-
-				// just called 'foreground' just cuz small inconsistency no bbiggei
-				var fgTank2:BGSprite = new BGSprite('week7/stage/tank2', 450, 940, 1.5, 1.5, ['foreground']);
-				foreground.add(fgTank2);
-
-				var fgTank4:BGSprite = new BGSprite('week7/stage/tank4', 1300, 900, 1.5, 1.5, ['fg']);
-				foreground.add(fgTank4);
-
-				var fgTank5:BGSprite = new BGSprite('week7/stage/tank5', 1620, 700, 1.5, 1.5, ['fg']);
-				foreground.add(fgTank5);
-
-				var fgTank3:BGSprite = new BGSprite('week7/stage/tank3', 1300, 1200, 3.5, 2.5, ['fg']);
-				foreground.add(fgTank3);
+				foreground.add(new BGSprite('week7/stage/tank0', -500, 650, 1.7, 1.5, ['fg']));
+				foreground.add(new BGSprite('week7/stage/tank1', -300, 750, 2, 0.2, ['fg']));
+				foreground.add(new BGSprite('week7/stage/tank2', 450, 940, 1.5, 1.5, ['foreground']));
+				foreground.add(new BGSprite('week7/stage/tank4', 1300, 900, 1.5, 1.5, ['fg']));
+				foreground.add(new BGSprite('week7/stage/tank5', 1620, 700, 1.5, 1.5, ['fg']));
+				foreground.add(new BGSprite('week7/stage/tank3', 1300, 1200, 3.5, 2.5, ['fg']));
 
 				if (game.gf.curCharacter == "pico-speaker" && currentSong.toLowerCase() == "stress")
 				{
@@ -489,7 +457,6 @@ class Stage extends FlxGroup
 						if (FlxG.random.bool(16))
 						{
 							var tankman:TankmenUnit = tankmanRun.recycle(TankmenUnit);
-							// new TankmenUnit(500, 200 + FlxG.random.int(50, 100), TankmenUnit.animationNotes[i][1] < 2);
 							tankman.strumTime = TankmenUnit.animationNotes[i][0];
 							tankman.resetShit(500, 200 + FlxG.random.int(50, 100), TankmenUnit.animationNotes[i][1] < 2);
 							tankmanRun.add(tankman);
@@ -509,11 +476,8 @@ class Stage extends FlxGroup
 					add(chartBlackBG);
 				}
 
-				var blackBGThing = new FlxSprite(32, 432).makeGraphic(280, 256, 0xFF000000);
-				add(blackBGThing);
-
-				var lilStage = new FlxSprite(32, 432).loadGraphic(Paths.image("chartEditor/lilStage"));
-				add(lilStage);
+				add(new FlxSprite(32, 432).makeGraphic(280, 256, 0xFF000000));
+				add(new FlxSprite(32, 432).loadGraphic(Paths.image("chartEditor/lilStage")));
 
 				showGirlfriend = false;
 				playerOffset.set(32, 432);
@@ -547,8 +511,6 @@ class Stage extends FlxGroup
 						trainFrameTiming = 0;
 					}
 				}
-			// phillyCityLights.members[curLight].alpha -= (Conductor.crochet / 1000) * FlxG.elapsed;
-
 			case "tank":
 				moveTank();
 		}
