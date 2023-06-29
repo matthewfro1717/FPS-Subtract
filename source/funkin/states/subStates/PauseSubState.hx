@@ -8,7 +8,6 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import funkin.states.menus.*;
 import funkin.ui.Alphabet;
-
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
 #else

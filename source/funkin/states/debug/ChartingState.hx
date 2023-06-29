@@ -38,7 +38,6 @@ import openfl.net.FileReference;
 import openfl.utils.Assets;
 import openfl.utils.ByteArray;
 import subtract.transition.data.BasicTransition;
-
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
 #else
