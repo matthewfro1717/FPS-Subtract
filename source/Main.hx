@@ -23,7 +23,7 @@ class Main extends Sprite
 		addChild(new FPS(10, 10, 0xFFFFFFFF));
 	}
 
-	private function onResizeGame(width:Int, heigth:Int):Void
+	private function onResizeGame(width:Int, height:Int):Void
 	{
 		if (FlxG.cameras == null)
 			return;

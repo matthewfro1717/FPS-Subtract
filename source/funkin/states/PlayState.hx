@@ -635,7 +635,7 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 			}
 		}
 
-		var bgDim = new FlxSprite(FlxG.width / -2, FlxG.heigth / -2).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+		var bgDim = new FlxSprite(FlxG.width / -2, FlxG.height / -2).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 		bgDim.cameras = [camOverlay];
 		bgDim.alpha = Config.bgDim / 10;
 		add(bgDim);
@@ -983,8 +983,6 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 	function startSong():Void
 	{
 		startingSong = false;
-
-		lastReportedPlayheadPosition = 0;
 
 		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(SONG.song), 1, false);
