@@ -1,4 +1,4 @@
-package funkin.states.subStates;
+package funkin.substates;
 
 import flixel.FlxG;
 import flixel.FlxObject;

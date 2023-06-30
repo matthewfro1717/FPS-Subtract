@@ -30,7 +30,7 @@ import funkin.backend.Song;
 import funkin.objects.*;
 import funkin.states.debug.*;
 import funkin.states.menus.*;
-import funkin.states.subStates.*;
+import funkin.substates.*;
 import funkin.ui.*;
 import openfl.events.KeyboardEvent;
 import openfl.system.System;
@@ -132,7 +132,6 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 	private var playerStrums:FlxTypedGroup<FlxSprite>;
 	private var enemyStrums:FlxTypedGroup<FlxSprite>;
 	private var camZooming:Bool = true;
-	private var SONG.song:String = '';
 	private var health:Float = 1;
 	private var healthLerp:Float = 1;
 	private var combo:Int = 0;
@@ -1398,7 +1397,7 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 			PlayerSettings.menuControls();
 			sectionStart = false;
 
-			switchState(new AnimationDebug(FlxG.keys.pressed.SHIFT ? SONG.player1 : FlxG.keys.pressed.CONTROL ? gf != null ? gf.curCharacter : SONG.player1 : SONG.player2));
+			switchState(new AnimationState(FlxG.keys.pressed.SHIFT ? SONG.player1 : FlxG.keys.pressed.CONTROL ? gf != null ? gf.curCharacter : SONG.player1 : SONG.player2));
 		}
 
 		if (startingSong)

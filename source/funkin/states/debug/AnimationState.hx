@@ -15,7 +15,7 @@ import openfl.desktop.ClipboardFormats;
 
 using StringTools;
 
-class AnimationDebug extends funkin.backend.MusicBeat.MusicBeatState
+class AnimationState extends funkin.backend.MusicBeat.MusicBeatState
 {
 	var dad:Character;
 	var dadBG:Character;
