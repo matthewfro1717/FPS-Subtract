@@ -1471,7 +1471,7 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 
 			PlayerSettings.menuControls();
 
-			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y, camFollow.getScreenPosition().x,
+			openSubState(new GameOverSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y, camFollow.getScreenPosition().x,
 				camFollow.getScreenPosition().y, boyfriend.deathCharacter));
 			sectionStart = false;
 		}

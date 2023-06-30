@@ -7,6 +7,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import funkin.states.menus.*;
+import funkin.states.PlayState;
 import funkin.ui.Alphabet;
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
@@ -14,7 +15,7 @@ import flixel.sound.FlxSound;
 import flixel.system.FlxSound;
 #end
 
-class PauseSubState extends funkin.backend.MusicBeat.MusicBeatSubstate
+class PauseSubState extends funkin.backend.MusicBeat.MusicBeatSubState
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 

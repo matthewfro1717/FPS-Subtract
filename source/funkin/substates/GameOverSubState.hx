@@ -8,8 +8,9 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import funkin.backend.Conductor;
 import funkin.objects.Character;
+import funkin.states.PlayState;
 
-class GameOverSubstate extends funkin.backend.MusicBeat.MusicBeatSubstate
+class GameOverSubState extends funkin.backend.MusicBeat.MusicBeatSubState
 {
 	var bf:Character;
 	var camFollow:FlxObject;

@@ -85,7 +85,7 @@ class MusicBeatState extends subtract.ui.SubtractUIState
 	}
 }
 
-class MusicBeatSubstate extends flixel.FlxSubState
+class MusicBeatSubState extends flixel.FlxSubState
 {
 	private var lastBeat:Float = 0;
 	private var lastStep:Float = 0;
