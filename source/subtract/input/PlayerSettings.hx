@@ -6,28 +6,19 @@ import subtract.input.Controls;
 
 class PlayerSettings
 {
-	static public var numPlayers(default, null) = 0;
-	static public var numAvatars(default, null) = 0;
-	static public var player1(default, null):PlayerSettings;
-	static public var player2(default, null):PlayerSettings;
+	public static var numPlayers(default, null) = 0;
+	public static var numAvatars(default, null) = 0;
+	public static var player1(default, null):PlayerSettings;
+	public static var player2(default, null):PlayerSettings;
 
-	#if (haxe >= "4.0.0")
-	static public final onAvatarAdd = new FlxTypedSignal<PlayerSettings->Void>();
-	static public final onAvatarRemove = new FlxTypedSignal<PlayerSettings->Void>();
-	#else
-	static public var onAvatarAdd = new FlxTypedSignal<PlayerSettings->Void>();
-	static public var onAvatarRemove = new FlxTypedSignal<PlayerSettings->Void>();
-	#end
+	public static final onAvatarAdd = new FlxTypedSignal<PlayerSettings->Void>();
+	public static final onAvatarRemove = new FlxTypedSignal<PlayerSettings->Void>();
 
 	public var id(default, null):Int;
 
-	#if (haxe >= "4.0.0")
 	public final controls:Controls;
-	#else
-	public var controls:Controls;
-	#end
 
-	function new(id, scheme)
+	public function new(id, scheme)
 	{
 		this.id = id;
 		this.controls = new Controls('player$id', scheme);
@@ -38,7 +29,7 @@ class PlayerSettings
 		controls.setKeyboardScheme(scheme);
 	}
 
-	static public function init():Void
+	public static function init():Void
 	{
 		if (player1 == null)
 		{
@@ -59,7 +50,7 @@ class PlayerSettings
 		menuControls();
 	}
 
-	static public function menuControls()
+	public static function menuControls()
 	{
 		var numGamepads = FlxG.gamepads.numActiveGamepads;
 		if (numGamepads > 0)
@@ -72,7 +63,7 @@ class PlayerSettings
 		}
 	}
 
-	static public function gameControls()
+	public static function gameControls()
 	{
 		var numGamepads = FlxG.gamepads.numActiveGamepads;
 		if (numGamepads > 0)
@@ -85,7 +76,7 @@ class PlayerSettings
 		}
 	}
 
-	static public function reset()
+	public static function reset()
 	{
 		player1 = null;
 		player2 = null;

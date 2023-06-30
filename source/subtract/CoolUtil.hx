@@ -5,7 +5,8 @@ import flixel.math.FlxMath;
 
 using StringTools;
 
-@:keep class CoolUtil
+@:keep
+class CoolUtil
 {
 	public static inline function coolTextFile(path:String):Array<String>
 	{

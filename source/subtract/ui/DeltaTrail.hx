@@ -128,7 +128,5 @@ class DeltaTrail extends FlxTrail
 				trailSprite.exists = true;
 			}
 		}
-
-		// super.update(elapsed);
 	}
 }

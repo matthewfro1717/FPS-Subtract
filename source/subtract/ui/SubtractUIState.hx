@@ -28,11 +28,10 @@ class SubtractUIState extends FlxUIState
 	override function create()
 	{
 		if (customTransIn != null)
-		{
 			CustomTransition.transition(customTransIn, null);
-		}
 		else if (useDefaultTransIn)
 			CustomTransition.transition(Type.createInstance(defaultTransIn, defaultTransInArgs), null);
+
 		super.create();
 	}
 

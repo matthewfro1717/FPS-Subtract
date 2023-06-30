@@ -89,7 +89,7 @@ class TankmenUnit extends FlxSprite
 		}
 	}
 
-	static public function loadMappedAnims(fileName:String, song:String)
+	public static function loadMappedAnims(fileName:String, song:String)
 	{
 		var swagshit = funkin.backend.Song.loadJson(fileName, song);
 
