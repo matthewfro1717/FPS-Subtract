@@ -65,7 +65,7 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 	public static var fromChartEditor:Bool = false;
 	public static var returnLocation:String = "main";
 	public static var returnSong:Int = 0;
-	public static var campaignScore:Int = 0
+	public static var campaignScore:Int = 0;
 	public static var sectionStart:Bool = false;
 	public static var sectionStartPoint:Int = 0;
 	public static var sectionStartTime:Float = 0;
