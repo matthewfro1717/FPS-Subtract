@@ -464,6 +464,74 @@ class Stage extends FlxGroup
 					}
 				}
 
+                        case 'minecraft':
+
+			cameraZoom = 0.9;
+			curStage = 'minecraft';
+			var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("flatland"));
+			// bg.setGraphicSize(Std.int(bg.width * 2.5));
+			// bg.updateHitbox();
+			bg.antialiasing = true;
+			bg.scrollFactor.set(0.9, 0.9);
+			bg.active = false;
+			bg.screenCenter(XY);
+			add(bg);
+
+                        case 'checker':
+
+			cameraZoom = 0.66;
+			curStage = 'checker';
+			var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("redfloor"));
+			// bg.setGraphicSize(Std.int(bg.width * 2.5));
+			// bg.updateHitbox();
+			bg.antialiasing = true;
+			// bg.scrollFactor.set(0.66, 0.66);
+			bg.active = false;
+			bg.screenCenter(XY);
+			add(bg);
+
+                        case 'crashStage':
+
+			cameraZoom = 0.8;
+			curStage = 'crashStage';
+			var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("rockslide"));
+			bg.antialiasing = true;
+			bg.active = false;
+			bg.screenCenter(XY);
+			add(bg);
+
+                        case 'fnafStage':
+
+			cameraZoom = 0.85;
+			curStage = 'fnafStage';
+			var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("bedroom"));
+			bg.antialiasing = true;
+			bg.active = false;
+			bg.setGraphicSize(Std.int(bg.width * 0.9));
+			bg.updateHitbox();
+			bg.screenCenter(XY);
+			add(bg);
+
+                        case 'skeletonStage':
+				
+			cameraZoom = 0.8;
+			curStage = 'skeletonStage';
+			var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("darkness"));
+			bg.antialiasing = true;
+			bg.active = false;
+			bg.screenCenter(XY);
+			add(bg);
+                        
+			case 'minecraft':
+				
+			cameraZoom = 0.8;
+			curStage = 'skeletonStage';
+			var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("darkness"));
+			bg.antialiasing = true;
+			bg.active = false;
+			bg.screenCenter(XY);
+			add(bg);
+
 			case "chart":
 				if (PlayState.fromChartEditor)
 				{
