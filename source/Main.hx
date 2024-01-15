@@ -12,6 +12,8 @@ class Main extends Sprite
 	public static final menuMusic:String = "klaskiiLoop";
 	public static final frameRate:Int = #if desktop 144 #else 60 #end;
 
+	public static var modelView:ModelView;
+
 	public function new():Void
 	{
 		super();
