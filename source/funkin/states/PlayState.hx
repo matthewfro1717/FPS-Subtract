@@ -75,6 +75,12 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 
 	private static var prevCamFollow:FlxObject;
 
+	public static var minecraftSongs:Array<String>;
+	public static var checkerSongs:Array<String>;
+	public static var crashSongs:Array<String>;
+	public static var fnafSongs:Array<String>;
+	public static var skeletonSongs:Array<String>;
+
 	private var canHit:Bool = false;
 	private var noMissCount:Int = 0;
 	private var camFocus:String = '';
@@ -207,6 +213,12 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 		camZoomTween = FlxTween.tween(this, {}, 0);
 		uiZoomTween = FlxTween.tween(this, {}, 0);
 
+		minecraftSongs = ["dont-mine-at-night"];
+		checkerSongs = ["super-sonic-racing"];
+		crashSongs = ["rockslide-rumble"];
+		fnafSongs = ["break-my-mind"];
+		skeletonSongs = ["spooky-scary-skeletons"];
+
 		for (i in 0...SONG.notes.length)
 		{
 			var array = [false, false];
@@ -297,6 +309,26 @@ class PlayState extends funkin.backend.MusicBeat.MusicBeatState
 				stageCheck = 'schoolEvil';
 			else if (["ugh", "guns", "stress"].contains(SONG.song.toLowerCase()))
 				stageCheck = 'tank';
+			else if (minecraftSongs.contains(SONG.song.toLowerCase()))
+			{
+				stageCheck = 'minecraft';
+			}
+			else if (checkerSongs.contains(SONG.song.toLowerCase()))
+			{
+				stageCheck = 'checker';
+			}
+			else if (crashSongs.contains(SONG.song.toLowerCase()))
+			{
+				stageCheck = 'crashStage';
+			}
+			else if (fnafSongs.contains(SONG.song.toLowerCase()))
+			{
+				stageCheck = 'fnafStage';
+			}
+			else if (skeletonSongs.contains(SONG.song.toLowerCase()))
+			{
+				stageCheck = 'skeletonStage';
+			}
 
 			SONG.stage = stageCheck;
 		}
